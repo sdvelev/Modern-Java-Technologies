@@ -7,9 +7,10 @@ public class Hotel extends BookableAbstract{
     private static final String identifier = "HOT-";
     private static int counterOfInstances = -1;
 
+
     public Hotel(Location location, double pricePerNight){
         super(location, pricePerNight);
-        Hotel.counterOfInstances++;
+        this.id = ++counterOfInstances;
     }
 
     /**
@@ -20,7 +21,18 @@ public class Hotel extends BookableAbstract{
      */
     @Override
     public String getId() {
-        return new StringBuilder(Hotel.identifier + Hotel.counterOfInstances).toString();
+        return new StringBuilder(Hotel.identifier + this.id).toString();
+    }
+
+    public static void main(String[] args) {
+        Location l = new Location(6,6);
+
+        Hotel h = new Hotel(l, 60);
+
+        Hotel t = new Hotel(l, 60);
+
+        System.out.println(h.getId());
+        System.out.println(t.getId());
     }
 
 }

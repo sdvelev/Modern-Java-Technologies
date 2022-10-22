@@ -7,10 +7,10 @@ import java.util.Arrays;
 
 public class Airbnb implements AirbnbAPI{
 
-    private final Bookable[] accommodations;
+    private Bookable[] accommodations;
 
     public Airbnb(Bookable[] accommodations){
-            this.accommodations=accommodations;
+        this.accommodations=accommodations;
     }
 
     /**
@@ -80,8 +80,8 @@ public class Airbnb implements AirbnbAPI{
             for(Criterion currentCriteria : criteria){
                 if(currentCriteria.check(bookable) == false){
                     fulfil = false;
+                    break;
                 }
-                break;
             }
 
             if (fulfil == true){

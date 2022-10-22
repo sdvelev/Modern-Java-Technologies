@@ -22,7 +22,7 @@ public class PriceCriterion implements Criterion{
             return false;
         }
 
-        if (bookable.getPricePerNight() >= minPrice && bookable.getPricePerNight() <= maxPrice){
+        if (bookable.getPricePerNight() >= this.minPrice && bookable.getPricePerNight() <= this.maxPrice){
             return true;
         }
         return false;

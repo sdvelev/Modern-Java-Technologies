@@ -13,6 +13,8 @@ public abstract class BookableAbstract implements Bookable {
     private boolean isBooked;
     private long nightsCount;
 
+    protected int id;
+
     public BookableAbstract(Location location, double pricePerNight){
         this.location=location;
         this.pricePerNight=pricePerNight;
@@ -54,7 +56,8 @@ public abstract class BookableAbstract implements Bookable {
             return false;
         }
 
-        if (checkIn == null || checkOut == null || checkIn.isBefore(LocalDateTime.now()) || checkOut.isBefore(checkIn)){
+        if (checkIn == null || checkOut == null || checkIn.isBefore(LocalDateTime.now()) || checkOut.isBefore(checkIn)
+        || checkIn.toLocalDate().equals(checkOut.toLocalDate())){
             return false;
         }
 

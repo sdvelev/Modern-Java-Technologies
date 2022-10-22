@@ -7,9 +7,10 @@ public class Villa extends BookableAbstract{
     private static final String identifier = "VIL-";
     private static int counterOfInstances = -1;
 
+
     public Villa(Location location, double pricePerNight){
         super(location, pricePerNight);
-        Villa.counterOfInstances++;
+        this.id=++counterOfInstances;
     }
 
     /**
@@ -20,6 +21,6 @@ public class Villa extends BookableAbstract{
      */
     @Override
     public String getId() {
-        return new StringBuilder(Villa.identifier + Villa.counterOfInstances).toString();
+        return new StringBuilder(Villa.identifier + this.id).toString();
     }
 }

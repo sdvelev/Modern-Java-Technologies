@@ -9,7 +9,7 @@ public class Apartment extends BookableAbstract {
 
     public Apartment(Location location, double pricePerNight){
         super(location, pricePerNight);
-        Apartment.counterOfInstances++;
+        this.id=++counterOfInstances;
     }
 
     /**
@@ -20,6 +20,6 @@ public class Apartment extends BookableAbstract {
      */
     @Override
     public String getId() {
-        return new StringBuilder(Apartment.identifier + Apartment.counterOfInstances).toString();
+        return new StringBuilder(Apartment.identifier + this.id).toString();
     }
 }
