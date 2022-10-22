@@ -90,16 +90,15 @@ public class Airbnb implements AirbnbAPI{
 
         }
 
-        return Arrays.copyOf(fulfilBookable, counter);
 
        // Bookable[] resultBookable = Arrays.copyOf(fulfilBookable, counter);
 
-        /*Bookable[] resultBookable = new Bookable[counter];
+        Bookable[] resultBookable = new Bookable[counter];
 
         for(int i = 0; i < counter; i++){
             resultBookable[i] = fulfilBookable[i];
-        }*/
+        }
 
-       // return resultBookable;
+        return resultBookable;
     }
 }

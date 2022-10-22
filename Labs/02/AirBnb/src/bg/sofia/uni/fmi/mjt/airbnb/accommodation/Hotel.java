@@ -23,10 +23,4 @@ public class Hotel extends BookableAbstract{
         return new StringBuilder(Hotel.identifier + Hotel.counterOfInstances).toString();
     }
 
-    public static void main(String[] args) {
-        Location l = new Location(3,3);
-        Hotel h = new Hotel(l,60);
-        System.out.println(h.getId());
-        Hotel s = new Hotel(l,120);
-    }
 }
