@@ -13,11 +13,9 @@ public class EscapeRoom implements Ratable {
     private double priceToPlay;
     private int maxReviewsCount;
     private int currentReviewsCount;
+    private boolean isReviewsCapacityFull;
     private double rating;
     private Review[] reviews;
-    //private Achievement[] achievements;
- //   private static final int maxAchievementsCount = 100;
- //   private int currentAchievementsCount;
 
 
     public EscapeRoom(String name, Theme theme, Difficulty difficulty, int maxTimeToEscape, double priceToPlay,
@@ -31,8 +29,7 @@ public class EscapeRoom implements Ratable {
         this.rating = 0;
         this.reviews= new Review[maxReviewsCount];
         this.currentReviewsCount = 0;
-    //    this.currentAchievementsCount = 0;
-       // this.achievements = new Achievement[maxAchievementsCount];
+        this.isReviewsCapacityFull = false;
     }
 
     /**
@@ -61,6 +58,23 @@ public class EscapeRoom implements Ratable {
      */
     public Review[] getReviews() {
 
+        if (this.isReviewsCapacityFull == true){
+
+            Review[] fulfilled = new Review[this.maxReviewsCount];
+
+            int start = 0;
+
+            for(int i = this.currentReviewsCount; i < this.maxReviewsCount; i++){
+                fulfilled[start++] = this.reviews[i];
+            }
+
+            for(int i = 0; i < this.currentReviewsCount; i++){
+                fulfilled[start++] = this.reviews[i];
+            }
+
+            return fulfilled;
+        }
+
         Review[] fulfilled = new Review[this.currentReviewsCount];
         for(int i = 0; i < this.currentReviewsCount; i++){
             fulfilled[i] = this.reviews[i];
@@ -75,16 +89,32 @@ public class EscapeRoom implements Ratable {
      */
     public void addReview(Review review) {
 
+        if (this.currentReviewsCount == this.maxReviewsCount){
+            this.currentReviewsCount = 0;
+            this.isReviewsCapacityFull = true;
+        }
+
         if (this.currentReviewsCount < this.maxReviewsCount){
             this.reviews[this.currentReviewsCount] = review;
             ++this.currentReviewsCount;
             updateRating();
         }
+
     }
 
     private void updateRating(){
 
         double sumRating = 0;
+
+        if(this.isReviewsCapacityFull == true){
+
+            for(int i = 0; i < this.maxReviewsCount; i++){
+                sumRating += this.reviews[i].rating();
+            }
+
+            this.rating = sumRating / this.maxReviewsCount;
+            return;
+        }
 
         for(int i = 0; i < this.currentReviewsCount; i++){
             sumRating += this.reviews[i].rating();
@@ -115,13 +145,5 @@ public class EscapeRoom implements Ratable {
     public int hashCode() {
         return Objects.hash(name);
     }
-
-  //  public void addAchievement(Achievement achievement) {
-//
-  //      if (this.currentAchievementsCount < maxAchievementsCount){
-   //         this.achievements[this.currentAchievementsCount] = achievement;
-   //         ++this.currentAchievementsCount;
-   //     }
- //   }
 
 }

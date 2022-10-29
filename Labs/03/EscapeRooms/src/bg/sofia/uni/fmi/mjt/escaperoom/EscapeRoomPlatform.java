@@ -41,8 +41,8 @@ public class EscapeRoomPlatform implements EscapeRoomAdminAPI, EscapeRoomPortalA
 
         boolean found = false;
 
-        for(EscapeRoom currentRoom : this.rooms){
-            if (currentRoom.equals(room)){
+        for(int i = 0; i < this.currentCapacity; i++){
+            if(this.rooms[i].getName().equals(room.getName())){
                 found = true;
                 break;
             }
@@ -158,6 +158,10 @@ public class EscapeRoomPlatform implements EscapeRoomAdminAPI, EscapeRoomPortalA
             }
         }
 
+        if (found == false){
+            throw new TeamNotFoundException("The platform does not contain a team with the specified name");
+        }
+
         int pointsToAdd = 0;
         pointsToAdd += this.rooms[positionRoom].getDifficulty().getRank();
 
@@ -169,9 +173,6 @@ public class EscapeRoomPlatform implements EscapeRoomAdminAPI, EscapeRoomPortalA
         }
 
         this.teams[positionTeam].updateRating(pointsToAdd);
-
-        //this.rooms[positionRoom].addAchievement(new Achievement(this.teams[positionTeam], escapeTime));
-
     }
 
     /**
