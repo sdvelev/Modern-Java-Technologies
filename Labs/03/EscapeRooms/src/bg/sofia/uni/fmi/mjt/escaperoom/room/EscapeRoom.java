@@ -6,16 +6,16 @@ import java.util.Objects;
 
 public class EscapeRoom implements Ratable {
 
-    private String name;
-    private Theme theme;
-    private Difficulty difficulty;
-    private int maxTimeToEscape;
-    private double priceToPlay;
-    private int maxReviewsCount;
+    final private String name;
+    final private Theme theme;
+    final private Difficulty difficulty;
+    final private int maxTimeToEscape;
+    final private double priceToPlay;
+    final private int maxReviewsCount;
     private int currentReviewsCount;
     private boolean isReviewsCapacityFull;
     private double rating;
-    private Review[] reviews;
+    final private Review[] reviews;
 
 
     public EscapeRoom(String name, Theme theme, Difficulty difficulty, int maxTimeToEscape, double priceToPlay,
@@ -145,5 +145,4 @@ public class EscapeRoom implements Ratable {
     public int hashCode() {
         return Objects.hash(name);
     }
-
 }

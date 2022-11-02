@@ -4,8 +4,8 @@ import bg.sofia.uni.fmi.mjt.escaperoom.rating.Ratable;
 
 public class Team implements Ratable {
 
-    private String name;
-    private TeamMember[] members;
+    final private String name;
+    final private TeamMember[] members;
     private double rating;
 
     private Team(String name, TeamMember[] members){

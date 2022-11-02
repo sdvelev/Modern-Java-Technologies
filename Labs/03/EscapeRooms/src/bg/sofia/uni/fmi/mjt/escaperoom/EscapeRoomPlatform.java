@@ -10,16 +10,55 @@ import bg.sofia.uni.fmi.mjt.escaperoom.team.Team;
 
 public class EscapeRoomPlatform implements EscapeRoomAdminAPI, EscapeRoomPortalAPI{
 
-    private Team[] teams;
-    private int maxCapacity;
+    final private Team[] teams;
+    final private int maxCapacity;
     private int currentCapacity;
-    private EscapeRoom[] rooms;
+    final private EscapeRoom[] rooms;
 
     public EscapeRoomPlatform(Team[] teams, int maxCapacity){
         this.teams = teams;
         this.maxCapacity = maxCapacity;
         this.currentCapacity = 0;
         this.rooms = new EscapeRoom[maxCapacity];
+    }
+
+    private int positionRoomObject(EscapeRoom room){
+        int index = -1;
+
+        for(int i = 0; i < this.currentCapacity; i++){
+            if(this.rooms[i].equals(room)){
+                index = i;
+                break;
+            }
+        }
+
+        return index;
+    }
+
+    private int positionRoomTitle(String title){
+        int index = -1;
+
+        for(int i = 0; i < this.currentCapacity; i++){
+            if(this.rooms[i].getName().equals(title)){
+                index = i;
+                break;
+            }
+        }
+
+        return index;
+    }
+
+    private int positionTeamTitle(String title){
+        int index = -1;
+
+        for(int i = 0; i < this.teams.length; i++){
+            if(this.teams[i].getName().equals(title)){
+                index = i;
+                break;
+            }
+        }
+
+        return index;
     }
 
     /**
@@ -39,16 +78,9 @@ public class EscapeRoomPlatform implements EscapeRoomAdminAPI, EscapeRoomPortalA
             throw new PlatformCapacityExceededException("Maximum number of escape rooms has already been reached");
         }
 
-        boolean found = false;
+        int roomPosition = positionRoomObject(room);
 
-        for(int i = 0; i < this.currentCapacity; i++){
-            if(this.rooms[i].getName().equals(room.getName())){
-                found = true;
-                break;
-            }
-        }
-
-        if (found == true){
+        if (roomPosition > -1){
             throw new RoomAlreadyExistsException("The specified room already exists in the platform");
         }
 
@@ -70,18 +102,9 @@ public class EscapeRoomPlatform implements EscapeRoomAdminAPI, EscapeRoomPortalA
             throw new IllegalArgumentException("Thr room name is null, empty or blank");
         }
 
-        boolean found = false;
-        int position = 0;
+        int position = positionRoomTitle(roomName);
 
-        for(int i = 0; i < this.currentCapacity; i++){
-            if(this.rooms[i].getName().equals(roomName)){
-                found = true;
-                position = i;
-                break;
-            }
-        }
-
-        if (found == false){
+        if (position == -1){
             throw new RoomNotFoundException("The platform does not contain an escape room with the specified name");
         }
 
@@ -127,18 +150,9 @@ public class EscapeRoomPlatform implements EscapeRoomAdminAPI, EscapeRoomPortalA
                     "or the escape time is non-positive");
         }
 
-        boolean found = false;
-        int positionRoom = 0;
+        int positionRoom  = this.positionRoomTitle(roomName);
 
-        for(int i = 0; i < this.currentCapacity; i++){
-            if(this.rooms[i].getName().equals(roomName)){
-                found = true;
-                positionRoom = i;
-                break;
-            }
-        }
-
-        if (found == false){
+        if (positionRoom == -1){
             throw new RoomNotFoundException("The platform does not contain an escape room with the specified name");
         }
 
@@ -147,18 +161,9 @@ public class EscapeRoomPlatform implements EscapeRoomAdminAPI, EscapeRoomPortalA
                     " for the specified room");
         }
 
-        found = false;
-        int positionTeam = 0;
+        int positionTeam = this.positionTeamTitle(teamName);
 
-        for(int i = 0; i < this.teams.length; i++){
-            if(this.teams[i].getName().equals(teamName)){
-                found = true;
-                positionTeam = i;
-                break;
-            }
-        }
-
-        if (found == false){
+        if (positionTeam == -1){
             throw new TeamNotFoundException("The platform does not contain a team with the specified name");
         }
 
@@ -190,18 +195,9 @@ public class EscapeRoomPlatform implements EscapeRoomAdminAPI, EscapeRoomPortalA
             throw new IllegalArgumentException("The room name is null, empty or blank");
         }
 
-        boolean found = false;
-        int position = 0;
+        int position = this.positionRoomTitle(roomName);
 
-        for(int i = 0; i < this.currentCapacity; i++){
-            if(this.rooms[i].getName().equals(roomName)){
-                found = true;
-                position = i;
-                break;
-            }
-        }
-
-        if (found == false){
+        if (position == -1){
             throw new RoomNotFoundException("The platform does not contain an escape room with the specified name");
         }
 
@@ -222,18 +218,9 @@ public class EscapeRoomPlatform implements EscapeRoomAdminAPI, EscapeRoomPortalA
             throw new IllegalArgumentException("The room name is null, empty or blank, or the review is null");
         }
 
-        boolean found = false;
-        int position = 0;
+        int position = this.positionRoomTitle(roomName);
 
-        for(int i = 0; i < this.currentCapacity; i++){
-            if(this.rooms[i].getName().equals(roomName)){
-                found = true;
-                position = i;
-                break;
-            }
-        }
-
-        if (found == false){
+        if (position == -1){
             throw new RoomNotFoundException("The platform does not contain an escape room with the specified name");
         }
 
@@ -257,18 +244,9 @@ public class EscapeRoomPlatform implements EscapeRoomAdminAPI, EscapeRoomPortalA
             throw new IllegalArgumentException("The room name is null, empty or blank");
         }
 
-        boolean found = false;
-        int position = 0;
+        int position = positionRoomTitle(roomName);
 
-        for(int i = 0; i < this.currentCapacity; i++){
-            if(this.rooms[i].getName().equals(roomName)){
-                found = true;
-                position = i;
-                break;
-            }
-        }
-
-        if (found == false){
+        if (position == -1){
             throw new RoomNotFoundException("The platform does not contain an escape room with the specified name");
         }
 
