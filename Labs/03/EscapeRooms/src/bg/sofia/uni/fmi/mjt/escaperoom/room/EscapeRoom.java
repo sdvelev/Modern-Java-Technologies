@@ -27,7 +27,7 @@ public class EscapeRoom implements Ratable {
         this.priceToPlay = priceToPlay;
         this.maxReviewsCount = maxReviewsCount;
         this.rating = 0;
-        this.reviews= new Review[maxReviewsCount];
+        this.reviews = new Review[maxReviewsCount];
         this.currentReviewsCount = 0;
         this.isReviewsCapacityFull = false;
     }
@@ -58,17 +58,17 @@ public class EscapeRoom implements Ratable {
      */
     public Review[] getReviews() {
 
-        if (this.isReviewsCapacityFull == true){
+        if (this.isReviewsCapacityFull == true) {
 
             Review[] fulfilled = new Review[this.maxReviewsCount];
 
             int start = 0;
 
-            for(int i = this.currentReviewsCount; i < this.maxReviewsCount; i++){
+            for (int i = this.currentReviewsCount; i < this.maxReviewsCount; i++) {
                 fulfilled[start++] = this.reviews[i];
             }
 
-            for(int i = 0; i < this.currentReviewsCount; i++){
+            for (int i = 0; i < this.currentReviewsCount; i++) {
                 fulfilled[start++] = this.reviews[i];
             }
 
@@ -76,7 +76,7 @@ public class EscapeRoom implements Ratable {
         }
 
         Review[] fulfilled = new Review[this.currentReviewsCount];
-        for(int i = 0; i < this.currentReviewsCount; i++){
+        for (int i = 0; i < this.currentReviewsCount; i++) {
             fulfilled[i] = this.reviews[i];
         }
         return fulfilled;
@@ -89,12 +89,12 @@ public class EscapeRoom implements Ratable {
      */
     public void addReview(Review review) {
 
-        if (this.currentReviewsCount == this.maxReviewsCount){
+        if (this.currentReviewsCount == this.maxReviewsCount) {
             this.currentReviewsCount = 0;
             this.isReviewsCapacityFull = true;
         }
 
-        if (this.currentReviewsCount < this.maxReviewsCount){
+        if (this.currentReviewsCount < this.maxReviewsCount) {
             this.reviews[this.currentReviewsCount] = review;
             ++this.currentReviewsCount;
             updateRating();
@@ -102,13 +102,13 @@ public class EscapeRoom implements Ratable {
 
     }
 
-    private void updateRating(){
+    private void updateRating() {
 
         double sumRating = 0;
 
-        if(this.isReviewsCapacityFull == true){
+        if (this.isReviewsCapacityFull == true) {
 
-            for(int i = 0; i < this.maxReviewsCount; i++){
+            for (int i = 0; i < this.maxReviewsCount; i++) {
                 sumRating += this.reviews[i].rating();
             }
 
@@ -116,7 +116,7 @@ public class EscapeRoom implements Ratable {
             return;
         }
 
-        for(int i = 0; i < this.currentReviewsCount; i++){
+        for (int i = 0; i < this.currentReviewsCount; i++) {
             sumRating += this.reviews[i].rating();
         }
 

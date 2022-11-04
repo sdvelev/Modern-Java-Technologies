@@ -8,13 +8,13 @@ public class Team implements Ratable {
     final private TeamMember[] members;
     private double rating;
 
-    private Team(String name, TeamMember[] members){
+    private Team(String name, TeamMember[] members) {
         this.name = name;
         this.members = members;
         this.rating = 0;
     }
 
-    public static Team of(String name, TeamMember[] members){
+    public static Team of(String name, TeamMember[] members) {
         return new Team(name, members);
     }
 
@@ -35,7 +35,7 @@ public class Team implements Ratable {
      * @throws IllegalArgumentException if the points are negative.
      */
     public void updateRating(int points) {
-        if (points < 0){
+        if (points < 0) {
             throw new IllegalArgumentException("Given points are negative");
         }
 

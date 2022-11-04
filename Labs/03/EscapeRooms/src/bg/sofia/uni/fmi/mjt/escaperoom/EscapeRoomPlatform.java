@@ -8,25 +8,27 @@ import bg.sofia.uni.fmi.mjt.escaperoom.room.EscapeRoom;
 import bg.sofia.uni.fmi.mjt.escaperoom.room.Review;
 import bg.sofia.uni.fmi.mjt.escaperoom.team.Team;
 
-public class EscapeRoomPlatform implements EscapeRoomAdminAPI, EscapeRoomPortalAPI{
+public class EscapeRoomPlatform implements EscapeRoomAdminAPI, EscapeRoomPortalAPI {
 
+    private static final double COEFFICIENT_POINTS_ACHIEVEMENT_FIRST = 0.5;
+    private static final double COEFFICIENT_POINTS_ACHIEVEMENT_SECOND = 0.75;
     final private Team[] teams;
     final private int maxCapacity;
     private int currentCapacity;
     final private EscapeRoom[] rooms;
 
-    public EscapeRoomPlatform(Team[] teams, int maxCapacity){
+    public EscapeRoomPlatform(Team[] teams, int maxCapacity) {
         this.teams = teams;
         this.maxCapacity = maxCapacity;
         this.currentCapacity = 0;
         this.rooms = new EscapeRoom[maxCapacity];
     }
 
-    private int positionRoomObject(EscapeRoom room){
+    private int positionRoomObject(EscapeRoom room) {
         int index = -1;
 
-        for(int i = 0; i < this.currentCapacity; i++){
-            if(this.rooms[i].equals(room)){
+        for (int i = 0; i < this.currentCapacity; i++) {
+            if (this.rooms[i].equals(room)) {
                 index = i;
                 break;
             }
@@ -35,11 +37,11 @@ public class EscapeRoomPlatform implements EscapeRoomAdminAPI, EscapeRoomPortalA
         return index;
     }
 
-    private int positionRoomTitle(String title){
+    private int positionRoomTitle(String title) {
         int index = -1;
 
-        for(int i = 0; i < this.currentCapacity; i++){
-            if(this.rooms[i].getName().equals(title)){
+        for (int i = 0; i < this.currentCapacity; i++) {
+            if (this.rooms[i].getName().equals(title)) {
                 index = i;
                 break;
             }
@@ -48,11 +50,11 @@ public class EscapeRoomPlatform implements EscapeRoomAdminAPI, EscapeRoomPortalA
         return index;
     }
 
-    private int positionTeamTitle(String title){
+    private int positionTeamTitle(String title) {
         int index = -1;
 
-        for(int i = 0; i < this.teams.length; i++){
-            if(this.teams[i].getName().equals(title)){
+        for (int i = 0; i < this.teams.length; i++) {
+            if (this.teams[i].getName().equals(title)) {
                 index = i;
                 break;
             }
@@ -71,16 +73,16 @@ public class EscapeRoomPlatform implements EscapeRoomAdminAPI, EscapeRoomPortalA
      */
     @Override
     public void addEscapeRoom(EscapeRoom room) throws RoomAlreadyExistsException {
-        if (room == null){
+        if (room == null) {
             throw new IllegalArgumentException("Given room is null");
         }
-        if(this.currentCapacity == this.maxCapacity){
+        if (this.currentCapacity == this.maxCapacity) {
             throw new PlatformCapacityExceededException("Maximum number of escape rooms has already been reached");
         }
 
         int roomPosition = positionRoomObject(room);
 
-        if (roomPosition > -1){
+        if (roomPosition > -1) {
             throw new RoomAlreadyExistsException("The specified room already exists in the platform");
         }
 
@@ -98,18 +100,18 @@ public class EscapeRoomPlatform implements EscapeRoomAdminAPI, EscapeRoomPortalA
     @Override
     public void removeEscapeRoom(String roomName) throws RoomNotFoundException {
 
-        if (roomName == null || roomName.isBlank() || roomName.isEmpty()){
+        if (roomName == null || roomName.isBlank() || roomName.isEmpty()) {
             throw new IllegalArgumentException("Thr room name is null, empty or blank");
         }
 
         int position = positionRoomTitle(roomName);
 
-        if (position == -1){
+        if (position == -1) {
             throw new RoomNotFoundException("The platform does not contain an escape room with the specified name");
         }
 
-        for(int i = position; i < this.currentCapacity - 1; i++){
-            this.rooms[i] = this.rooms[i+1];
+        for (int i = position; i < this.currentCapacity - 1; i++) {
+            this.rooms[i] = this.rooms[i + 1];
         }
 
         this.rooms[currentCapacity] = null;
@@ -123,7 +125,7 @@ public class EscapeRoomPlatform implements EscapeRoomAdminAPI, EscapeRoomPortalA
     public EscapeRoom[] getAllEscapeRooms() {
 
         EscapeRoom[] fulfilled = new EscapeRoom[this.currentCapacity];
-        for(int i = 0; i < this.currentCapacity; i++){
+        for (int i = 0; i < this.currentCapacity; i++) {
             fulfilled[i] = this.rooms[i];
         }
         return fulfilled;
@@ -142,38 +144,38 @@ public class EscapeRoomPlatform implements EscapeRoomAdminAPI, EscapeRoomPortalA
      */
     @Override
     public void registerAchievement(String roomName, String teamName, int escapeTime) throws RoomNotFoundException,
-            TeamNotFoundException {
+        TeamNotFoundException {
 
         if (roomName == null || teamName == null || roomName.isBlank() || teamName.isBlank() || roomName.isEmpty()
             || teamName.isEmpty() || escapeTime <= 0) {
             throw new IllegalArgumentException("The room name or the team name is null, empty or blank " +
-                    "or the escape time is non-positive");
+                "or the escape time is non-positive");
         }
 
-        int positionRoom  = this.positionRoomTitle(roomName);
+        int positionRoom = this.positionRoomTitle(roomName);
 
-        if (positionRoom == -1){
+        if (positionRoom == -1) {
             throw new RoomNotFoundException("The platform does not contain an escape room with the specified name");
         }
 
-        if (escapeTime > this.rooms[positionRoom].getMaxTimeToEscape()){
+        if (escapeTime > this.rooms[positionRoom].getMaxTimeToEscape()) {
             throw new IllegalArgumentException("The escape time is bigger than the maximum time to escape" +
-                    " for the specified room");
+                " for the specified room");
         }
 
         int positionTeam = this.positionTeamTitle(teamName);
 
-        if (positionTeam == -1){
+        if (positionTeam == -1) {
             throw new TeamNotFoundException("The platform does not contain a team with the specified name");
         }
 
         int pointsToAdd = 0;
         pointsToAdd += this.rooms[positionRoom].getDifficulty().getRank();
 
-        if(escapeTime <= 0.5 * this.rooms[positionRoom].getMaxTimeToEscape()){
+        if (escapeTime <= COEFFICIENT_POINTS_ACHIEVEMENT_FIRST * this.rooms[positionRoom].getMaxTimeToEscape()) {
             pointsToAdd += 2;
-        }
-        else if (escapeTime <= 0.75 * this.rooms[positionRoom].getMaxTimeToEscape()){
+        } else if (escapeTime <= COEFFICIENT_POINTS_ACHIEVEMENT_SECOND *
+            this.rooms[positionRoom].getMaxTimeToEscape()) {
             pointsToAdd += 1;
         }
 
@@ -191,13 +193,13 @@ public class EscapeRoomPlatform implements EscapeRoomAdminAPI, EscapeRoomPortalA
     @Override
     public EscapeRoom getEscapeRoomByName(String roomName) throws RoomNotFoundException {
 
-        if (roomName == null || roomName.isEmpty() || roomName.isBlank()){
+        if (roomName == null || roomName.isEmpty() || roomName.isBlank()) {
             throw new IllegalArgumentException("The room name is null, empty or blank");
         }
 
         int position = this.positionRoomTitle(roomName);
 
-        if (position == -1){
+        if (position == -1) {
             throw new RoomNotFoundException("The platform does not contain an escape room with the specified name");
         }
 
@@ -214,13 +216,13 @@ public class EscapeRoomPlatform implements EscapeRoomAdminAPI, EscapeRoomPortalA
      */
     @Override
     public void reviewEscapeRoom(String roomName, Review review) throws RoomNotFoundException {
-        if (roomName == null || roomName.isEmpty() || roomName.isBlank() || review == null){
+        if (roomName == null || roomName.isEmpty() || roomName.isBlank() || review == null) {
             throw new IllegalArgumentException("The room name is null, empty or blank, or the review is null");
         }
 
         int position = this.positionRoomTitle(roomName);
 
-        if (position == -1){
+        if (position == -1) {
             throw new RoomNotFoundException("The platform does not contain an escape room with the specified name");
         }
 
@@ -240,13 +242,13 @@ public class EscapeRoomPlatform implements EscapeRoomAdminAPI, EscapeRoomPortalA
     @Override
     public Review[] getReviews(String roomName) throws RoomNotFoundException {
 
-        if(roomName == null || roomName.isEmpty() || roomName.isBlank()){
+        if (roomName == null || roomName.isEmpty() || roomName.isBlank()) {
             throw new IllegalArgumentException("The room name is null, empty or blank");
         }
 
         int position = positionRoomTitle(roomName);
 
-        if (position == -1){
+        if (position == -1) {
             throw new RoomNotFoundException("The platform does not contain an escape room with the specified name");
         }
 
@@ -266,7 +268,7 @@ public class EscapeRoomPlatform implements EscapeRoomAdminAPI, EscapeRoomPortalA
     @Override
     public Team getTopTeamByRating() {
 
-        if (this.teams == null || this.teams.length == 0){
+        if (this.teams == null || this.teams.length == 0) {
             return null;
         }
 
@@ -275,9 +277,9 @@ public class EscapeRoomPlatform implements EscapeRoomAdminAPI, EscapeRoomPortalA
         Team maxTeam = null;
         double maxRating = 0;
 
-        for(Team currentTeam : this.teams){
+        for (Team currentTeam : this.teams) {
 
-            if (maxRating <= currentTeam.getRating()){
+            if (maxRating <= currentTeam.getRating()) {
                 maxRating = currentTeam.getRating();
                 maxTeam = currentTeam;
             }
