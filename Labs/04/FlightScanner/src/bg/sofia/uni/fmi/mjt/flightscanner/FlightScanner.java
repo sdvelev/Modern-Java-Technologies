@@ -4,7 +4,6 @@ import bg.sofia.uni.fmi.mjt.flightscanner.airport.Airport;
 import bg.sofia.uni.fmi.mjt.flightscanner.comparators.FlightByDestinationComparator;
 import bg.sofia.uni.fmi.mjt.flightscanner.comparators.FlightByFreeSeatsComparator;
 import bg.sofia.uni.fmi.mjt.flightscanner.flight.Flight;
-import bg.sofia.uni.fmi.mjt.flightscanner.flight.RegularFlight;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -113,6 +112,10 @@ public class FlightScanner implements FlightScannerAPI {
 
         validateAirportNull(from);
 
+        if (this.doesAirportExist(from)) {
+            return new ArrayList<>();
+        }
+
         List<Flight> searchedFlights = new ArrayList<>(this.adjacencyList.get(from));
         Collections.sort(searchedFlights, new FlightByFreeSeatsComparator());
         return List.copyOf(searchedFlights);
@@ -130,42 +133,13 @@ public class FlightScanner implements FlightScannerAPI {
 
         validateAirportNull(from);
 
+        if (this.doesAirportExist(from)) {
+            return new ArrayList<>();
+        }
+
         List<Flight> searchedFlights = new ArrayList<>(this.adjacencyList.get(from));
         Collections.sort(searchedFlights, new FlightByDestinationComparator());
         return List.copyOf(searchedFlights);
-    }
-
-    public static void main(String[] args) {
-
-        FlightScanner general = new FlightScanner();
-
-        //Airports
-        Airport sof = new Airport("SOF");
-        Airport bbu = new Airport("BBU");
-        Airport dbx = new Airport("DBX");
-        Airport vie = new Airport("VIE");
-        Airport stn = new Airport("STN");
-        Airport lhr = new Airport("LHR");
-        Airport lon = new Airport("LON");
-        Airport jfk = new Airport("JFK");
-
-        // Flights
-        general.add(RegularFlight.of("WIZ81", sof, vie, 100));
-        general.add(RegularFlight.of("AA16", sof, vie, 100));
-        general.add(RegularFlight.of("LZ13", sof, vie, 100));
-        general.add(RegularFlight.of("LZ160", bbu, sof, 100));
-        general.add(RegularFlight.of("BA185", stn, sof, 100));
-        general.add(RegularFlight.of("WIZ15", stn, sof, 100));
-        general.add(RegularFlight.of("AA05", vie, stn, 100));
-        general.add(RegularFlight.of("AA151", stn, vie, 100));
-        general.add(RegularFlight.of("BA17", lhr, stn, 100));
-        general.add(RegularFlight.of("BA7", stn, lhr, 100));
-        general.add(RegularFlight.of("AF88", lhr, lon, 100));
-        general.add(RegularFlight.of("BA101", lhr, jfk, 100));
-        general.add(RegularFlight.of("UA173", jfk, dbx, 100));
-
-        System.out.println(general.searchFlights(vie, sof));
-
     }
 
     private static void validateFlightNull(Flight flight) {
@@ -225,6 +199,11 @@ public class FlightScanner implements FlightScannerAPI {
         }
 
         return found;
+    }
+
+    private boolean doesAirportExist(Airport airport) {
+
+        return !this.adjacencyList.containsKey(airport);
     }
 
     private static void extractPath(Airport to, List<Flight> pathFinal, Map<Airport, Flight> parentOf) {

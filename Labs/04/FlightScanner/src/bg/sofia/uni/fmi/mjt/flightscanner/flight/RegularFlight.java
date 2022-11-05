@@ -3,10 +3,12 @@ package bg.sofia.uni.fmi.mjt.flightscanner.flight;
 import bg.sofia.uni.fmi.mjt.flightscanner.airport.Airport;
 import bg.sofia.uni.fmi.mjt.flightscanner.exception.FlightCapacityExceededException;
 import bg.sofia.uni.fmi.mjt.flightscanner.exception.InvalidFlightException;
-import bg.sofia.uni.fmi.mjt.flightscanner.passenger.Gender;
 import bg.sofia.uni.fmi.mjt.flightscanner.passenger.Passenger;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 public class RegularFlight implements Flight {
 
@@ -40,6 +42,7 @@ public class RegularFlight implements Flight {
 
     @Override
     public int hashCode() {
+
         return Objects.hash(flightId);
     }
 
@@ -119,27 +122,6 @@ public class RegularFlight implements Flight {
         return this.totalCapacity - this.passengers.size();
     }
 
-    public static void main(String[] args) throws FlightCapacityExceededException {
-        Passenger a = new Passenger("ID1", "A", Gender.MALE);
-        Passenger b = new Passenger("ID2", "B", Gender.FEMALE);
-        Passenger c = new Passenger("ID3", "C", Gender.MALE);
-        Passenger d = new Passenger("ID4", "D", Gender.FEMALE);
-        Passenger e = new Passenger("ID5", "E", Gender.MALE);
-
-        Airport x = new Airport("SOF");
-        Airport y = new Airport("LON");
-
-        RegularFlight reg = RegularFlight.of("BAW", x, y, 10);
-
-       // reg.addPassengers(List.of(a, b, c));
-        System.out.println(reg.getFreeSeatsCount());
-
-        Collection<Passenger> ls = reg.getAllPassengers();
-        System.out.println(ls);
-
-        //ls.remove(a);
-    }
-
     private RegularFlight(String flightId, Airport from, Airport to, int totalCapacity) {
         this.flightId = flightId;
         this.from = from;
@@ -158,7 +140,7 @@ public class RegularFlight implements Flight {
     private static void validateAirportsNull(Airport from, Airport to) {
 
         if (from == null || to == null) {
-            throw new IllegalArgumentException("from and to airports are null.");
+            throw new IllegalArgumentException("from or/and to airports are null.");
         }
     }
 
@@ -186,4 +168,5 @@ public class RegularFlight implements Flight {
             ", passengers=" + passengers +
             '}';
     }
+
 }

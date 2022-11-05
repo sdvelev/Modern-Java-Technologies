@@ -33,4 +33,5 @@ public record Passenger(String id, String name, Gender gender) {
             ", gender=" + gender +
             '}';
     }
+
 }
