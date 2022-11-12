@@ -55,7 +55,7 @@ public class DefaultStorable implements Storable {
     @Override
     public boolean isExpired() {
 
-        return this.expiration.isAfter(LocalDate.now());
+        return this.expiration.isBefore(LocalDate.now());
     }
 
    /* @Override
@@ -79,6 +79,15 @@ public class DefaultStorable implements Storable {
             ", expiration=" + expiration +
             '}';
     }*/
+
+    @Override
+    public String toString() {
+        return "DefaultStorable{" +
+            "name='" + name + '\'' +
+            ", type=" + type +
+            ", expiration=" + expiration +
+            '}';
+    }
 
     public static void main(String[] args) {
         DefaultStorable a = new DefaultStorable("Item1", StorableType.BEVERAGE, LocalDate.parse("2022-11-11"));
