@@ -5,41 +5,24 @@ import bg.sofia.uni.fmi.mjt.smartfridge.exception.FridgeCapacityExceededExceptio
 import bg.sofia.uni.fmi.mjt.smartfridge.exception.InsufficientQuantityException;
 import bg.sofia.uni.fmi.mjt.smartfridge.ingredient.DefaultIngredient;
 import bg.sofia.uni.fmi.mjt.smartfridge.ingredient.Ingredient;
-import bg.sofia.uni.fmi.mjt.smartfridge.recipe.DefaultRecipe;
 import bg.sofia.uni.fmi.mjt.smartfridge.recipe.Recipe;
-import bg.sofia.uni.fmi.mjt.smartfridge.storable.DefaultStorable;
 import bg.sofia.uni.fmi.mjt.smartfridge.storable.Storable;
-import bg.sofia.uni.fmi.mjt.smartfridge.storable.type.StorableType;
 
-import java.time.LocalDate;
+
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
+
 
 public class SmartFridge implements SmartFridgeAPI {
 
-    final private static int CONST1 = 10;
-    final private static int CONST2 = 20;
-    final private static int CONST3 = 30;
-    final private static int CONST4 = 40;
-
-    final private static int FOUR = 4;
-    final private static int THREE = 3;
-    final private static int SIX = 6;
-    final private static int FIVE = 5;
-
-
-    Map<Storable, Integer> content;
-    int totalCapacity;
+    final private List<Storable> content;
+    final private int totalCapacity;
 
     public SmartFridge(int totalCapacity) {
-        this.content = new HashMap<>();
+
+        this.content = new ArrayList<>();
         this.totalCapacity = totalCapacity;
     }
 
@@ -59,7 +42,10 @@ public class SmartFridge implements SmartFridgeAPI {
 
         validateIsEnoughCapacity(quantity);
 
-        this.content.put(item, quantity);
+        for (int i = 0; i < quantity; i++) {
+            this.content.add(item);
+        }
+
     }
 
     /**
@@ -75,9 +61,6 @@ public class SmartFridge implements SmartFridgeAPI {
     @Override
     public List<? extends Storable> retrieve(String itemName) {
 
-
-
-        //NEW
         validateIsNullIsEmptyOrIsBlank(itemName);
 
         int totalQuantity = getQuantityOfItem(itemName);
@@ -86,20 +69,16 @@ public class SmartFridge implements SmartFridgeAPI {
             return new ArrayList<Storable>();
         }
 
-
         List<Storable> result = new ArrayList<>();
 
-        Iterator<Map.Entry<Storable, Integer>> it = this.content.entrySet().iterator();
+        Iterator<Storable> it = this.content.iterator();
 
         while (it.hasNext()) {
-            Map.Entry<Storable, Integer> current = it.next();
+            Storable current = it.next();
 
+            if (current.getName().equals(itemName)) {
 
-            if (current.getKey().getName().equals(itemName)) {
-
-                for (int i = 0; i < current.getValue(); i++) {
-                    result.add(current.getKey());
-                }
+                result.add(current);
 
                 it.remove();
             }
@@ -108,66 +87,6 @@ public class SmartFridge implements SmartFridgeAPI {
         Collections.sort(result, new ItemExpirationDecreasingComparator());
 
         return result;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        /*
-        validateIsNullIsEmptyOrIsBlank(itemName);
-
-        int totalQuantity = getQuantityOfItem(itemName);
-
-        if (totalQuantity == 0) {
-            return new ArrayList<Storable>();
-        }
-
-        List<Storable> result = new ArrayList<>();
-
-        Iterator<Map.Entry<Storable, Integer>> it = this.content.entrySet().iterator();
-
-        while (it.hasNext()) {
-            Map.Entry<Storable, Integer> current = it.next();
-
-            if (current.getKey().getName().equals(itemName)) {
-
-                for (int i = 0; i < current.getValue(); i++) {
-
-                    result.add(current.getKey());
-                }
-
-                it.remove();
-            }
-        }
-
-        Collections.sort(result, new ItemExpirationDecreasingComparator());
-
-        return result;*/
     }
 
     /**
@@ -185,9 +104,6 @@ public class SmartFridge implements SmartFridgeAPI {
     @Override
     public List<? extends Storable> retrieve(String itemName, int quantity) throws InsufficientQuantityException {
 
-
-
-        //NEW
         validateIsNullIsEmptyOrIsBlank(itemName);
         validateIsNegativeQuantity(quantity);
 
@@ -198,22 +114,7 @@ public class SmartFridge implements SmartFridgeAPI {
                 "or the stored quantity is insufficient");
         }
 
-        List<Storable> allMatches = new ArrayList<>();
-
-        Iterator<Map.Entry<Storable, Integer>> it = this.content.entrySet().iterator();
-
-        while (it.hasNext()) {
-            Map.Entry<Storable, Integer> current = it.next();
-
-
-            if (current.getKey().getName().equals(itemName)) {
-
-                for (int i = 0; i < current.getValue(); i++) {
-                    allMatches.add(current.getKey());
-                }
-
-            }
-        }
+        List<Storable> allMatches = this.findMatchesList(itemName);
 
         Collections.sort(allMatches, new ItemExpirationDecreasingComparator());
 
@@ -221,113 +122,10 @@ public class SmartFridge implements SmartFridgeAPI {
 
         for (int i = 0; i < quantity; i++) {
             result.add(allMatches.get(i));
-            this.content.put(allMatches.get(i), this.content.get(allMatches.get(i)) - 1);
-
-        }
-
-        it = this.content.entrySet().iterator();
-
-        //Remove selected value
-        while (it.hasNext()) {
-            Map.Entry<Storable, Integer> current = it.next();
-
-            if (current.getValue() <= 0) {
-
-                it.remove();
-            }
+            this.content.remove(allMatches.get(i));
         }
 
         return result;
-
-
-
-
-   /*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        validateIsNullIsEmptyOrIsBlank(itemName);
-        validateIsNegativeQuantity(quantity);
-
-        int totalQuantity = getQuantityOfItem(itemName);
-
-        if (totalQuantity == 0 || totalQuantity < quantity) {
-            throw new InsufficientQuantityException("item with the specified name is not found in the fridge " +
-                "or the stored quantity is insufficient");
-        }
-
-        List<Storable> result = new ArrayList<>();
-
-        Iterator<Map.Entry<Storable, Integer>> it = this.content.entrySet().iterator();
-
-        int counter = 0;
-
-        while (it.hasNext()) {
-            Map.Entry<Storable, Integer> current = it.next();
-
-
-            if (current.getKey().getName().equals(itemName)) {
-
-                for (int i = 0; i < current.getValue(); i++) {
-                    result.add(current.getKey());
-                    counter++;
-
-                    if (counter == quantity) {
-                        this.content.put(current.getKey(), current.getValue() - (i + 1));
-                        break;
-                    }
-
-                }
-
-                if (counter == quantity) {
-                    break;
-                }
-
-                it.remove();
-
-            }
-        }
-
-        Collections.sort(result, new ItemExpirationDecreasingComparator());
-
-        return result;*/
     }
 
     /**
@@ -344,10 +142,10 @@ public class SmartFridge implements SmartFridgeAPI {
 
         int totalQuantity = 0;
 
-        for (Map.Entry<? extends Storable, Integer> current : this.content.entrySet()) {
+        for (Storable current : this.content) {
 
-            if (current.getKey().getName().equals(itemName)) {
-                totalQuantity += current.getValue();
+            if (current.getName().equals(itemName)) {
+                totalQuantity++;
             }
         }
 
@@ -369,36 +167,46 @@ public class SmartFridge implements SmartFridgeAPI {
 
         validateIsNull(recipe, "recipe");
 
-        Set<Ingredient<? extends Storable>> missing = new HashSet<>();
+        List<Ingredient<? extends Storable>> missing = new ArrayList<>();
 
-        Map<Storable, Integer> copyContent = this.content;
-
-        Iterator<Map.Entry<Storable, Integer>> it = copyContent.entrySet().iterator();
-
-        while (it.hasNext()) {
-            Map.Entry<Storable, Integer> current = it.next();
-
-            if (current.getKey().isExpired()) {
-
-                it.remove();
-            }
-        }
+        List<Storable> contentWithoutExpired = getContentWithoutExpired();
 
         for (Ingredient<? extends Storable> ingredient : recipe.getIngredients()) {
 
-            int itemQuantity = 0;
+            int quantity = 0;
 
-            for (Map.Entry<? extends Storable, Integer> current : copyContent.entrySet()) {
+            for (Storable current : contentWithoutExpired) {
 
-                if (current.getKey().getName().equals(ingredient.item().getName())) {
-                    itemQuantity += current.getValue();
+                if (current.getName().equals(ingredient.item().getName())) {
+                    quantity++;
                 }
             }
 
-            if (itemQuantity < ingredient.quantity()) {
-                missing.add(new DefaultIngredient<>(ingredient.item(), ingredient.quantity() - itemQuantity));
-            }
+            if (quantity == 0) {
 
+                missing.add(ingredient);
+            }
+            else if (quantity < ingredient.quantity()) {
+
+                missing.add(new DefaultIngredient<>(ingredient.item(), ingredient.quantity() - quantity));
+            }
+            else {
+
+                for (int i = 0; i < ingredient.quantity(); i++) {
+
+                    Iterator<Storable> iter = contentWithoutExpired.iterator();
+
+                    while (iter.hasNext()) {
+
+                        Storable current = iter.next();
+
+                        if (current.getName().equals(ingredient.item().getName())) {
+
+                            iter.remove();
+                        }
+                    }
+                }
+            }
         }
 
         return missing.iterator();
@@ -413,17 +221,15 @@ public class SmartFridge implements SmartFridgeAPI {
 
         List<Storable> expiredItems = new ArrayList<>();
 
-        Iterator<Map.Entry<Storable, Integer>> it = this.content.entrySet().iterator();
+        Iterator<Storable> it = this.content.iterator();
 
         while (it.hasNext()) {
-            Map.Entry<Storable, Integer> current = it.next();
 
-            if (current.getKey().isExpired()) {
+            Storable current = it.next();
 
-                for (int i = 0; i < current.getValue(); i++) {
-                    expiredItems.add(current.getKey());
-                }
+            if (current.isExpired()) {
 
+                expiredItems.add(current);
                 it.remove();
             }
         }
@@ -447,15 +253,7 @@ public class SmartFridge implements SmartFridgeAPI {
 
     private int getCurrentCapacity() {
 
-        Collection<Integer> values = this.content.values();
-
-        int sum = 0;
-
-        for (Integer i : values) {
-            sum += i.intValue();
-        }
-
-        return sum;
+        return this.content.size();
     }
 
     private void validateIsEnoughCapacity(int quantity) throws FridgeCapacityExceededException {
@@ -473,101 +271,43 @@ public class SmartFridge implements SmartFridgeAPI {
         }
     }
 
+    private List<Storable> findMatchesList(String itemName) {
 
+        List<Storable> allMatches = new ArrayList<>();
 
-    public static void main(String[] args) throws FridgeCapacityExceededException, InsufficientQuantityException {
+        Iterator<Storable> it = this.content.iterator();
 
+        while (it.hasNext()) {
 
-        DefaultStorable a = new DefaultStorable("Item1", StorableType.BEVERAGE, LocalDate.parse("2029-11-11"));
-        DefaultStorable b = new DefaultStorable("Item2", StorableType.BEVERAGE, LocalDate.parse("2022-12-11"));
-        DefaultStorable c = new DefaultStorable("Item3", StorableType.BEVERAGE, LocalDate.parse("2022-10-11"));
-        DefaultStorable d = new DefaultStorable("Item4", StorableType.BEVERAGE, LocalDate.parse("2022-11-07"));
-        DefaultStorable e = new DefaultStorable("Item5", StorableType.BEVERAGE, LocalDate.parse("2021-12-29"));
+            Storable current = it.next();
 
-        Ingredient<DefaultStorable> ing1 = new DefaultIngredient<>(a, CONST1);
-        Ingredient<DefaultStorable> ing2 = new DefaultIngredient<>(b, CONST2);
-        Ingredient<DefaultStorable> ing3 = new DefaultIngredient<>(c, CONST3);
-        Ingredient<DefaultStorable> ing4 = new DefaultIngredient<>(d, CONST4);
+            if (current.getName().equals(itemName)) {
 
-        Recipe r = new DefaultRecipe();
+                allMatches.add(current);
 
-        r.addIngredient(ing1);
-        r.addIngredient(ing2);
-        r.addIngredient(ing3);
-
-        System.out.println(r);
-
-        r.addIngredient(ing1);
-
-        System.out.println(r);
-
-        System.out.println(r.getIngredients());
-
-        r.addIngredient(ing4);
-
-        System.out.println(r);
-
-        r.removeIngredient(e.getName());
-
-        System.out.println(r);
-
-
-        SmartFridge sf = new SmartFridge(CONST2);
-
-        System.out.println(sf.getQuantityOfItem("abv"));
-
-        sf.store(new DefaultStorable("asbr", StorableType.FOOD, LocalDate.parse("2020-11-11")), FOUR);
-
-        sf.store(a, SIX);
-
-        System.out.println(sf.getCurrentCapacity());
-
-        sf.removeExpired();
-
-        System.out.println(sf.getCurrentCapacity());
-
-        sf.store(b, THREE);
-
-        System.out.println(sf.getCurrentCapacity());
-
-
-
-        System.out.println(sf.retrieve("Item1", 2));
-
-        System.out.println(sf.getCurrentCapacity());
-
-        DefaultStorable h = new DefaultStorable("Item1", StorableType.BEVERAGE, LocalDate.parse("2020-11-07"));
-
-        sf.store(h, FOUR);
-
-        System.out.println(sf.getCurrentCapacity());
-
-        System.out.println(sf.retrieve("Item1", THREE));
-
-        System.out.println(sf.getCurrentCapacity());
-
-        System.out.println(sf.retrieve("Item1", THREE));
-
-        System.out.println(sf.getCurrentCapacity());
-
-        System.out.println(sf.retrieve("Item2"));
-
-        System.out.println(sf.getCurrentCapacity());
-
-        DefaultStorable j = new DefaultStorable("Item1", StorableType.BEVERAGE, LocalDate.parse("2018-11-07"));
-
-        sf.store(j, SIX);
-
-        System.out.println(sf.getCurrentCapacity());
-
-    //    System.out.println(sf.retrieve("Item1"));
-
-        Iterator<Ingredient<? extends Storable>> fg = sf.getMissingIngredientsFromRecipe(r);
-
-        while (fg.hasNext()) {
-            fg.next();
-            System.out.println(fg);
+            }
         }
 
+        return allMatches;
     }
+
+    private List<Storable> getContentWithoutExpired() {
+
+        List<Storable> copyContent = new ArrayList<>(this.content);
+
+        Iterator<Storable> it = copyContent.iterator();
+
+        while (it.hasNext()) {
+
+            Storable current = it.next();
+
+            if (current.isExpired()) {
+
+                it.remove();
+            }
+        }
+
+        return copyContent;
+    }
+
 }
