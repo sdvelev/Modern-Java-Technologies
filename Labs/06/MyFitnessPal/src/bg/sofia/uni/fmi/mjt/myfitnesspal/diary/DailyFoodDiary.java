@@ -6,10 +6,11 @@ import bg.sofia.uni.fmi.mjt.myfitnesspal.nutrition.NutritionInfo;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.EnumMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class DailyFoodDiary implements FoodDiary {
 
@@ -40,27 +41,35 @@ public class DailyFoodDiary implements FoodDiary {
         NutritionInfo nutritionInfo = nutritionInfoApi.getNutritionInfo(foodName);
 
         FoodEntry foodEntry = new FoodEntry(foodName, servingSize, nutritionInfo);
-        meals.get(meal).add(foodEntry);
+
+        if (meals.containsKey(meal)) {
+            meals.get(meal).add(foodEntry);
+        }
+        else {
+            List<FoodEntry> toAdd = new ArrayList<>();
+            toAdd.add(foodEntry);
+            meals.put(meal, toAdd);
+        }
 
         return foodEntry;
     }
 
     @Override
     public Collection<FoodEntry> getAllFoodEntries() {
-        List<FoodEntry> allFoodEntries = new ArrayList<>();
+        Set<FoodEntry> allFoodEntries = new HashSet<>();
 
         for (List<FoodEntry> foodEntries : meals.values()) {
             allFoodEntries.addAll(foodEntries);
         }
 
-        return Collections.unmodifiableCollection(allFoodEntries);
+        return Set.copyOf(allFoodEntries);
     }
 
     @Override
     public List<FoodEntry> getAllFoodEntriesByProteinContent() {
         List<FoodEntry> allFoodEntries = new ArrayList<>(getAllFoodEntries());
         allFoodEntries.sort(foodEntryProteinContentComparator);
-        return allFoodEntries;
+        return List.copyOf(allFoodEntries);
     }
 
     @Override
@@ -84,8 +93,12 @@ public class DailyFoodDiary implements FoodDiary {
 
         double dailyCaloriesIntakePerMeal = 0.0;
 
+        if (foodEntries == null) {
+            return dailyCaloriesIntakePerMeal;
+        }
+
         for (FoodEntry foodEntry : foodEntries) {
-            dailyCaloriesIntakePerMeal = foodEntry.nutritionInfo().calories() * foodEntry.servingSize();
+            dailyCaloriesIntakePerMeal += foodEntry.nutritionInfo().calories() * foodEntry.servingSize();
         }
 
         return dailyCaloriesIntakePerMeal;
