@@ -23,6 +23,13 @@ public class FoodEntryTest {
     }
 
     @Test
+    void testFoodEntryWithNegativeServingSize() {
+
+        assertThrows(IllegalArgumentException.class, () -> new FoodEntry("SampleFoodName", -10,
+            new NutritionInfo(100, 0, 0)));
+    }
+
+    @Test
     void testFoodEntryWithNutritionInfoNull() {
 
         assertThrows(IllegalArgumentException.class, () -> new FoodEntry("Cheese", 100, null));

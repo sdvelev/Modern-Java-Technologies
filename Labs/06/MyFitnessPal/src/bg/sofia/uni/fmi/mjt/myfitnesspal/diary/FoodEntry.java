@@ -9,6 +9,10 @@ public record FoodEntry(String food, double servingSize, NutritionInfo nutrition
             throw new IllegalArgumentException("Food cannot be null or blank");
         }
 
+        if (servingSize < 0) {
+            throw new IllegalArgumentException("Serving size cannot be negative");
+        }
+
         if (nutritionInfo == null) {
             throw new IllegalArgumentException("Nutrition info cannot be null");
         }
