@@ -1,11 +1,15 @@
 package bg.sofia.uni.fmi.mjt.markdown;
 
+import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
+import java.nio.file.DirectoryIteratorException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
-public class MarkdownConverter implements MarkdownConverterAPI {
 
+public class MarkdownConverter implements MarkdownConverterAPI {
 
 
     /**
@@ -18,8 +22,8 @@ public class MarkdownConverter implements MarkdownConverterAPI {
     @Override
     public void convertMarkdown(Reader source, Writer output) {
 
-
-
+        SingleFileConverter s = new SingleFileConverter(source, output);
+        s.executeSteps();
     }
 
     /**
@@ -31,6 +35,8 @@ public class MarkdownConverter implements MarkdownConverterAPI {
     @Override
     public void convertMarkdown(Path from, Path to) {
 
+        SingleFileConverter s = new SingleFileConverter(from, to);
+        s.executeSteps();
     }
 
     /**
@@ -43,6 +49,25 @@ public class MarkdownConverter implements MarkdownConverterAPI {
      */
     @Override
     public void convertAllMarkdownFiles(Path sourceDir, Path targetDir) {
+
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(sourceDir)) {
+
+            for (Path file : stream) {
+
+                if (file.getFileName().toString().endsWith(".md")) {
+                    String fileName = file.getFileName().toString();
+                    fileName = fileName.replaceFirst("\\.md", ".html");
+                    Path newPath = targetDir.resolve(fileName);
+                    SingleFileConverter s = new SingleFileConverter(file, newPath);
+                    s.executeSteps();
+                }
+            }
+
+        }
+        catch (IOException | DirectoryIteratorException e) {
+
+            throw new IllegalStateException("Cannot search in directory", e);
+        }
 
     }
 }
