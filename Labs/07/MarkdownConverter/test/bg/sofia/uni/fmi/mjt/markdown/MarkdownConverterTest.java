@@ -17,6 +17,9 @@ import java.nio.file.Paths;
 
 public class MarkdownConverterTest {
 
+    private final static String BEGINNING = "<html>" + System.lineSeparator() + "<body>" + System.lineSeparator();
+    private final static String ENDING = "</body>" + System.lineSeparator() + "</html>" + System.lineSeparator();
+
     @Test
     void testConvertMarkdownWithReaderAndWriterHeading() {
 
@@ -27,9 +30,7 @@ public class MarkdownConverterTest {
 
         m.convertMarkdown(readerToPass, writerToPass);
 
-        String expectedOutput = "<html>" + System.lineSeparator() + "<body>" + System.lineSeparator() +
-            "<h1>This is main heading</h1>" + System.lineSeparator() + "</body>" +
-            System.lineSeparator() + "</html>" + System.lineSeparator();
+        String expectedOutput = BEGINNING + "<h1>This is main heading</h1>" + System.lineSeparator() + ENDING;
         String output = writerToPass.toString();
 
         assertEquals(expectedOutput, output, "output is not the same as the expected");
@@ -45,9 +46,7 @@ public class MarkdownConverterTest {
 
         m.convertMarkdown(readerToPass, writerToPass);
 
-        String expectedOutput = "<html>" + System.lineSeparator() + "<body>" + System.lineSeparator() +
-            "I just love <strong>bold text</strong>." + System.lineSeparator() + "</body>" +
-            System.lineSeparator() + "</html>" + System.lineSeparator();
+        String expectedOutput = BEGINNING + "I just love <strong>bold text</strong>." + System.lineSeparator() + ENDING;
         String output = writerToPass.toString();
 
         assertEquals(expectedOutput, output, "output is not the same as the expected");
@@ -63,9 +62,8 @@ public class MarkdownConverterTest {
 
         m.convertMarkdown(readerToPass, writerToPass);
 
-        String expectedOutput = "<html>" + System.lineSeparator() + "<body>" + System.lineSeparator() +
-            "Italicized text is the <em>cat's meow</em>." + System.lineSeparator() + "</body>" +
-            System.lineSeparator() + "</html>" + System.lineSeparator();
+        String expectedOutput = BEGINNING +
+            "Italicized text is the <em>cat's meow</em>." + System.lineSeparator() + ENDING;
         String output = writerToPass.toString();
 
         assertEquals(expectedOutput, output, "output is not the same as the expected");
@@ -81,9 +79,8 @@ public class MarkdownConverterTest {
 
         m.convertMarkdown(readerToPass, writerToPass);
 
-        String expectedOutput = "<html>" + System.lineSeparator() + "<body>" + System.lineSeparator() +
-            "Always <code>.close()</code> your streams" + System.lineSeparator() + "</body>" +
-            System.lineSeparator() + "</html>" + System.lineSeparator();
+        String expectedOutput = BEGINNING +
+            "Always <code>.close()</code> your streams" + System.lineSeparator() + ENDING;
         String output = writerToPass.toString();
 
         assertEquals(expectedOutput, output, "output is not the same as the expected");
@@ -99,9 +96,8 @@ public class MarkdownConverterTest {
 
         m.convertMarkdown(readerToPass, writerToPass);
 
-        String expectedOutput = "<html>" + System.lineSeparator() + "<body>" + System.lineSeparator() +
-            "<code>.close()</code> <em>your</em> <strong>eyes</strong>" + System.lineSeparator() + "</body>" +
-            System.lineSeparator() + "</html>" + System.lineSeparator();
+        String expectedOutput = BEGINNING + "<code>.close()</code> <em>your</em> <strong>eyes</strong>" +
+            System.lineSeparator() + ENDING;
         String output = writerToPass.toString();
 
         assertEquals(expectedOutput, output, "output is not the same as the expected");
@@ -130,10 +126,8 @@ public class MarkdownConverterTest {
 
         m.convertMarkdown(newTempFileForReading, newTempFileForWriting);
 
-        String expected = "<html>" + System.lineSeparator() + "<body>" + System.lineSeparator() +
-            "<h5>Heading level 5</h5>" + System.lineSeparator() +
-            "This is <code>code()</code> element" + System.lineSeparator() +
-            "</body>" + System.lineSeparator() + "</html>" + System.lineSeparator();
+        String expected = BEGINNING + "<h5>Heading level 5</h5>" + System.lineSeparator() +
+            "This is <code>code()</code> element" + System.lineSeparator() + ENDING;
 
         String readResult = "";
 
@@ -186,10 +180,8 @@ public class MarkdownConverterTest {
 
         m.convertAllMarkdownFiles(newTempDirIn, newTempDirOut);
 
-        String expected = "<html>" + System.lineSeparator() + "<body>" + System.lineSeparator() +
-            "<h5>Heading level 5</h5>" + System.lineSeparator() +
-            "This is <em>italic</em> element" + System.lineSeparator() +
-            "</body>" + System.lineSeparator() + "</html>" + System.lineSeparator();
+        String expected = BEGINNING + "<h5>Heading level 5</h5>" + System.lineSeparator() +
+            "This is <em>italic</em> element" + System.lineSeparator() + ENDING;
 
         String readResult = "";
 
@@ -211,7 +203,7 @@ public class MarkdownConverterTest {
     }
 
     @Test
-    void testConvertAllMarkdownFilesInvalidDirectory() throws IOException {
+    void testConvertAllMarkdownFilesInvalidDirectory() {
 
         MarkdownConverter m = new MarkdownConverter();
 

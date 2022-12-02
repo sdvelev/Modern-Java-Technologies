@@ -13,14 +13,9 @@ import static bg.sofia.uni.fmi.mjt.markdown.MarkdownSymbol.STAR;
 
 public class SingleFileConverter {
 
-    private final static String BEGINNING = "<html>" + System.lineSeparator() + "<body>" + System.lineSeparator();
-    private final static String ENDING = "</body>" + System.lineSeparator() + "</html>" + System.lineSeparator();
-    private final static int FOUR_STARS = 4;
-    private final static int TWO_STARS = 2;
-
-    private Path from;
-    private Path to;
-    private boolean withStreams;
+    private final Path from;
+    private final Path to;
+    private final boolean withStreams;
     private Reader reader;
     private Writer writer;
 
