@@ -3,11 +3,9 @@ package bg.sofia.uni.fmi.mjt.mail;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
-import java.nio.Buffer;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class MailMetadataConverter {
@@ -18,25 +16,31 @@ public class MailMetadataConverter {
     private LocalDateTime received;
 
     public MailMetadataConverter() {
+
         this.sender = "";
         this.subject = "";
         this.recipients = new HashSet<>();
         this.received = null;
+
     }
 
     public String getSender() {
+
         return sender;
     }
 
     public String getSubject() {
+
         return subject;
     }
 
     public Set<String> getRecipients() {
+
         return recipients;
     }
 
     public LocalDateTime getReceived() {
+
         return received;
     }
 
@@ -78,6 +82,7 @@ public class MailMetadataConverter {
 
             String[] toAddRecipients = processRecipients(currentLine).split(" ");
             for (String currentRecipient : toAddRecipients) {
+
                 addRecipients(currentRecipient);
             }
         }
@@ -90,31 +95,36 @@ public class MailMetadataConverter {
             String currentLine = null;
 
             while ((currentLine = bufferedReader.readLine()) != null) {
-                currentLine = currentLine.strip();
 
+                currentLine = currentLine.strip();
                 processCurrentLine(currentLine);
             }
 
         }
         catch (IOException e) {
+
             throw new RuntimeException("There is a problem in reading from string with mailMetadata", e);
         }
 
     }
 
     public void setSender(String sender) {
+
         this.sender = sender;
     }
 
     private void setSubject(String subject) {
+
         this.subject = subject;
     }
 
     private void addRecipients(String recipient) {
+
         this.recipients.add(recipient);
     }
 
     private void setReceived(LocalDateTime received) {
+
         this.received = received;
     }
 
@@ -124,6 +134,7 @@ public class MailMetadataConverter {
         String stringRepresentationRecipients = "";
 
         for (String recipient : recipients) {
+
             stringRepresentationRecipients = stringRepresentationRecipients.concat(recipient + ", ");
         }
 

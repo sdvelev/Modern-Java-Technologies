@@ -10,15 +10,19 @@ public class Folder {
     private Set<Mail> mails;
 
     public Folder(String folderName) {
+
         this.folderName = folderName;
         this.mails = new HashSet<>();
+
     }
 
     public String getFolderName() {
+
         return this.folderName;
     }
 
     public Set<Mail> getMails() {
+
         return this.mails;
     }
 
@@ -29,6 +33,7 @@ public class Folder {
 
     @Override
     public boolean equals(Object o) {
+
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Folder folder = (Folder) o;
@@ -37,11 +42,13 @@ public class Folder {
 
     @Override
     public int hashCode() {
+
         return Objects.hash(folderName);
     }
 
     @Override
     public String toString() {
+
         return "Folder{" +
             "folderName='" + folderName + '\'' +
             ", mails=" + mails +

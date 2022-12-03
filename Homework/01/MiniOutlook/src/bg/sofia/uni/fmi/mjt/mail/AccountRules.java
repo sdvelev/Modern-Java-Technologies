@@ -12,21 +12,30 @@ public class AccountRules {
     private Map<Integer, RuleDefinitionConverter> accountRules;
 
     public AccountRules(Account account) {
+
         this.account = account;
         this.accountRules = new TreeMap<>();
+
     }
 
     public Account getAccount() {
+
         return this.account;
     }
 
     public Map<Integer, RuleDefinitionConverter> getAccountRules() {
+
         return this.accountRules;
     }
 
     public void addAccountRule(RuleDefinitionConverter toAdd, Integer priority) {
 
         this.accountRules.put(priority, toAdd);
+    }
+
+    public void eraseAccountRule(RuleDefinitionConverter toErase, Integer priority) {
+
+        this.accountRules.remove(priority, toErase);
     }
 
     public static void main(String[] args) {
@@ -38,7 +47,6 @@ public class AccountRules {
 
         a.addAccountRule(d, 50);
         a.addAccountRule(e, 1);
-
 
     }
 

@@ -12,29 +12,36 @@ public class AccountFolders {
     private Map<Folder, List<Folder>> directories;
 
     public AccountFolders(Account account) {
+
         this.account = account;
         this.directories = new HashMap<>();
         this.directories.put(new Folder("inbox"), new ArrayList<>());
         this.directories.put(new Folder("sent"), new ArrayList<>());
+
     }
 
     public Account getAccount() {
+
         return this.account;
     }
 
     public Map<Folder, List<Folder>>  getDirectories() {
+
         return this.directories;
     }
 
     public void addNewFolder(String beforeLastFolder, String lastFolder) {
+
         Folder folderToAdd = new Folder(lastFolder);
         Folder folderBeforeToAdd = new Folder(beforeLastFolder);
+
         this.directories.get(folderBeforeToAdd).add(folderToAdd);
-        this.directories.put(folderToAdd, new ArrayList<Folder>());
+        this.directories.put(folderToAdd, new ArrayList<>());
     }
 
     @Override
     public boolean equals(Object o) {
+
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AccountFolders that = (AccountFolders) o;
@@ -43,6 +50,7 @@ public class AccountFolders {
 
     @Override
     public int hashCode() {
+
         return Objects.hash(account);
     }
 }

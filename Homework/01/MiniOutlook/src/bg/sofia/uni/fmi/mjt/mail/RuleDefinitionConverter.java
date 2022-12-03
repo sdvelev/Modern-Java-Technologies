@@ -5,11 +5,7 @@ import bg.sofia.uni.fmi.mjt.mail.exceptions.RuleAlreadyDefinedException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
-import java.nio.Buffer;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class RuleDefinitionConverter {
@@ -25,6 +21,7 @@ public class RuleDefinitionConverter {
     private String destinationPath = "";
 
     public RuleDefinitionConverter() {
+
         this.subjectIncludes = new HashSet<>();
         this.subjectOrBodyIncludes = new HashSet<>();
         this.recipientsIncludes = new HashSet<>();
@@ -37,26 +34,32 @@ public class RuleDefinitionConverter {
     }
 
     public Set<String> getSubjectsIncludes() {
+
         return this.subjectIncludes;
     }
 
     public Set<String> getSubjectsOrBodyIncludes() {
+
         return this.subjectOrBodyIncludes;
     }
 
     public Set<String> getRecipientsIncludes() {
+
         return this.recipientsIncludes;
     }
 
     public String getFrom() {
+
         return this.from;
     }
 
     public void setDestinationPath(String destinationPath) {
+
         this.destinationPath = destinationPath;
     }
 
     public String getDestinationPath() {
+
         return this.destinationPath;
     }
 
@@ -82,28 +85,32 @@ public class RuleDefinitionConverter {
 
     private void processSubjectIncludeAlreadyDefined() {
 
-        if (this.subjectIncludesAlreadyDefined == true) {
+        if (this.subjectIncludesAlreadyDefined) {
+
             throw new RuleAlreadyDefinedException("Rule is invalid");
         }
     }
 
     private void processSubjectOrBodyIncludeAlreadyDefined() {
 
-        if (this.subjectOrBodyIncludesAlreadyDefined == true) {
+        if (this.subjectOrBodyIncludesAlreadyDefined) {
+
             throw new RuleAlreadyDefinedException("Rule is invalid");
         }
     }
 
     private void processRecipientsIncludeAlreadyDefined() {
 
-        if (this.recipientsIncludesAlreadyDefined == true) {
+        if (this.recipientsIncludesAlreadyDefined) {
+
             throw new RuleAlreadyDefinedException("Rule is invalid");
         }
     }
 
     private void processFromAlreadyDefined() {
 
-        if (this.fromAlreadyDefined == true) {
+        if (this.fromAlreadyDefined) {
+
             throw new RuleAlreadyDefinedException("Rule is invalid");
         }
     }
@@ -127,6 +134,7 @@ public class RuleDefinitionConverter {
             this.subjectOrBodyIncludesAlreadyDefined = true;
 
             String[] toAddSubjectOrBodyIncludes = processSubjectOrBodyIncludes(currentLine).split(" ");
+
             for (String currentSubjectOrBodyInclude : toAddSubjectOrBodyIncludes) {
 
                 addSubjectOrBodyIncludes(currentSubjectOrBodyInclude);
@@ -159,31 +167,36 @@ public class RuleDefinitionConverter {
             String currentLine = null;
 
             while ((currentLine = bufferedReader.readLine()) != null) {
-                currentLine = currentLine.strip();
 
+                currentLine = currentLine.strip();
                 processCurrentLine(currentLine);
             }
 
         }
         catch (IOException e) {
+
             throw new RuntimeException("There is a problem in reading from string with ruleDefinition", e);
         }
 
     }
 
     private void setSenderEmail(String senderEmail) {
+
         this.from = senderEmail;
     }
 
     private void addSubjectIncludes(String subjectInclude) {
+
         this.subjectIncludes.add(subjectInclude);
     }
 
     private void addSubjectOrBodyIncludes(String subjectOrBodyInclude) {
+
         this.subjectOrBodyIncludes.add(subjectOrBodyInclude);
     }
 
     private void addRecipientsIncludes(String recipientInclude) {
+
         this.recipientsIncludes.add(recipientInclude);
     }
 
