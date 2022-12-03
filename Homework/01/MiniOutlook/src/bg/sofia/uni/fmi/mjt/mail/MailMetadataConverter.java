@@ -24,6 +24,22 @@ public class MailMetadataConverter {
         this.received = null;
     }
 
+    public String getSender() {
+        return sender;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public Set<String> getRecipients() {
+        return recipients;
+    }
+
+    public LocalDateTime getReceived() {
+        return received;
+    }
+
     private static String processRecipients(String currentLine) {
 
         return currentLine.replaceFirst("recipients:", "").strip().replace(",", "");
@@ -86,7 +102,7 @@ public class MailMetadataConverter {
 
     }
 
-    private void setSender(String sender) {
+    public void setSender(String sender) {
         this.sender = sender;
     }
 
@@ -100,6 +116,24 @@ public class MailMetadataConverter {
 
     private void setReceived(LocalDateTime received) {
         this.received = received;
+    }
+
+    @Override
+    public String toString() {
+
+        String stringRepresentationRecipients = "";
+
+        for (String recipient : recipients) {
+            stringRepresentationRecipients = stringRepresentationRecipients.concat(recipient + ", ");
+        }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String formattedReceived = this.received.format(formatter);
+
+        return "sender: " + this.sender + '\n' +
+            "subject: " + this.subject + '\n' +
+            "recipients: " + stringRepresentationRecipients + '\n' +
+            "received: " + formattedReceived + '\n';
     }
 
     public static void main(String[] args) {

@@ -1,5 +1,7 @@
 package bg.sofia.uni.fmi.mjt.mail;
 
+import bg.sofia.uni.fmi.mjt.mail.exceptions.RuleAlreadyDefinedException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
@@ -13,15 +15,49 @@ import java.util.Set;
 public class RuleDefinitionConverter {
 
     private Set<String> subjectIncludes;
+    private boolean subjectIncludesAlreadyDefined;
     private Set<String> subjectOrBodyIncludes;
+    private boolean subjectOrBodyIncludesAlreadyDefined;
     private Set<String> recipientsIncludes;
+    private boolean recipientsIncludesAlreadyDefined;
     private String from;
+    private boolean fromAlreadyDefined;
+    private String destinationPath = "";
 
     public RuleDefinitionConverter() {
         this.subjectIncludes = new HashSet<>();
         this.subjectOrBodyIncludes = new HashSet<>();
         this.recipientsIncludes = new HashSet<>();
         this.from = "";
+
+        this.subjectIncludesAlreadyDefined = false;
+        this.subjectOrBodyIncludesAlreadyDefined = false;
+        this.recipientsIncludesAlreadyDefined = false;
+        this.fromAlreadyDefined = false;
+    }
+
+    public Set<String> getSubjectsIncludes() {
+        return this.subjectIncludes;
+    }
+
+    public Set<String> getSubjectsOrBodyIncludes() {
+        return this.subjectOrBodyIncludes;
+    }
+
+    public Set<String> getRecipientsIncludes() {
+        return this.recipientsIncludes;
+    }
+
+    public String getFrom() {
+        return this.from;
+    }
+
+    public void setDestinationPath(String destinationPath) {
+        this.destinationPath = destinationPath;
+    }
+
+    public String getDestinationPath() {
+        return this.destinationPath;
     }
 
     private static String processSubjectIncludes(String currentLine) {
@@ -43,9 +79,41 @@ public class RuleDefinitionConverter {
 
         return currentLine.replaceFirst("from:", "").strip();
     }
+
+    private void processSubjectIncludeAlreadyDefined() {
+
+        if (this.subjectIncludesAlreadyDefined == true) {
+            throw new RuleAlreadyDefinedException("Rule is invalid");
+        }
+    }
+
+    private void processSubjectOrBodyIncludeAlreadyDefined() {
+
+        if (this.subjectOrBodyIncludesAlreadyDefined == true) {
+            throw new RuleAlreadyDefinedException("Rule is invalid");
+        }
+    }
+
+    private void processRecipientsIncludeAlreadyDefined() {
+
+        if (this.recipientsIncludesAlreadyDefined == true) {
+            throw new RuleAlreadyDefinedException("Rule is invalid");
+        }
+    }
+
+    private void processFromAlreadyDefined() {
+
+        if (this.fromAlreadyDefined == true) {
+            throw new RuleAlreadyDefinedException("Rule is invalid");
+        }
+    }
+
     private void processCurrentLine(String currentLine) {
 
         if (currentLine.startsWith("subject-includes:")) {
+
+            processSubjectIncludeAlreadyDefined();
+            this.subjectIncludesAlreadyDefined = true;
 
             String[] toAddSubjectIncludes = processSubjectIncludes(currentLine).split(" ");
             for (String currentSubjectInclude : toAddSubjectIncludes) {
@@ -55,6 +123,9 @@ public class RuleDefinitionConverter {
         }
         else if (currentLine.startsWith("subject-or-body-includes:")) {
 
+            processSubjectOrBodyIncludeAlreadyDefined();
+            this.subjectOrBodyIncludesAlreadyDefined = true;
+
             String[] toAddSubjectOrBodyIncludes = processSubjectOrBodyIncludes(currentLine).split(" ");
             for (String currentSubjectOrBodyInclude : toAddSubjectOrBodyIncludes) {
 
@@ -62,6 +133,9 @@ public class RuleDefinitionConverter {
             }
         }
         else if (currentLine.startsWith("recipients-includes:")) {
+
+            processRecipientsIncludeAlreadyDefined();
+            this.recipientsIncludesAlreadyDefined = true;
 
             String[] toAddRecipientsIncludes = processRecipientsIncludes(currentLine).split(" ");
             for (String currentRecipientInclude : toAddRecipientsIncludes) {
@@ -71,6 +145,8 @@ public class RuleDefinitionConverter {
         }
         else if (currentLine.startsWith("from:")) {
 
+            processFromAlreadyDefined();
+            this.fromAlreadyDefined = true;
             setSenderEmail(processFrom(currentLine));
         }
 
