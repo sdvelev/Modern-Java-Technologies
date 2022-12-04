@@ -38,7 +38,7 @@ public class AccountRules {
         this.accountRules.remove(priority, toErase);
     }
 
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
 
         Account ivan = new Account("iv@abv.bg", "ii");
         AccountRules a = new AccountRules(ivan);
@@ -48,6 +48,6 @@ public class AccountRules {
         a.addAccountRule(d, 50);
         a.addAccountRule(e, 1);
 
-    }
+    }*/
 
 }

@@ -46,12 +46,12 @@ public class Folder {
         return Objects.hash(folderName);
     }
 
-    @Override
+   /* @Override
     public String toString() {
 
         return "Folder{" +
             "folderName='" + folderName + '\'' +
             ", mails=" + mails +
             '}';
-    }
+    }*/
 }

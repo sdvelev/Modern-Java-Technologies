@@ -124,13 +124,17 @@ public class Outlook implements MailClient {
         RuleDefinitionConverter ruleDefinitionConverter = new RuleDefinitionConverter();
         ruleDefinitionConverter.convertToRuleDefinition(ruleDefinition);
 
-        validateRuleAlreadyDefined(searchedAccount, priority, ruleDefinitionConverter);
+        //validateRuleAlreadyDefined(searchedAccount, priority, ruleDefinitionConverter);
 
         if (!isExistingPath(folderPath, searchedAccountFolders)) {
             throw new FolderNotFoundException("Folder does not exist");
         }
 
         ruleDefinitionConverter.setDestinationPath(folderPath);
+        AccountRules searchedAccountRules = getAccountRulesFromAccount(searchedAccount);
+
+
+        searchedAccountRules.addAccountRule(ruleDefinitionConverter, priority);
 
         AccountRules newRule = new AccountRules(searchedAccount);
         newRule.addAccountRule(ruleDefinitionConverter, priority);
@@ -158,6 +162,21 @@ public class Outlook implements MailClient {
             }
         }*/
 
+    }
+
+    public Set<Account> getAccounts() {
+
+        return accounts;
+    }
+
+    public Set<AccountFolders> getAccountsFolders() {
+
+        return accountsFolders;
+    }
+
+    public Set<AccountRules> getAccountRules() {
+
+        return accountRules;
     }
 
     private void executeAccountRules(AccountRules searchedAccountRules, AccountFolders searchedAccountFolders) {
@@ -214,6 +233,11 @@ public class Outlook implements MailClient {
 
     private boolean validateIsForMovingSubjectsIncludes(Mail mail, RuleDefinitionConverter ruleDefinitionConverter) {
 
+        if (ruleDefinitionConverter.getSubjectsIncludes().isEmpty()) {
+
+            return true;
+        }
+
         for (String currentSubjectInclude : ruleDefinitionConverter.getSubjectsIncludes()) {
 
             if (!mail.subject().contains(currentSubjectInclude)) {
@@ -225,6 +249,11 @@ public class Outlook implements MailClient {
 
     private boolean validateIsForMovingSubjectsOrBodyIncludes(Mail mail,
                                                               RuleDefinitionConverter ruleDefinitionConverter) {
+
+        if (ruleDefinitionConverter.getSubjectsOrBodyIncludes().isEmpty()) {
+
+            return true;
+        }
 
         for (String currentSubjectOrBodyInclude : ruleDefinitionConverter.getSubjectsOrBodyIncludes()) {
 
@@ -238,6 +267,11 @@ public class Outlook implements MailClient {
 
     private boolean validateIsForMovingRecipientsIncludes(Mail mail,
                                                               RuleDefinitionConverter ruleDefinitionConverter) {
+
+        if (ruleDefinitionConverter.getRecipientsIncludes().isEmpty()) {
+
+            return true;
+        }
 
         boolean isMet = false;
         for (String currentRecipientInclude : ruleDefinitionConverter.getRecipientsIncludes()) {
@@ -442,6 +476,7 @@ public class Outlook implements MailClient {
             if (folder.equals(new Folder("sent"))) {
 
                 folder.getMails().add(toAdd);
+                break;
             }
         }
 
@@ -628,7 +663,7 @@ public class Outlook implements MailClient {
         accountFolders.addNewFolder(beforeLastDirectory, lastDirectory);
     }
 
-    private void validateRuleAlreadyDefined(Account searchedAccount, int priority,
+   /* private void validateRuleAlreadyDefined(Account searchedAccount, int priority,
                                             RuleDefinitionConverter ruleDefinitionConverter) {
 
         AccountRules allByFarRules = getAccountRulesFromAccount(searchedAccount);
@@ -638,10 +673,10 @@ public class Outlook implements MailClient {
 
             if (currentEntry.getKey().equals(priority) && currentEntry.getValue().equals(ruleDefinitionConverter)) {
 
-                throw new RuleAlreadyDefinedException("There is a conflicting rule");
+                throw new RuleAlreadyDefinedException("There is a conflicting rule.");
             }
         }
-    }
+    }*/
     private void processPath(String path, AccountFolders accountFolders) {
 
         validatePathStartsFromRoot(path);
@@ -703,7 +738,7 @@ public class Outlook implements MailClient {
         return newToAdd;
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
 
         Outlook o = new Outlook();
 
@@ -733,5 +768,5 @@ public class Outlook implements MailClient {
         System.out.println(o.getMailsFromFolder("sft", "/inbox"));
         System.out.println(o.getMailsFromFolder("sft", "/inbox/documents"));
 
-    }
+    }*/
 }

@@ -141,22 +141,22 @@ public class MailMetadataConverter {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         String formattedReceived = this.received.format(formatter);
 
-        return "sender: " + this.sender + '\n' +
-            "subject: " + this.subject + '\n' +
-            "recipients: " + stringRepresentationRecipients + '\n' +
-            "received: " + formattedReceived + '\n';
+        return "sender: " + this.sender + System.lineSeparator() +
+            "subject: " + this.subject + System.lineSeparator() +
+            "recipients: " + stringRepresentationRecipients + System.lineSeparator() +
+            "received: " + formattedReceived + System.lineSeparator();
     }
 
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
 
-        String mailData = "sender: testy@gmail.com\n" +
-            "      subject: Hello, MJT!\n" +
-            "      received: 2022-12-08 14:14\n" +
-            "      recipients: pesho@gmail.com, gosho@gmail.com,\n";
+        String mailData = "sender: testy@gmail.com" + System.lineSeparator() +
+            "      subject: Hello, MJT!" + System.lineSeparator() +
+            "      received: 2022-12-08 14:14" + System.lineSeparator() +
+            "      recipients: pesho@gmail.com, gosho@gmail.com," + System.lineSeparator();
 
         MailMetadataConverter a = new MailMetadataConverter();
         a.convertToMailMetadata(mailData);
 
-    }
+    }*/
 
 }

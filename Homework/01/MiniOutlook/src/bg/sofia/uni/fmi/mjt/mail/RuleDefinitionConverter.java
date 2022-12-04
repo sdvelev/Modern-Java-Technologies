@@ -200,15 +200,15 @@ public class RuleDefinitionConverter {
         this.recipientsIncludes.add(recipientInclude);
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
 
-        String ruleDefinition = "subject-includes: mjt, izpit, 2022\n" +
-            "      subject-or-body-includes: izpit\n" +
+        String ruleDefinition = "subject-includes: mjt, izpit, 2022" + System.lineSeparator() +
+            "      subject-or-body-includes: izpit" + System.lineSeparator() +
             "      from: stoyo@fmi.bg";
 
         RuleDefinitionConverter a = new RuleDefinitionConverter();
         a.convertToRuleDefinition(ruleDefinition);
 
-    }
+    }*/
 
 }
