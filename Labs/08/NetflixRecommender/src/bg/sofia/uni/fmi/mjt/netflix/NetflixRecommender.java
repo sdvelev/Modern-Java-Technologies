@@ -1,8 +1,6 @@
 package bg.sofia.uni.fmi.mjt.netflix;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
@@ -159,14 +157,6 @@ public class NetflixRecommender {
 
         return this.contents.stream()
             .filter(c -> c.type().equals(content.type()))
-            /*.filter(c -> {
-                int result = 0;
-                if ((result = c.getSimilarity(content)) > 0) {
-                    return true;
-                }
-                return false;
-            })*/
-           // .map(c -> c.getSimilarity(content))
             .sorted((content1, content2) -> Integer.compare(content2.getSimilarity(content),
                 content1.getSimilarity(content)))
             .toList();
@@ -200,33 +190,7 @@ public class NetflixRecommender {
 
                 return true;
             })
-            .collect(Collectors.toSet());
+            .collect(Collectors.toUnmodifiableSet());
 
     }
-/*
-    public static void main(String[] args) {
-
-        try (BufferedReader br = new BufferedReader(new FileReader("datasetLimited.csv"))) {
-
-            NetflixRecommender n = new NetflixRecommender(br);
-            List<Content> res = n.getAllContent();
-
-            for (Content currentContent : res) {
-
-                System.out.println(currentContent);
-            }
-
-            System.out.println(n.getAllGenres());
-            System.out.println(n.getTheLongestMovie());
-            System.out.println(n.groupContentByType());
-            System.out.println(n.getTopNRatedContent(3));
-            System.out.println(n.getContentByKeywords("American"));
-            System.out.println(n.getSimilarContent(new Content("", "", ContentType.MOVIE, "",
-                1999, 100, List.of("drama"), 1, "", 12,12)));
-
-        } catch (IOException e) {
-            throw new IllegalStateException("Problem", e);
-        }
-
-    }*/
 }
