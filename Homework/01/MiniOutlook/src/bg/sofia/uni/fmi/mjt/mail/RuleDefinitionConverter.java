@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class RuleDefinitionConverter {
@@ -198,6 +199,22 @@ public class RuleDefinitionConverter {
     private void addRecipientsIncludes(String recipientInclude) {
 
         this.recipientsIncludes.add(recipientInclude);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RuleDefinitionConverter that = (RuleDefinitionConverter) o;
+        return Objects.equals(subjectIncludes, that.subjectIncludes) &&
+            Objects.equals(subjectOrBodyIncludes, that.subjectOrBodyIncludes) &&
+            Objects.equals(recipientsIncludes, that.recipientsIncludes) &&
+            Objects.equals(from, that.from);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(subjectIncludes, subjectOrBodyIncludes, recipientsIncludes, from);
     }
 
     /*public static void main(String[] args) {

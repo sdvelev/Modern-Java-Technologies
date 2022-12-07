@@ -17,6 +17,9 @@ import java.util.Set;
 public class Outlook implements MailClient {
 
     private static final int MAX_RULE_PRIORITY_RANGE = 10;
+    private static final String BEGINNING_REGEX = "(.)*\\b";
+    private static final String ENDING_REGEX = "\\b(.)*";
+
     private Set<Account> accounts;
     private Set<AccountFolders> accountsFolders;
     private Set<AccountRules> accountRules;
@@ -174,10 +177,10 @@ public class Outlook implements MailClient {
         return accountsFolders;
     }
 
-    public Set<AccountRules> getAccountRules() {
+  /*  public Set<AccountRules> getAccountRules() {
 
         return accountRules;
-    }
+    }*/
 
     private void executeAccountRules(AccountRules searchedAccountRules, AccountFolders searchedAccountFolders) {
 
@@ -189,7 +192,7 @@ public class Outlook implements MailClient {
 
             for (Folder currentFolder : folders) {
 
-                if (currentFolder.getFolderName().equals("sent")) {
+                if (!currentFolder.getFolderName().equals("inbox")) {
                     continue;
                 }
 
@@ -240,7 +243,7 @@ public class Outlook implements MailClient {
 
         for (String currentSubjectInclude : ruleDefinitionConverter.getSubjectsIncludes()) {
 
-            if (!mail.subject().contains(currentSubjectInclude)) {
+            if (!mail.subject().matches(BEGINNING_REGEX + currentSubjectInclude + ENDING_REGEX)) {
                 return false;
             }
         }
@@ -257,8 +260,9 @@ public class Outlook implements MailClient {
 
         for (String currentSubjectOrBodyInclude : ruleDefinitionConverter.getSubjectsOrBodyIncludes()) {
 
-            if (!mail.subject().contains(currentSubjectOrBodyInclude) && !mail.body()
-                .contains(currentSubjectOrBodyInclude)) {
+
+            if (!mail.subject().matches(BEGINNING_REGEX + currentSubjectOrBodyInclude + ENDING_REGEX) &&
+                !mail.body().matches(BEGINNING_REGEX + currentSubjectOrBodyInclude + ENDING_REGEX)) {
                 return false;
             }
         }
@@ -722,7 +726,7 @@ public class Outlook implements MailClient {
         return newToAdd;
     }
 
-    private AccountRules getAccountRulesFromAccount(Account account) {
+    public AccountRules getAccountRulesFromAccount(Account account) {
 
         for (AccountRules currentAccountRules : this.accountRules) {
 
