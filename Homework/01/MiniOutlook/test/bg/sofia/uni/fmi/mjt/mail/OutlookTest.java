@@ -7,6 +7,7 @@ import bg.sofia.uni.fmi.mjt.mail.exceptions.FolderNotFoundException;
 import bg.sofia.uni.fmi.mjt.mail.exceptions.InvalidPathException;
 import bg.sofia.uni.fmi.mjt.mail.exceptions.RuleAlreadyDefinedException;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -18,11 +19,16 @@ import java.util.Set;
 
 public class OutlookTest {
 
+    Outlook outlook;
+
+    @BeforeEach
+    void initSetOutlook() {
+
+        this.outlook = new Outlook();
+    }
 
     @Test
     void testAddNewAccountWithEmptyAccountName() {
-
-        Outlook outlook = new Outlook();
 
         Assertions.assertThrows(IllegalArgumentException.class, () ->
                 outlook.addNewAccount("", "fmi@uni-sofia.bg"),
@@ -32,8 +38,6 @@ public class OutlookTest {
     @Test
     void testAddNewAccountWithNullAccountName() {
 
-        Outlook outlook = new Outlook();
-
         Assertions.assertThrows(IllegalArgumentException.class, () ->
                 outlook.addNewAccount(null, "fmi@uni-sofia.bg"),
             "IllegalArgumentException is expected but not thrown.");
@@ -41,8 +45,6 @@ public class OutlookTest {
 
     @Test
     void testAddNewAccountWithNullEmail() {
-
-        Outlook outlook = new Outlook();
 
         Assertions.assertThrows(IllegalArgumentException.class, () ->
                 outlook.addNewAccount("fmi", null),
@@ -52,8 +54,6 @@ public class OutlookTest {
     @Test
     void testAddNewAccountWithBlankEmail() {
 
-        Outlook outlook = new Outlook();
-
         Assertions.assertThrows(IllegalArgumentException.class, () ->
                 outlook.addNewAccount("fmi", "        "),
             "IllegalArgumentException is expected but not thrown.");
@@ -62,8 +62,6 @@ public class OutlookTest {
     @Test
     void testAddNewAccountSuccessful() {
 
-        Outlook outlook = new Outlook();
-
         Set<Account> expected = Set.of(outlook.addNewAccount("fmi", "fmi@uni-sofia.bg"));
 
         Assertions.assertIterableEquals(expected, outlook.getAccounts());
@@ -71,8 +69,6 @@ public class OutlookTest {
 
     @Test
     void testAddNewAccountEmailsAreSame() {
-
-        Outlook outlook = new Outlook();
 
         Set<Account> expected = Set.of(outlook.addNewAccount("fhf", "fmi@uni-sofia.bg"),
             outlook.addNewAccount("fmi", "fmi@uni-sofia.bg"));
@@ -84,8 +80,6 @@ public class OutlookTest {
     @Test
     void testAddNewAccountNameAlreadyExist() {
 
-        Outlook outlook = new Outlook();
-
         outlook.addNewAccount("fmi", "fmi@uni-sofia.bg");
 
         Assertions.assertThrows(AccountAlreadyExistsException.class, () ->
@@ -96,8 +90,6 @@ public class OutlookTest {
     @Test
     void testCreateFolderWithNullAccountName() {
 
-        Outlook outlook = new Outlook();
-
         Assertions.assertThrows(IllegalArgumentException.class, () ->
                 outlook.createFolder(null, "/inbox/documents"),
             "IllegalArgumentException is expected but not thrown.");
@@ -105,8 +97,6 @@ public class OutlookTest {
 
     @Test
     void testCreateFolderWithEmptyAccountName() {
-
-        Outlook outlook = new Outlook();
 
         Assertions.assertThrows(IllegalArgumentException.class, () ->
                 outlook.createFolder("", "/inbox/documents"),
@@ -116,8 +106,6 @@ public class OutlookTest {
     @Test
     void testCreateFolderWithEmptyPath() {
 
-        Outlook outlook = new Outlook();
-
         Assertions.assertThrows(IllegalArgumentException.class, () ->
                 outlook.createFolder("fmi", ""),
             "IllegalArgumentException is expected but not thrown.");
@@ -125,8 +113,6 @@ public class OutlookTest {
 
     @Test
     void testCreateFolderWithNullPath() {
-
-        Outlook outlook = new Outlook();
 
         Assertions.assertThrows(IllegalArgumentException.class, () ->
                 outlook.createFolder("fmi", null),
@@ -136,8 +122,6 @@ public class OutlookTest {
     @Test
     void testCreateFolderWithBlankPath() {
 
-        Outlook outlook = new Outlook();
-
         Assertions.assertThrows(IllegalArgumentException.class, () ->
                 outlook.createFolder("fmi", "   "),
             "IllegalArgumentException is expected but not thrown.");
@@ -146,7 +130,6 @@ public class OutlookTest {
     @Test
     void testCreateFolderSuccessfullyAdded() {
 
-        Outlook outlook = new Outlook();
         outlook.addNewAccount("fmi", "fmi@uni-sofia.bg");
 
         outlook.createFolder("fmi", "/inbox/documents");
@@ -174,7 +157,6 @@ public class OutlookTest {
     @Test
     void testCreateFolderSuccessfullyAddedWithMoreLevels() {
 
-        Outlook outlook = new Outlook();
         outlook.addNewAccount("fmi", "fmi@uni-sofia.bg");
 
         outlook.createFolder("fmi", "/inbox/documents");
@@ -209,7 +191,6 @@ public class OutlookTest {
     @Test
     void testCreateFolderAccountNotFoundException() {
 
-        Outlook outlook = new Outlook();
         outlook.addNewAccount("fmi", "fmi@uni-sofia.bg");
 
         Assertions.assertThrows(AccountNotFoundException.class, () ->
@@ -220,7 +201,6 @@ public class OutlookTest {
     @Test
     void testCreateFolderInvalidPathExceptionWithLeadingPathWrong() {
 
-        Outlook outlook = new Outlook();
         outlook.addNewAccount("fmi", "fmi@uni-sofia.bg");
 
         Assertions.assertThrows(InvalidPathException.class, () ->
@@ -231,7 +211,6 @@ public class OutlookTest {
     @Test
     void testCreateFolderInvalidPathExceptionWithIntermediateFoldersMissing() {
 
-        Outlook outlook = new Outlook();
         outlook.addNewAccount("fmi", "fmi@uni-sofia.bg");
 
         Assertions.assertThrows(InvalidPathException.class, () ->
@@ -242,7 +221,6 @@ public class OutlookTest {
     @Test
     void testCreateFolderFolderAlreadyExistException() {
 
-        Outlook outlook = new Outlook();
         outlook.addNewAccount("fmi", "fmi@uni-sofia.bg");
 
         outlook.createFolder("fmi", "/inbox/documents");
@@ -255,8 +233,6 @@ public class OutlookTest {
     @Test
     void testAddRuleWithAccountNameNull() {
 
-        Outlook outlook = new Outlook();
-
         Assertions.assertThrows(IllegalArgumentException.class, () ->
                 outlook.addRule(null, "/inbox/documents", "ruleDefinition", 1),
             "IllegalArgumentException is expected but not thrown.");
@@ -264,8 +240,6 @@ public class OutlookTest {
 
     @Test
     void testAddRuleWithFolderPathNull() {
-
-        Outlook outlook = new Outlook();
 
         Assertions.assertThrows(IllegalArgumentException.class, () ->
                 outlook.addRule("fmi", null, "ruleDefinition", 1),
@@ -275,8 +249,6 @@ public class OutlookTest {
     @Test
     void testAddRuleWithRuleDefinitionAndAccountNameNull() {
 
-        Outlook outlook = new Outlook();
-
         Assertions.assertThrows(IllegalArgumentException.class, () ->
                 outlook.addRule(null, "/inbox/documents", null, 2),
             "IllegalArgumentException is expected but not thrown.");
@@ -284,8 +256,6 @@ public class OutlookTest {
 
     @Test
     void testAddRuleWithPriorityOutOfRange() {
-
-        Outlook outlook = new Outlook();
 
         Assertions.assertThrows(IllegalArgumentException.class, () ->
                 outlook.addRule("fmi", "/inbox/documents", "ruleDefinition", 11),
@@ -296,7 +266,6 @@ public class OutlookTest {
     @Test
     void testAddRuleAccountNotFoundException() {
 
-        Outlook outlook = new Outlook();
         outlook.addNewAccount("fmi", "fmi@uni-sofia.bg");
 
         Assertions.assertThrows(AccountNotFoundException.class, () ->
@@ -306,8 +275,6 @@ public class OutlookTest {
 
     @Test
     void testAddRuleFolderNotFoundException() {
-
-        Outlook outlook = new Outlook();
 
         outlook.addNewAccount("fmi", "fmi@uni-sofia.bg");
 
@@ -322,8 +289,6 @@ public class OutlookTest {
 
     @Test
     void testAddRuleSuccessFullyWithoutRecipientsIncludes() {
-
-        Outlook outlook = new Outlook();
 
         Account fmiAccount = outlook.addNewAccount("fmi", "fmi@uni-sofia.bg");
         Account fhfAccount = outlook.addNewAccount("fhf", "fhf@uni-sofia.bg");
@@ -386,21 +351,10 @@ public class OutlookTest {
                     "Mail must have been moved but it is not present according to the rule.");
             }
         }
-
-      /*  Map<Folder, List<Folder>> expected = Map.of(new Folder("inbox"),
-            List.of(new Folder("documents")), new Folder("sent"), new ArrayList<Folder>(),
-            new Folder("documents"), new ArrayList<Folder>());
-
-
-        Assertions.assertTrue(expected.equals(searchedDirectories),
-            "Actual folders and their location is not the same as expected.");*/
-
     }
 
     @Test
     void testAddRuleSuccessFullyWithoutRecipientsIncludesWithSubjectIncludesTwice() {
-
-        Outlook outlook = new Outlook();
 
         outlook.addNewAccount("fmi", "fmi@uni-sofia.bg");
         outlook.addNewAccount("fhf", "fhf@uni-sofia.bg");
@@ -425,8 +379,6 @@ public class OutlookTest {
     @Test
     void testAddRuleSuccessFullyWithoutRecipientsIncludesWithSubjectOrBodyIncludesThreeTimes() {
 
-        Outlook outlook = new Outlook();
-
         outlook.addNewAccount("fmi", "fmi@uni-sofia.bg");
         outlook.addNewAccount("fhf", "fhf@uni-sofia.bg");
 
@@ -450,8 +402,6 @@ public class OutlookTest {
     @Test
     void testAddRuleSuccessFullyWithoutRecipientsIncludesWithRecipientsIncludesTwice() {
 
-        Outlook outlook = new Outlook();
-
         outlook.addNewAccount("fmi", "fmi@uni-sofia.bg");
         outlook.addNewAccount("fhf", "fhf@uni-sofia.bg");
 
@@ -474,8 +424,6 @@ public class OutlookTest {
 
     @Test
     void testAddRuleSuccessFullyWithRecipientsIncludes() {
-
-        Outlook outlook = new Outlook();
 
         Account fmiAccount = outlook.addNewAccount("fmi", "fmi@uni-sofia.bg");
         outlook.addNewAccount("fhf", "fhf@uni-sofia.bg");
@@ -539,21 +487,10 @@ public class OutlookTest {
                     "Mail must have been moved but it is not present according to the rule.");
             }
         }
-
-      /*  Map<Folder, List<Folder>> expected = Map.of(new Folder("inbox"),
-            List.of(new Folder("documents")), new Folder("sent"), new ArrayList<Folder>(),
-            new Folder("documents"), new ArrayList<Folder>());
-
-
-        Assertions.assertTrue(expected.equals(searchedDirectories),
-            "Actual folders and their location is not the same as expected.");*/
-
     }
 
     @Test
     void testGetMailsFromFolderWithNullAccount() {
-
-        Outlook outlook = new Outlook();
 
         Assertions.assertThrows(IllegalArgumentException.class, () ->
                 outlook.getMailsFromFolder(null, "/inbox/documents"),
@@ -564,8 +501,6 @@ public class OutlookTest {
     @Test
     void testGetMailsFromFolderWithNullFolderPath() {
 
-        Outlook outlook = new Outlook();
-
         Assertions.assertThrows(IllegalArgumentException.class, () ->
                 outlook.getMailsFromFolder("fmi", null),
             "IllegalArgumentException is expected but not thrown.");
@@ -573,8 +508,6 @@ public class OutlookTest {
 
     @Test
     void testGetMailsFromFolderWithBlankFolderPath() {
-
-        Outlook outlook = new Outlook();
 
         Assertions.assertThrows(IllegalArgumentException.class, () ->
                 outlook.getMailsFromFolder("fmi", "    "),
@@ -584,8 +517,6 @@ public class OutlookTest {
     @Test
     void testGetMailsFromFolderWithEmptyAccount() {
 
-        Outlook outlook = new Outlook();
-
         Assertions.assertThrows(IllegalArgumentException.class, () ->
                 outlook.getMailsFromFolder("", "/inbox/documents"),
             "IllegalArgumentException is expected but not thrown.");
@@ -593,8 +524,6 @@ public class OutlookTest {
 
     @Test
     void testGetMailsFromFolderAccountNotFoundException() {
-
-        Outlook outlook = new Outlook();
 
         outlook.addNewAccount("fmi", "fmi@uni-sofia.bg");
 
@@ -606,8 +535,6 @@ public class OutlookTest {
     @Test
     void testGetMailsFromFolderFolderNotFoundException() {
 
-        Outlook outlook = new Outlook();
-
         outlook.addNewAccount("fmi", "fmi@uni-sofia.bg");
         outlook.createFolder("fmi", "/inbox/documents");
 
@@ -618,8 +545,6 @@ public class OutlookTest {
 
     @Test
     void testGetMailsFromFolderSuccessfully() {
-
-        Outlook outlook = new Outlook();
 
         Account fmiAccount = outlook.addNewAccount("fmi", "fmi@uni-sofia.bg");
         outlook.createFolder("fmi", "/inbox/documents");
@@ -670,9 +595,7 @@ public class OutlookTest {
             "Actual collection of mails is not the same as the expected.");
     }
 
-    private void helper(String metaData, String ruleDefinition) {
-
-        Outlook outlook = new Outlook();
+    private void helperAddRule(String metaData, String ruleDefinition) {
 
         Account fmiAccount = outlook.addNewAccount("fmi", "fmi@uni-sofia.bg");
         outlook.addNewAccount("fhf", "fhf@uni-sofia.bg");
@@ -726,17 +649,6 @@ public class OutlookTest {
                     "Mail must not have been moved but it is present according to the rule.");
             }
         }
-
-
-
-      /*  Map<Folder, List<Folder>> expected = Map.of(new Folder("inbox"),
-            List.of(new Folder("documents")), new Folder("sent"), new ArrayList<Folder>(),
-            new Folder("documents"), new ArrayList<Folder>());
-
-
-        Assertions.assertTrue(expected.equals(searchedDirectories),
-            "Actual folders and their location is not the same as expected.");*/
-
     }
 
 
@@ -750,7 +662,7 @@ public class OutlookTest {
         String ruleDefinition = "subject-includes: Halls, Availabl" + System.lineSeparator() +
             "     from: fmi@uni-sofia.bg" + System.lineSeparator();
 
-        this.helper(metaData, ruleDefinition);
+        this.helperAddRule(metaData, ruleDefinition);
 
     }
 
@@ -764,7 +676,7 @@ public class OutlookTest {
         String ruleDefinition = "subject-or-body-includes: Halls, Availabl" + System.lineSeparator() +
             "     from: fmi@uni-sofia.bg" + System.lineSeparator();
 
-        this.helper(metaData, ruleDefinition);
+        this.helperAddRule(metaData, ruleDefinition);
     }
 
     @Test
@@ -777,7 +689,7 @@ public class OutlookTest {
         String ruleDefinition = "recipients-includes: fhf@uni-sofia.bg., fhf@uni-sofia.bg!" + System.lineSeparator() +
             "     from: fmi@uni-sofia.bg" + System.lineSeparator();
 
-        this.helper(metaData, ruleDefinition);
+        this.helperAddRule(metaData, ruleDefinition);
     }
 
     @Test
@@ -790,14 +702,12 @@ public class OutlookTest {
         String ruleDefinition = "recipients-includes: fhf@uni-sofia.bg" + System.lineSeparator() +
             "     from: fmi@uni_sofia.bg" + System.lineSeparator();
 
-        this.helper(metaData, ruleDefinition);
+        this.helperAddRule(metaData, ruleDefinition);
     }
 
 
     @Test
     void testSendMailWithTwoRulesWithDifferentPriority() {
-
-        Outlook outlook = new Outlook();
 
         Account fmiAccount = outlook.addNewAccount("fmi", "fmi@uni-sofia.bg");
         outlook.addNewAccount("fhf", "fhf@uni-sofia.bg");
@@ -874,8 +784,6 @@ public class OutlookTest {
 
     @Test
     void testAddRuleReceiveEmailAndThenAddTwoRules() {
-
-        Outlook outlook = new Outlook();
 
         Account fmiAccount = outlook.addNewAccount("fmi", "fmi@uni-sofia.bg");
         outlook.addNewAccount("fhf", "fhf@uni-sofia.bg");
@@ -961,9 +869,6 @@ public class OutlookTest {
     @Test
     void testSendMailMailIsInSent() {
 
-
-        Outlook outlook = new Outlook();
-
         Account fmiAccount = outlook.addNewAccount("fmi", "fmi@uni-sofia.bg");
         outlook.addNewAccount("fhf", "fhf@uni-sofia.bg");
 
@@ -1007,10 +912,7 @@ public class OutlookTest {
 
                 Assertions.assertTrue(currentEntry.getKey().getMails().contains(mailExpected),
                     "Mail must be in sent but it is not.");
-                break;
             }
         }
     }
-
-
 }

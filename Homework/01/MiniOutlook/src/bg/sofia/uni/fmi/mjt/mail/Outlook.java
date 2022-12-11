@@ -7,7 +7,6 @@ import bg.sofia.uni.fmi.mjt.mail.exceptions.FolderNotFoundException;
 import bg.sofia.uni.fmi.mjt.mail.exceptions.InvalidPathException;
 import bg.sofia.uni.fmi.mjt.mail.exceptions.RuleAlreadyDefinedException;
 
-import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -25,6 +24,7 @@ public class Outlook implements MailClient {
     private Set<AccountRules> accountRules;
 
     public Outlook() {
+
         this.accounts = new HashSet<>();
         this.accountsFolders = new HashSet<>();
         this.accountRules = new HashSet<>();
@@ -81,12 +81,11 @@ public class Outlook implements MailClient {
         validateIsEmpty(path, "path");
         validateIsBlank(path, "path");
 
-        Account searchedAccount = getAndValidateAccountNotFoundException(accountName);
+        Account searchedAccount = getAccountByAccountName(accountName);
 
         AccountFolders searchedAccountFolders = getAccountFoldersFromAccount(searchedAccount);
 
         processPath(path, searchedAccountFolders);
-
     }
 
     /**
@@ -121,50 +120,155 @@ public class Outlook implements MailClient {
 
         validateAddRuleMethod(accountName, folderPath, ruleDefinition, priority);
 
-        Account searchedAccount = getAndValidateAccountNotFoundException(accountName);
+        Account searchedAccount = getAccountByAccountName(accountName);
         AccountFolders searchedAccountFolders = getAccountFoldersFromAccount(searchedAccount);
 
         RuleDefinitionConverter ruleDefinitionConverter = new RuleDefinitionConverter();
         ruleDefinitionConverter.convertToRuleDefinition(ruleDefinition);
 
-        //validateRuleAlreadyDefined(searchedAccount, priority, ruleDefinitionConverter);
-
         if (!isExistingPath(folderPath, searchedAccountFolders)) {
+
             throw new FolderNotFoundException("Folder does not exist");
         }
 
         ruleDefinitionConverter.setDestinationPath(folderPath);
         AccountRules searchedAccountRules = getAccountRulesFromAccount(searchedAccount);
 
-
         searchedAccountRules.addAccountRule(ruleDefinitionConverter, priority);
 
         AccountRules newRule = new AccountRules(searchedAccount);
         newRule.addAccountRule(ruleDefinitionConverter, priority);
 
-       // AccountFolders onlyInboxFolder = new AccountFolders(searchedAccount);
-
         this.executeAccountRules(newRule, searchedAccountFolders);
+    }
 
-        //Set<Folder> folders = searchedAccountFolders.getDirectories().keySet();
+    /**
+     * The mail metadata has the following format (we always expect valid format of the mail metadata,
+     * no validations are required):
+     * sender: <sender-email>
+     * subject: <subject>
+     * recipients: <list-of-emails>
+     * received: <LocalDateTime> - in format yyyy-MM-dd HH:mm
+     *
+     * The order is not determined and the list might not be full. Example:
+     * sender: testy@gmail.com
+     * subject: Hello, MJT!
+     * recipients: pesho@gmail.com, gosho@gmail.com,
+     * received: 2022-12-08 14:14
+     *
+     * @param accountName  the recipient account
+     * @param mailMetadata metadata, including the sender, all recipients, subject, and receiving time
+     * @param mailContent  content of the mail
+     * @throws IllegalArgumentException if any of the parameters is null, empty or blank
+     * @throws AccountNotFoundException if the account does not exist
+     */
+    @Override
+    public void receiveMail(String accountName, String mailMetadata, String mailContent) {
 
-       // AccountRules searchedAccountRules = getAccountRulesFromAccount(searchedAccount);
+        validateReceivedMailMethod(accountName, mailMetadata, mailContent);
 
-      //  searchedAccountRules.addAccountRule(ruleDefinitionConverter, priority);
+        Account searchedAccount = getAccountByAccountName(accountName);
 
-        // We do not have to execute all rules but only the currently added rule
-        //this.executeAccountRules(searchedAccountRules, searchedAccountFolders);
+        AccountFolders searchedAccountFolders = getAccountFoldersFromAccount(searchedAccount);
 
-       /* for (Folder currentFolder : folders) {
+        MailMetadataConverter mailMetadataConverter = new MailMetadataConverter();
+        mailMetadataConverter.convertToMailMetadata(mailMetadata);
 
-            for (Mail currentMail : currentFolder.getMails()) {
+        String senderAccountName = getAccountNameByEmail(mailMetadataConverter.getSender());
 
-                if (isForMoving(currentMail, ruleDefinitionConverter)) {
-                    //Move
-                }
+        Mail toAdd = new Mail(new Account(mailMetadataConverter.getSender(), senderAccountName),
+            mailMetadataConverter.getRecipients(), mailMetadataConverter.getSubject(), mailContent,
+            mailMetadataConverter.getReceived());
+
+        addReceivedMailToInbox(toAdd, searchedAccountFolders);
+
+        AccountRules searchedAccountRules = getAccountRulesFromAccount(searchedAccount);
+        this.executeAccountRules(searchedAccountRules, searchedAccountFolders);
+    }
+
+    /**
+     * Returns a collection of all mails in the provided folder
+     *
+     * @param account    name of the selected account
+     * @param folderPath full path of the folder
+     * @return collections of mails available in the folder
+     * @throws IllegalArgumentException if any of the parameters is null, empty or blank
+     * @throws AccountNotFoundException if the account does not exist
+     * @throws FolderNotFoundException  if the folder does not exist
+     */
+    @Override
+    public Collection<Mail> getMailsFromFolder(String account, String folderPath) {
+
+        validateGetMailsFromFolderMethod(account, folderPath);
+
+        Account searchedAccount = getAccountByAccountName(account);
+        AccountFolders searchedAccountFolders = getAccountFoldersFromAccount(searchedAccount);
+
+        if (!isExistingPath(folderPath, searchedAccountFolders)) {
+
+            throw new FolderNotFoundException("Folder does not exist");
+        }
+
+        Set<Mail> result = new HashSet<>();
+
+        Set<Folder> folders = searchedAccountFolders.getDirectories().keySet();
+        String[] followingFolders = folderPath.split("/");
+
+        String lastDirectory = followingFolders[followingFolders.length - 1];
+        Folder lastDirectoryFolder = new Folder(lastDirectory);
+
+        for (Folder folder : folders) {
+
+            if (folder.equals(lastDirectoryFolder)) {
+
+                result.addAll(folder.getMails());
+                break;
             }
-        }*/
+        }
 
+        return result;
+    }
+
+    /**
+     * Sends an email. This stores the mail into the sender's "/sent" folder.
+     * For each recipient in the recipients email list in the metadata, if an account with this email exists,
+     * a {@code receiveMail()} for this account, mail metadata and mail content is called.
+     * If an account with the specified email does not exist, it is ignored.
+     *
+     * @param accountName  name of the sender
+     * @param mailMetadata metadata of the mail. "sender" field should be included automatically
+     *                     if missing or not correctly set
+     * @param mailContent  content of the mail
+     * @throws IllegalArgumentException if any of the parameters is null, empty or blank
+     */
+    @Override
+    public void sendMail(String accountName, String mailMetadata, String mailContent) {
+
+        validateSendMailMethod(accountName, mailMetadata, mailContent);
+
+        Account searchedAccount = getAccountByAccountName(accountName);
+        AccountFolders searchedAccountFolders = getAccountFoldersFromAccount(searchedAccount);
+
+        Set<Folder> folders = searchedAccountFolders.getDirectories().keySet();
+
+        MailMetadataConverter mailMetadataConverter = new MailMetadataConverter();
+        mailMetadataConverter.convertToMailMetadata(mailMetadata);
+
+        mailMetadataConverter.setSender(searchedAccount.emailAddress());
+
+        Mail toAdd = new Mail(searchedAccount, mailMetadataConverter.getRecipients(),
+            mailMetadataConverter.getSubject(), mailContent, mailMetadataConverter.getReceived());
+
+        for (Folder folder : folders) {
+
+            if (folder.equals(new Folder("sent"))) {
+
+                folder.getMails().add(toAdd);
+                break;
+            }
+        }
+
+        activateReceivedMailOnRecipients(mailMetadataConverter, mailContent);
     }
 
     public Set<Account> getAccounts() {
@@ -177,10 +281,21 @@ public class Outlook implements MailClient {
         return accountsFolders;
     }
 
-  /*  public Set<AccountRules> getAccountRules() {
+    public AccountRules getAccountRulesFromAccount(Account account) {
 
-        return accountRules;
-    }*/
+        for (AccountRules currentAccountRules : this.accountRules) {
+
+            if (currentAccountRules.getAccount().equals(account)) {
+
+                return currentAccountRules;
+            }
+        }
+
+        AccountRules newToAdd = new AccountRules(account);
+        this.accountRules.add(newToAdd);
+
+        return newToAdd;
+    }
 
     private void executeAccountRules(AccountRules searchedAccountRules, AccountFolders searchedAccountFolders) {
 
@@ -209,9 +324,6 @@ public class Outlook implements MailClient {
 
     private void moveMail(RuleDefinitionConverter currentRule, Mail currentMail, Folder currentFolder,
                           Set<Folder> folders) {
-
-        //searchedAccountFolders.getDirectories().get(currentFolder).remove(currentMail);
-        //   Map<Folder, List<Folder>> directories = searchedAccountFolders.getDirectories();
 
         validatePathStartsFromRoot(currentRule.getDestinationPath());
 
@@ -244,9 +356,11 @@ public class Outlook implements MailClient {
         for (String currentSubjectInclude : ruleDefinitionConverter.getSubjectsIncludes()) {
 
             if (!mail.subject().matches(BEGINNING_REGEX + currentSubjectInclude + ENDING_REGEX)) {
+
                 return false;
             }
         }
+
         return true;
     }
 
@@ -263,9 +377,11 @@ public class Outlook implements MailClient {
 
             if (!mail.subject().matches(BEGINNING_REGEX + currentSubjectOrBodyInclude + ENDING_REGEX) &&
                 !mail.body().matches(BEGINNING_REGEX + currentSubjectOrBodyInclude + ENDING_REGEX)) {
+
                 return false;
             }
         }
+
         return true;
     }
 
@@ -281,6 +397,7 @@ public class Outlook implements MailClient {
         for (String currentRecipientInclude : ruleDefinitionConverter.getRecipientsIncludes()) {
 
             if (mail.recipients().contains(currentRecipientInclude)) {
+
                 isMet = true;
                 break;
             }
@@ -334,50 +451,6 @@ public class Outlook implements MailClient {
         return true;
     }
 
-    /**
-     * The mail metadata has the following format (we always expect valid format of the mail metadata,
-     * no validations are required):
-     * sender: <sender-email>
-     * subject: <subject>
-     * recipients: <list-of-emails>
-     * received: <LocalDateTime> - in format yyyy-MM-dd HH:mm
-     * <p>
-     * The order is not determined and the list might not be full. Example:
-     * sender: testy@gmail.com
-     * subject: Hello, MJT!
-     * recipients: pesho@gmail.com, gosho@gmail.com,
-     * received: 2022-12-08 14:14
-     *
-     * @param accountName  the recipient account
-     * @param mailMetadata metadata, including the sender, all recipients, subject, and receiving time
-     * @param mailContent  content of the mail
-     * @throws IllegalArgumentException if any of the parameters is null, empty or blank
-     * @throws AccountNotFoundException if the account does not exist
-     */
-    @Override
-    public void receiveMail(String accountName, String mailMetadata, String mailContent) {
-
-        validateReceivedMailMethod(accountName, mailMetadata, mailContent);
-
-        Account searchedAccount = getAndValidateAccountNotFoundException(accountName);
-
-        AccountFolders searchedAccountFolders = getAccountFoldersFromAccount(searchedAccount);
-
-        MailMetadataConverter mailMetadataConverter = new MailMetadataConverter();
-        mailMetadataConverter.convertToMailMetadata(mailMetadata);
-
-        String senderAccountName = getAccountNameByEmail(mailMetadataConverter.getSender());
-
-        Mail toAdd = new Mail(new Account(mailMetadataConverter.getSender(), senderAccountName),
-            mailMetadataConverter.getRecipients(), mailMetadataConverter.getSubject(), mailContent,
-            mailMetadataConverter.getReceived());
-
-        addReceivedMailToInbox(toAdd, searchedAccountFolders);
-
-        AccountRules searchedAccountRules = getAccountRulesFromAccount(searchedAccount);
-        this.executeAccountRules(searchedAccountRules, searchedAccountFolders);
-    }
-
     private void addReceivedMailToInbox(Mail mail, AccountFolders searchedAccountFolders) {
 
         Set<Folder> folders = searchedAccountFolders.getDirectories().keySet();
@@ -404,89 +477,6 @@ public class Outlook implements MailClient {
         return null;
     }
 
-    /**
-     * Returns a collection of all mails in the provided folder
-     *
-     * @param account    name of the selected account
-     * @param folderPath full path of the folder
-     * @return collections of mails available in the folder
-     * @throws IllegalArgumentException if any of the parameters is null, empty or blank
-     * @throws AccountNotFoundException if the account does not exist
-     * @throws FolderNotFoundException  if the folder does not exist
-     */
-    @Override
-    public Collection<Mail> getMailsFromFolder(String account, String folderPath) {
-
-        validateGetMailsFromFolderMethod(account, folderPath);
-
-        Account searchedAccount = getAndValidateAccountNotFoundException(account);
-        AccountFolders searchedAccountFolders = getAccountFoldersFromAccount(searchedAccount);
-
-        if (!isExistingPath(folderPath, searchedAccountFolders)) {
-            throw new FolderNotFoundException("Folder does not exist");
-        }
-
-        Set<Mail> result = new HashSet<>();
-
-        Set<Folder> folders = searchedAccountFolders.getDirectories().keySet();
-        String[] followingFolders = folderPath.split("/");
-
-        String lastDirectory = followingFolders[followingFolders.length - 1];
-        Folder lastDirectoryFolder = new Folder(lastDirectory);
-
-        for (Folder folder : folders) {
-
-            if (folder.equals(lastDirectoryFolder)) {
-                result.addAll(folder.getMails());
-                break;
-            }
-        }
-
-        return result;
-    }
-
-    /**
-     * Sends an email. This stores the mail into the sender's "/sent" folder.
-     * For each recipient in the recipients email list in the metadata, if an account with this email exists,
-     * a {@code receiveMail()} for this account, mail metadata and mail content is called.
-     * If an account with the specified email does not exist, it is ignored.
-     *
-     * @param accountName  name of the sender
-     * @param mailMetadata metadata of the mail. "sender" field should be included automatically
-     *                     if missing or not correctly set
-     * @param mailContent  content of the mail
-     * @throws IllegalArgumentException if any of the parameters is null, empty or blank
-     */
-    @Override
-    public void sendMail(String accountName, String mailMetadata, String mailContent) {
-
-        validateSendMailMethod(accountName, mailMetadata, mailContent);
-
-        Account searchedAccount = getAndValidateAccountNotFoundException(accountName);
-        AccountFolders searchedAccountFolders = getAccountFoldersFromAccount(searchedAccount);
-
-        Set<Folder> folders = searchedAccountFolders.getDirectories().keySet();
-
-        MailMetadataConverter mailMetadataConverter = new MailMetadataConverter();
-        mailMetadataConverter.convertToMailMetadata(mailMetadata);
-
-        mailMetadataConverter.setSender(searchedAccount.emailAddress());
-
-        Mail toAdd = new Mail(searchedAccount, mailMetadataConverter.getRecipients(),
-            mailMetadataConverter.getSubject(), mailContent, mailMetadataConverter.getReceived());
-
-        for (Folder folder : folders) {
-
-            if (folder.equals(new Folder("sent"))) {
-
-                folder.getMails().add(toAdd);
-                break;
-            }
-        }
-
-        activateReceivedMailOnRecipients(mailMetadataConverter, mailContent);
-    }
-
     private void activateReceivedMailOnRecipients(MailMetadataConverter mailMetadataConverter, String mailContent) {
 
         for (String recipient : mailMetadataConverter.getRecipients()) {
@@ -496,6 +486,7 @@ public class Outlook implements MailClient {
             boolean isFound = false;
             for (Account currentAccount : this.accounts) {
                 if (currentAccount.emailAddress().equals(recipient)) {
+
                     toSaveAccount = currentAccount;
                     isFound = true;
                     break;
@@ -503,6 +494,7 @@ public class Outlook implements MailClient {
             }
 
             if (!isFound) {
+
                 continue;
             }
 
@@ -533,14 +525,6 @@ public class Outlook implements MailClient {
             throw new IllegalArgumentException(nameOfParameter + " is blank");
         }
     }
-
-  /*  private void validateIsExistingAccount(String accountName) {
-
-        if (this.accounts.contains(new Account("", accountName))) {
-
-            throw new AccountAlreadyExistsException("There is already an account with that name");
-        }
-    }*/
 
     private void validateIsPriorityWithinRange(int priority) {
 
@@ -616,7 +600,7 @@ public class Outlook implements MailClient {
         validateIsBlank(mailContent, "mailContent");
     }
 
-    private Account getAndValidateAccountNotFoundException(String accountName) {
+    private Account getAccountByAccountName(String accountName) {
 
         Account searchedAccount = new Account("", accountName);
 
@@ -667,20 +651,6 @@ public class Outlook implements MailClient {
         accountFolders.addNewFolder(beforeLastDirectory, lastDirectory);
     }
 
-   /* private void validateRuleAlreadyDefined(Account searchedAccount, int priority,
-                                            RuleDefinitionConverter ruleDefinitionConverter) {
-
-        AccountRules allByFarRules = getAccountRulesFromAccount(searchedAccount);
-
-        Set<Map.Entry<Integer, RuleDefinitionConverter>> entries = allByFarRules.getAccountRules().entrySet();
-        for (Map.Entry<Integer, RuleDefinitionConverter> currentEntry : entries) {
-
-            if (currentEntry.getKey().equals(priority) && currentEntry.getValue().equals(ruleDefinitionConverter)) {
-
-                throw new RuleAlreadyDefinedException("There is a conflicting rule.");
-            }
-        }
-    }*/
     private void processPath(String path, AccountFolders accountFolders) {
 
         validatePathStartsFromRoot(path);
@@ -725,52 +695,4 @@ public class Outlook implements MailClient {
 
         return newToAdd;
     }
-
-    public AccountRules getAccountRulesFromAccount(Account account) {
-
-        for (AccountRules currentAccountRules : this.accountRules) {
-
-            if (currentAccountRules.getAccount().equals(account)) {
-
-                return currentAccountRules;
-            }
-        }
-
-        AccountRules newToAdd = new AccountRules(account);
-        this.accountRules.add(newToAdd);
-
-        return newToAdd;
-    }
-
-    /*public static void main(String[] args) {
-
-        Outlook o = new Outlook();
-
-        Account r = o.addNewAccount("rnd", "a@abv.bg");
-        Account s = o.addNewAccount("sft", "b@abv.bg");
-
-        o.createFolder("rnd", "/inbox/documents");
-
-        o.createFolder("sft", "/inbox/documents");
-
-        Mail a = new Mail(r, Set.of("b@abv.bg"), "Java", "Hello, Java!", LocalDateTime.now());
-
-        String mailMetadata = "sender: a@abv.bg\n" +
-            "     subject: Java\n" +
-            "     recipients: b@abv.bg,\n" +
-            "     received: 2022-12-08 14:14\n";
-
-        o.sendMail("rnd", mailMetadata, "Hello, Java");
-       // o.receiveMail("sft", mailMetadata, "Hello, Java!");
-
-        String ruleDefinition = "subject-includes: Java\n" +
-            "     recipients-includes: b@abv.bg\n" +
-            "     from: a@abv.bg";
-
-        o.addRule("sft", "/inbox/documents", ruleDefinition, 6);
-
-        System.out.println(o.getMailsFromFolder("sft", "/inbox"));
-        System.out.println(o.getMailsFromFolder("sft", "/inbox/documents"));
-
-    }*/
 }

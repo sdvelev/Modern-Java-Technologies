@@ -21,7 +21,31 @@ public class MailMetadataConverter {
         this.subject = "";
         this.recipients = new HashSet<>();
         this.received = null;
+    }
 
+    public void convertToMailMetadata(String mailMetadata) {
+
+        try (BufferedReader bufferedReader = new BufferedReader(new StringReader(mailMetadata))) {
+
+            String currentLine;
+
+            while ((currentLine = bufferedReader.readLine()) != null) {
+
+                currentLine = currentLine.strip();
+                processCurrentLine(currentLine);
+            }
+
+        }
+        catch (IOException e) {
+
+            throw new RuntimeException("There is a problem in reading from string with mailMetadata", e);
+        }
+
+    }
+
+    public void setSender(String sender) {
+
+        this.sender = sender;
     }
 
     public String getSender() {
@@ -42,6 +66,25 @@ public class MailMetadataConverter {
     public LocalDateTime getReceived() {
 
         return received;
+    }
+
+    @Override
+    public String toString() {
+
+        String stringRepresentationRecipients = "";
+
+        for (String recipient : recipients) {
+
+            stringRepresentationRecipients = stringRepresentationRecipients.concat(recipient + ", ");
+        }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String formattedReceived = this.received.format(formatter);
+
+        return "sender: " + this.sender + System.lineSeparator() +
+            "subject: " + this.subject + System.lineSeparator() +
+            "recipients: " + stringRepresentationRecipients + System.lineSeparator() +
+            "received: " + formattedReceived + System.lineSeparator();
     }
 
     private static String processRecipients(String currentLine) {
@@ -88,31 +131,6 @@ public class MailMetadataConverter {
         }
     }
 
-    public void convertToMailMetadata(String mailMetadata) {
-
-        try (BufferedReader bufferedReader = new BufferedReader(new StringReader(mailMetadata))) {
-
-            String currentLine = null;
-
-            while ((currentLine = bufferedReader.readLine()) != null) {
-
-                currentLine = currentLine.strip();
-                processCurrentLine(currentLine);
-            }
-
-        }
-        catch (IOException e) {
-
-            throw new RuntimeException("There is a problem in reading from string with mailMetadata", e);
-        }
-
-    }
-
-    public void setSender(String sender) {
-
-        this.sender = sender;
-    }
-
     private void setSubject(String subject) {
 
         this.subject = subject;
@@ -127,36 +145,4 @@ public class MailMetadataConverter {
 
         this.received = received;
     }
-
-    @Override
-    public String toString() {
-
-        String stringRepresentationRecipients = "";
-
-        for (String recipient : recipients) {
-
-            stringRepresentationRecipients = stringRepresentationRecipients.concat(recipient + ", ");
-        }
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        String formattedReceived = this.received.format(formatter);
-
-        return "sender: " + this.sender + System.lineSeparator() +
-            "subject: " + this.subject + System.lineSeparator() +
-            "recipients: " + stringRepresentationRecipients + System.lineSeparator() +
-            "received: " + formattedReceived + System.lineSeparator();
-    }
-
-   /* public static void main(String[] args) {
-
-        String mailData = "sender: testy@gmail.com" + System.lineSeparator() +
-            "      subject: Hello, MJT!" + System.lineSeparator() +
-            "      received: 2022-12-08 14:14" + System.lineSeparator() +
-            "      recipients: pesho@gmail.com, gosho@gmail.com," + System.lineSeparator();
-
-        MailMetadataConverter a = new MailMetadataConverter();
-        a.convertToMailMetadata(mailData);
-
-    }*/
-
 }

@@ -19,7 +19,7 @@ public class RuleDefinitionConverter {
     private boolean recipientsIncludesAlreadyDefined;
     private String from;
     private boolean fromAlreadyDefined;
-    private String destinationPath = "";
+    private String destinationPath;
 
     public RuleDefinitionConverter() {
 
@@ -27,11 +27,31 @@ public class RuleDefinitionConverter {
         this.subjectOrBodyIncludes = new HashSet<>();
         this.recipientsIncludes = new HashSet<>();
         this.from = "";
+        this.destinationPath = "";
 
         this.subjectIncludesAlreadyDefined = false;
         this.subjectOrBodyIncludesAlreadyDefined = false;
         this.recipientsIncludesAlreadyDefined = false;
         this.fromAlreadyDefined = false;
+    }
+
+    public void convertToRuleDefinition(String ruleDefinition) {
+
+        try (BufferedReader bufferedReader = new BufferedReader(new StringReader(ruleDefinition))) {
+
+            String currentLine;
+
+            while ((currentLine = bufferedReader.readLine()) != null) {
+
+                currentLine = currentLine.strip();
+                processCurrentLine(currentLine);
+            }
+
+        }
+        catch (IOException e) {
+
+            throw new RuntimeException("There is a problem in reading from string with ruleDefinition", e);
+        }
     }
 
     public Set<String> getSubjectsIncludes() {
@@ -62,6 +82,24 @@ public class RuleDefinitionConverter {
     public String getDestinationPath() {
 
         return this.destinationPath;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RuleDefinitionConverter that = (RuleDefinitionConverter) o;
+        return Objects.equals(subjectIncludes, that.subjectIncludes) &&
+            Objects.equals(subjectOrBodyIncludes, that.subjectOrBodyIncludes) &&
+            Objects.equals(recipientsIncludes, that.recipientsIncludes) &&
+            Objects.equals(from, that.from);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(subjectIncludes, subjectOrBodyIncludes, recipientsIncludes, from);
     }
 
     private static String processSubjectIncludes(String currentLine) {
@@ -161,26 +199,6 @@ public class RuleDefinitionConverter {
 
     }
 
-    public void convertToRuleDefinition(String ruleDefinition) {
-
-        try (BufferedReader bufferedReader = new BufferedReader(new StringReader(ruleDefinition))) {
-
-            String currentLine = null;
-
-            while ((currentLine = bufferedReader.readLine()) != null) {
-
-                currentLine = currentLine.strip();
-                processCurrentLine(currentLine);
-            }
-
-        }
-        catch (IOException e) {
-
-            throw new RuntimeException("There is a problem in reading from string with ruleDefinition", e);
-        }
-
-    }
-
     private void setSenderEmail(String senderEmail) {
 
         this.from = senderEmail;
@@ -200,32 +218,4 @@ public class RuleDefinitionConverter {
 
         this.recipientsIncludes.add(recipientInclude);
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        RuleDefinitionConverter that = (RuleDefinitionConverter) o;
-        return Objects.equals(subjectIncludes, that.subjectIncludes) &&
-            Objects.equals(subjectOrBodyIncludes, that.subjectOrBodyIncludes) &&
-            Objects.equals(recipientsIncludes, that.recipientsIncludes) &&
-            Objects.equals(from, that.from);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(subjectIncludes, subjectOrBodyIncludes, recipientsIncludes, from);
-    }
-
-    /*public static void main(String[] args) {
-
-        String ruleDefinition = "subject-includes: mjt, izpit, 2022" + System.lineSeparator() +
-            "      subject-or-body-includes: izpit" + System.lineSeparator() +
-            "      from: stoyo@fmi.bg";
-
-        RuleDefinitionConverter a = new RuleDefinitionConverter();
-        a.convertToRuleDefinition(ruleDefinition);
-
-    }*/
-
 }
