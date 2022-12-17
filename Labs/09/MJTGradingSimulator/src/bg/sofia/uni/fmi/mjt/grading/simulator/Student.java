@@ -56,8 +56,8 @@ public class Student implements Runnable {
             e.printStackTrace();
         }
 
-        Assignment toAddAssignment = new Assignment(this.fn, this.name, toAddAssignmentType);
-        this.studentGradingAPI.submitAssignment(toAddAssignment);
+        Assignment toAddAssignment = new Assignment(this.getFn(), this.getName(), toAddAssignmentType);
+        this.getGrader().submitAssignment(toAddAssignment);
        // System.out.println("Assignment submitted!");
     }
 
