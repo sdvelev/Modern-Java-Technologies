@@ -133,11 +133,9 @@ public class CodePostGraderTest {
         Thread student50 = new Thread(new Student(62537, "Ivan", codePostGrader));
         student50.start();
 
-
         try {
             Thread.sleep(2000);
-        }
-        catch (InterruptedException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
@@ -146,5 +144,4 @@ public class CodePostGraderTest {
         Assertions.assertEquals(50, codePostGrader.getSubmittedAssignmentsCount(),
             "The number of submitted assignments are not the same as expected");
     }
-
 }

@@ -9,9 +9,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Assistant extends Thread {
 
     private final String name;
-    private CodePostGrader grader;
+    private final CodePostGrader grader;
 
-    private AtomicInteger numberOfGradedAssignments;
+    private final AtomicInteger numberOfGradedAssignments;
 
     public Assistant(String name, AdminGradingAPI grader) {
 
@@ -37,119 +37,13 @@ public class Assistant extends Thread {
             }
 
             this.numberOfGradedAssignments.incrementAndGet();
-
         }
 
-        System.out.println(this.name + " " + this.numberOfGradedAssignments.get());
-
+        //System.out.println(this.name + " " + this.numberOfGradedAssignments.get());
     }
-        /*while (true) {
-
-
-            Assignment toCheckAssignment = this.grader.getAssignment();
-
-            if (toCheckAssignment == null) {
-
-                if (this.grader.getIsFinalized()) {
-                    break;
-                } else {
-
-                    try {
-
-                        this.wait();
-                    } catch (InterruptedException e) {
-
-                        e.printStackTrace();
-                    }
-                }
-            } else {
-
-                try {
-
-                    Thread.sleep(toCheckAssignment.type().getGradingTime());
-                } catch (InterruptedException e) {
-
-                    e.printStackTrace();
-                }
-
-                this.numberOfGradedAssignments.incrementAndGet();
-            }
-        }
-
-        System.out.println(this.name + " " + this.numberOfGradedAssignments.get());
-
-    }
-*/
-
-
-/*
-
-        while (true) {
-
-
-            if (this.grader.getIsFinalized()) {
-
-                while (true) {
-
-                    Assignment toCheckAssignment = this.grader.getAssignment();
-
-                    if (toCheckAssignment != null) {
-
-                        try {
-
-                            Thread.sleep(toCheckAssignment.type().getGradingTime());
-                        } catch (InterruptedException e) {
-
-                            e.printStackTrace();
-                        }
-
-                        this.numberOfGradedAssignments.incrementAndGet();
-
-                        //System.out.println("Work checked! There are " + numberOfGradedAssignments.get() +
-                        " graded assignments!");
-                    } else {
-                        break;
-                    }
-
-                }
-            }
-
-            Assignment toCheckAssignment = this.grader.getAssignment();
-
-            if (toCheckAssignment == null) {
-                try {
-
-                    this.wait();
-                }
-                catch (InterruptedException e) {
-
-                    e.printStackTrace();
-                }
-            }
-            else {
-
-                try {
-
-                    Thread.sleep(toCheckAssignment.type().getGradingTime());
-                }
-                catch (InterruptedException e) {
-
-                    e.printStackTrace();
-                }
-
-                this.numberOfGradedAssignments.incrementAndGet();
-
-                //System.out.println("Work checked! There are " + numberOfGradedAssignments.get() +
-                " graded assignments!");
-            }
-        }
-
-       // System.out.println(this.name + " " + this.numberOfGradedAssignments);
-    }*/
 
     public int getNumberOfGradedAssignments() {
 
         return this.numberOfGradedAssignments.get();
     }
-
 }
