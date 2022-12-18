@@ -56,7 +56,7 @@ public class AssistantTest {
         student20.start();
 
         try {
-            Thread.sleep(6000);
+            Thread.sleep(2000);
         }
         catch (InterruptedException e) {
             e.printStackTrace();
@@ -71,7 +71,7 @@ public class AssistantTest {
             totalCheckedAssignments += assistant.getNumberOfGradedAssignments();
         }
 
-        Assertions.assertEquals(20, codePostGrader.getSubmittedAssignmentsCount(),
+        Assertions.assertEquals(20, totalCheckedAssignments,
             "The number of checked assignments by each assistant is not the same as expected");
     }
 }

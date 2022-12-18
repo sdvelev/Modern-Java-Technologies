@@ -11,6 +11,9 @@ public class CodePostGraderTest {
     void testCreateAssistantsSuccessfully() {
 
         CodePostGrader codePostGrader = new CodePostGrader(6);
+
+        codePostGrader.finalizeGrading();
+
         Assertions.assertEquals(6, codePostGrader.getAssistants().size(),
             "Five assistants are expected to be created");
     }
@@ -132,7 +135,7 @@ public class CodePostGraderTest {
 
 
         try {
-            Thread.sleep(9000);
+            Thread.sleep(2000);
         }
         catch (InterruptedException e) {
             e.printStackTrace();
@@ -143,7 +146,5 @@ public class CodePostGraderTest {
         Assertions.assertEquals(50, codePostGrader.getSubmittedAssignmentsCount(),
             "The number of submitted assignments are not the same as expected");
     }
-
-
 
 }

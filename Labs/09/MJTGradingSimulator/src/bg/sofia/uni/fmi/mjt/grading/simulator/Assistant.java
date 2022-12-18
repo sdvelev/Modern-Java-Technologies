@@ -13,10 +13,10 @@ public class Assistant extends Thread {
 
     private AtomicInteger numberOfGradedAssignments;
 
-    public Assistant(String name, CodePostGrader grader) {
+    public Assistant(String name, AdminGradingAPI grader) {
 
         this.name = name;
-        this.grader = grader;
+        this.grader = (CodePostGrader) grader;
         this.numberOfGradedAssignments = new AtomicInteger();
         this.numberOfGradedAssignments.set(0);
     }
@@ -24,7 +24,7 @@ public class Assistant extends Thread {
     @Override
     public void run() {
 
-        Assignment toCheckAssignment;
+        Assignment toCheckAssignment = null;
 
         while ((toCheckAssignment = this.grader.getAssignment()) != null) {
 
@@ -105,7 +105,8 @@ public class Assistant extends Thread {
 
                         this.numberOfGradedAssignments.incrementAndGet();
 
-                        //System.out.println("Work checked! There are " + numberOfGradedAssignments.get() + " graded assignments!");
+                        //System.out.println("Work checked! There are " + numberOfGradedAssignments.get() +
+                        " graded assignments!");
                     } else {
                         break;
                     }
@@ -138,7 +139,8 @@ public class Assistant extends Thread {
 
                 this.numberOfGradedAssignments.incrementAndGet();
 
-                //System.out.println("Work checked! There are " + numberOfGradedAssignments.get() + " graded assignments!");
+                //System.out.println("Work checked! There are " + numberOfGradedAssignments.get() +
+                " graded assignments!");
             }
         }
 

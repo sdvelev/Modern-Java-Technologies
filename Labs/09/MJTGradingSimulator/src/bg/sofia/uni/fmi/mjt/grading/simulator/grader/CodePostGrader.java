@@ -79,10 +79,25 @@ public class CodePostGrader implements AdminGradingAPI {
      * Notifies the assistants to finalize grading. All already submitted assignments must be graded.
      */
     @Override
-    public synchronized void finalizeGrading() {
+    public void finalizeGrading() {
 
-        this.isFinalized = true;
-        this.notifyAll();
+        synchronized (this) {
+
+            this.isFinalized = true;
+            this.notifyAll();
+        }
+
+       /* for (Assistant currentAssistant : this.assistantList) {
+
+            try {
+
+                currentAssistant.join();
+            } catch (InterruptedException e) {
+
+                e.printStackTrace();
+            }
+
+        }*/
 
      /*   for (Assistant assistant : this.getAssistants()) {
             synchronized (assistant) {
@@ -111,13 +126,18 @@ public class CodePostGrader implements AdminGradingAPI {
     @Override
     public synchronized void submitAssignment(Assignment assignment) {
 
-        if (!this.isFinalized) {
+        this.numberOfSubmittedAssignments.incrementAndGet();
+        this.assignmentQueue.add(assignment);
+
+        this.notifyAll();
+
+       /* if (!this.isFinalized) {
 
             this.numberOfSubmittedAssignments.incrementAndGet();
             this.assignmentQueue.add(assignment);
         }
 
-        this.notifyAll();
+        this.notifyAll();*/
 
      /*   for (Assistant assistant : this.getAssistants()) {
             synchronized (assistant) {
@@ -136,15 +156,53 @@ public class CodePostGrader implements AdminGradingAPI {
         }
 
     }
-/*
-    public static void main(String[] args) {
 
-        CodePostGrader codePostGrader = new CodePostGrader(5);
+   /* public static void main(String[] args) {
+
+        CodePostGrader codePostGrader = new CodePostGrader(12);
 
         Thread student1 = new Thread(new Student(62537, "Ivan", codePostGrader));
         student1.start();
         Thread student2 = new Thread(new Student(62537, "Ivan", codePostGrader));
         student2.start();
+
+        Thread student3 = new Thread(new Student(62537, "Ivan", codePostGrader));
+        student3.start();
+        Thread student4 = new Thread(new Student(62537, "Ivan", codePostGrader));
+        student4.start();
+        Thread student5 = new Thread(new Student(62537, "Ivan", codePostGrader));
+        student5.start();
+
+        Thread student6 = new Thread(new Student(62537, "Ivan", codePostGrader));
+        student6.start();
+        Thread student7 = new Thread(new Student(62537, "Ivan", codePostGrader));
+        student7.start();
+        Thread student8 = new Thread(new Student(62537, "Ivan", codePostGrader));
+        student8.start();
+        Thread student9 = new Thread(new Student(62537, "Ivan", codePostGrader));
+        student9.start();
+        Thread student10 = new Thread(new Student(62537, "Ivan", codePostGrader));
+        student10.start();
+
+        try {
+            Thread.sleep(1000);
+        }
+        catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        codePostGrader.finalizeGrading();
+
+        System.out.println(codePostGrader.getIsFinalized());
+        System.out.println(codePostGrader.getSubmittedAssignmentsCount());
+
+        for (Assistant assistant : codePostGrader.getAssistants()) {
+            System.out.println(assistant.getNumberOfGradedAssignments());
+        }
+
+    }*/
+
+    /*
         Thread student3 = new Thread(new Student(62537, "Ivan", codePostGrader));
         student3.start();
         Thread student4 = new Thread(new Student(62537, "Ivan", codePostGrader));
