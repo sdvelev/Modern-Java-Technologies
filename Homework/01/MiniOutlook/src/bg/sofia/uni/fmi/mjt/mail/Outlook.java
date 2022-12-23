@@ -19,9 +19,9 @@ public class Outlook implements MailClient {
     private static final String BEGINNING_REGEX = "(.)*\\b";
     private static final String ENDING_REGEX = "\\b(.)*";
 
-    private Set<Account> accounts;
-    private Set<AccountFolders> accountsFolders;
-    private Set<AccountRules> accountRules;
+    private final Set<Account> accounts;
+    private final Set<AccountFolders> accountsFolders;
+    private final Set<AccountRules> accountRules;
 
     public Outlook() {
 

@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
+
 public class MailMetadataConverter {
 
     private String sender;
@@ -34,9 +35,7 @@ public class MailMetadataConverter {
                 currentLine = currentLine.strip();
                 processCurrentLine(currentLine);
             }
-
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
 
             throw new RuntimeException("There is a problem in reading from string with mailMetadata", e);
         }

@@ -47,7 +47,7 @@ public class AccountRules {
         }
     }
 
-    public void eraseAccountRuleWithRuleDefinitionConverter(RuleDefinitionConverter toErase, Integer priority) {
+    private void eraseAccountRuleWithRuleDefinitionConverter(RuleDefinitionConverter toErase, Integer priority) {
 
         this.accountRules.remove(priority, toErase);
     }
