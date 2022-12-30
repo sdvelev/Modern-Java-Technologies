@@ -6,10 +6,17 @@ import java.io.FileReader;
 import java.io.Reader;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
 public class MovieReviewSentimentAnalyzer implements SentimentAnalyzer {
+
+    private final static int NEGATIVE_RATE = 0;
+    private final static int SOMEWHAT_NEGATIVE_RATE = 1;
+    private final static int NEUTRAL_RATE = 2;
+    private final static int SOMEWHAT_POSITIVE_RATE = 3;
+    private final static int POSITIVE_RATE = 4;
 
     private Reader stopwordsIn;
     private Reader reviewsIn;
@@ -36,7 +43,27 @@ public class MovieReviewSentimentAnalyzer implements SentimentAnalyzer {
      */
     @Override
     public double getReviewSentiment(String review) {
-        return 0;
+
+        double totalWordsSentiment = 0;
+        int counterWords = 0;
+
+        for (String currentWord : review.split(" ")) {
+
+            if (this.getWordSentiment(currentWord) == -1) {
+
+                continue;
+            }
+
+            counterWords++;
+            totalWordsSentiment += this.getWordSentiment(currentWord);
+        }
+
+        if (counterWords == 0) {
+
+            return -1;
+        }
+
+        return totalWordsSentiment / counterWords;
     }
 
     /**
@@ -46,7 +73,22 @@ public class MovieReviewSentimentAnalyzer implements SentimentAnalyzer {
      */
     @Override
     public String getReviewSentimentAsName(String review) {
-        return null;
+
+        int reviewSentimentScoreRounded = (int) Math.round(this.getReviewSentiment(review));
+
+        String result;
+
+        switch (reviewSentimentScoreRounded) {
+
+            case NEGATIVE_RATE ->  result = "negative";
+            case SOMEWHAT_NEGATIVE_RATE -> result = "somewhat negative";
+            case NEUTRAL_RATE -> result = "neutral";
+            case SOMEWHAT_POSITIVE_RATE -> result = "somewhat positive";
+            case POSITIVE_RATE -> result = "positive";
+            default -> result = "unknown";
+        }
+
+        return result;
     }
 
     /**
@@ -57,12 +99,12 @@ public class MovieReviewSentimentAnalyzer implements SentimentAnalyzer {
     @Override
     public double getWordSentiment(String word) {
 
-        if (!this.reviewer.getFrequencySentimentMap().containsKey(word)) {
+        if (!this.reviewer.getFrequencySentimentMap().containsKey(word.toLowerCase())) {
 
             return -1;
         }
 
-        return this.reviewer.getFrequencySentimentMap().get(word).getWordSentimentScore();
+        return this.reviewer.getFrequencySentimentMap().get(word.toLowerCase()).getWordSentimentScore();
     }
 
     /**
@@ -122,7 +164,20 @@ public class MovieReviewSentimentAnalyzer implements SentimentAnalyzer {
      */
     @Override
     public List<String> getMostPositiveWords(int n) {
-        return null;
+
+        validateDesiredNumber(n);
+
+        if (n == 0) {
+
+            return new ArrayList<>();
+        }
+
+        return this.reviewer.getFrequencySentimentMap().entrySet().stream()
+            .sorted((firstEntry, secondEntry) -> Double.compare(secondEntry.getValue().getWordSentimentScore(),
+                firstEntry.getValue().getWordSentimentScore()))
+            .limit(n)
+            .map(Map.Entry::getKey)
+            .toList();
     }
 
     /**
@@ -133,7 +188,19 @@ public class MovieReviewSentimentAnalyzer implements SentimentAnalyzer {
      */
     @Override
     public List<String> getMostNegativeWords(int n) {
-        return null;
+
+        validateDesiredNumber(n);
+
+        if (n == 0) {
+
+            return new ArrayList<>();
+        }
+
+        return this.reviewer.getFrequencySentimentMap().entrySet().stream()
+            .sorted(Comparator.comparingDouble(currentEntry -> currentEntry.getValue().getWordSentimentScore()))
+            .limit(n)
+            .map(Map.Entry::getKey)
+            .toList();
     }
 
     /**
@@ -180,6 +247,12 @@ public class MovieReviewSentimentAnalyzer implements SentimentAnalyzer {
 
         System.out.println(m.getMostFrequentWords(6));
         System.out.println(m.getSentimentDictionarySize());
+
+        System.out.println(m.getWordSentiment("film"));
+        System.out.println(m.getMostPositiveWords(6));
+        System.out.println(m.getWordSentiment("'30s"));
+        System.out.println(m.getMostNegativeWords(6));
+        System.out.println(m.getWordSentiment("pics"));
     }
 
 }
