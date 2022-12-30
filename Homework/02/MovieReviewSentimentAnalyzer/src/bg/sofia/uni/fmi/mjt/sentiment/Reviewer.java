@@ -54,7 +54,7 @@ public class Reviewer {
 
     }
 
-    private void readWordsWithAddingFrequency(String currentLine) {
+    public void readWordsWithAddingFrequency(String currentLine) {
 
         int currentRating = Integer.parseInt(currentLine.substring(0, 1));
 

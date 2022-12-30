@@ -1,8 +1,10 @@
 package bg.sofia.uni.fmi.mjt.sentiment;
 
-import java.io.File;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 import java.util.ArrayList;
@@ -28,10 +30,10 @@ public class MovieReviewSentimentAnalyzer implements SentimentAnalyzer {
         this.stopwordsIn = stopwordsIn;
         this.reviewsIn = reviewsIn;
         this.reviewsOut = reviewsOut;
-        this.update();
+        this.updateReviewer();
     }
 
-    private void update() {
+    private void updateReviewer() {
 
         this.reviewer = new Reviewer(this.stopwordsIn, this.reviewsIn, this.reviewsOut);
     }
@@ -215,7 +217,56 @@ public class MovieReviewSentimentAnalyzer implements SentimentAnalyzer {
      */
     @Override
     public boolean appendReview(String review, int sentiment) {
+
+        validateSentimentInRange(sentiment);
+        validateReviewIsNullEmptyOrBlank(review);
+
+        String entryToAdd = sentiment + " " + review;
+
+        try (BufferedWriter bufferedWriter = new BufferedWriter(this.reviewsOut)) {
+
+            bufferedWriter.write(entryToAdd);
+            bufferedWriter.newLine();
+            this.updateReviewerAppendReview(entryToAdd);
+        } catch (IOException e) {
+
+            return false;
+        }
+
+
         return false;
+    }
+
+    private void updateReviewerAppendReview(String currentReview) {
+
+        this.reviewer.readWordsWithAddingFrequency(currentReview);
+
+        for (String currentWord : currentReview.split(" ")) {
+
+            WordCharacteristics currentWordCharacteristics = this.reviewer.getFrequencySentimentMap()
+                .get(currentWord);
+
+            if (currentWordCharacteristics != null) {
+
+                currentWordCharacteristics.calculateSentimentScore();
+            }
+        }
+    }
+
+    private void validateSentimentInRange(int sentiment) {
+
+        if (sentiment < NEGATIVE_RATE || sentiment > POSITIVE_RATE) {
+
+            throw new IllegalArgumentException("Given sentiment is not within the permitted range");
+        }
+    }
+
+    private void validateReviewIsNullEmptyOrBlank(String review) {
+
+        if (review == null || review.isEmpty() || review.isBlank()) {
+
+            throw new IllegalArgumentException("Given review is null, empty or blank");
+        }
     }
 
     /**
@@ -238,12 +289,13 @@ public class MovieReviewSentimentAnalyzer implements SentimentAnalyzer {
         return this.reviewer.getStopWordsSet().contains(word);
     }
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws FileNotFoundException, IOException {
 
         Reader stopWordsIn = new FileReader("stopwords.txt");
         Reader reviewsIn = new FileReader("movieReviews.txt");
+        Writer reviewsOut = new FileWriter("movieReviews.txt", true);
 
-        MovieReviewSentimentAnalyzer m = new MovieReviewSentimentAnalyzer(stopWordsIn, reviewsIn, null);
+        MovieReviewSentimentAnalyzer m = new MovieReviewSentimentAnalyzer(stopWordsIn, reviewsIn, reviewsOut);
 
         System.out.println(m.getMostFrequentWords(6));
         System.out.println(m.getSentimentDictionarySize());
@@ -252,6 +304,8 @@ public class MovieReviewSentimentAnalyzer implements SentimentAnalyzer {
         System.out.println(m.getMostPositiveWords(6));
         System.out.println(m.getWordSentiment("'30s"));
         System.out.println(m.getMostNegativeWords(6));
+        System.out.println(m.getWordSentiment("pics"));
+        m.appendReview("Hello, new review containing pics", POSITIVE_RATE);
         System.out.println(m.getWordSentiment("pics"));
     }
 
