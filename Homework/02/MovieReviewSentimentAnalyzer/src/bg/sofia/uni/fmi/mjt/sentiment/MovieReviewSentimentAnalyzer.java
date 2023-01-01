@@ -228,6 +228,21 @@ public class MovieReviewSentimentAnalyzer implements SentimentAnalyzer {
         return this.reviewer.getStopWordsSet().contains(word.toLowerCase());
     }
 
+    public Reader getStopwordsIn() {
+
+        return stopwordsIn;
+    }
+
+    public Reader getReviewsIn() {
+
+        return reviewsIn;
+    }
+
+    public Writer getReviewsOut() {
+
+        return reviewsOut;
+    }
+
     private void initializeReviewer() {
 
         this.reviewer = new Reviewer(this.stopwordsIn, this.reviewsIn, this.reviewsOut);
@@ -289,5 +304,4 @@ public class MovieReviewSentimentAnalyzer implements SentimentAnalyzer {
         m.appendReview("Hello, new review containing pics", POSITIVE_RATE);
         System.out.println(m.getWordSentiment("pics"));*/
     }
-
 }

@@ -135,5 +135,4 @@ public class Reviewer {
             this.frequencySentimentMap.get(word).increaseWordTotalSentimentCounter(currentRating);
         }
     }
-
 }
