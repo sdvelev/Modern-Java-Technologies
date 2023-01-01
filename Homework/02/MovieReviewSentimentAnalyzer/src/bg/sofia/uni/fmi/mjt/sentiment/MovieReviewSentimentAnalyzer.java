@@ -244,7 +244,7 @@ public class MovieReviewSentimentAnalyzer implements SentimentAnalyzer {
         for (String currentWord : currentReview.split(" ")) {
 
             WordCharacteristics currentWordCharacteristics = this.reviewer.getFrequencySentimentMap()
-                .get(currentWord);
+                .get(currentWord.toLowerCase());
 
             if (currentWordCharacteristics != null) {
 

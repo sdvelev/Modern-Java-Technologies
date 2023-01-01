@@ -293,8 +293,64 @@ public class MovieReviewSentimentAnalyzerTest {
     @Test
     void testGetSentimentDictionarySize() {
 
+        this.movieReviewSentimentAnalyzer.getSentimentDictionarySize();
+
         Assertions.assertEquals(106, this.movieReviewSentimentAnalyzer.getSentimentDictionarySize(),
             "Sentiment Dictionary size is not the same as expected");
+    }
+
+    @Test
+    void testAppendReviewWithNegativeSentiment() {
+
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
+                this.movieReviewSentimentAnalyzer.appendReview("Sample review", -1),
+            "IllegalClassArgumentException is expected but not thrown");
+    }
+
+    @Test
+    void testAppendReviewWithSentimentOutOfBound() {
+
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
+                this.movieReviewSentimentAnalyzer.appendReview("Sample review", 5),
+            "IllegalClassArgumentException is expected but not thrown");
+    }
+
+    @Test
+    void testAppendReviewWithReviewNull() {
+
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
+                this.movieReviewSentimentAnalyzer.appendReview(null, 1),
+            "IllegalClassArgumentException is expected but not thrown");
+    }
+
+    @Test
+    void testAppendReviewSuccessfully() {
+
+        String reviewToAdd = "you you yOu";
+        int sentimentScoreToAdd = 3;
+
+        this.movieReviewSentimentAnalyzer.appendReview(reviewToAdd, sentimentScoreToAdd);
+
+        Assertions.assertEquals(1.66, this.movieReviewSentimentAnalyzer.getWordSentiment("you"), 0.01,
+            "Actual sentiment score of some words after appending review is not the same as expected");
+    }
+
+    @Test
+    void testAppendReviewSuccessfullyWithStopWordsAndOneOrdinaryWord() {
+
+        String reviewToAdd = "a of about about of of of a about London";
+        int sentimentScoreToAdd = 4;
+
+        int currentDictionarySize = this.movieReviewSentimentAnalyzer.getSentimentDictionarySize();
+
+        this.movieReviewSentimentAnalyzer.appendReview(reviewToAdd, sentimentScoreToAdd);
+
+        Assertions.assertEquals(currentDictionarySize + 1,
+            this.movieReviewSentimentAnalyzer.getSentimentDictionarySize(),
+            "Expected number of words in dictionary after appending review is not the same as the expected");
+
+        Assertions.assertEquals(4, this.movieReviewSentimentAnalyzer.getWordSentiment("london"),
+            "Actual word sentiment after appending review is not the same as as the expected");
     }
 
 }
