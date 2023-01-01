@@ -2,27 +2,32 @@ package bg.sofia.uni.fmi.mjt.sentiment;
 
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class MovieReviewSentimentAnalyzer implements SentimentAnalyzer {
 
     private final static int NEGATIVE_RATE = 0;
+    private final static String NEGATIVE_ASSESSMENT = "negative";
     private final static int SOMEWHAT_NEGATIVE_RATE = 1;
+    private final static String SOMEWHAT_NEGATIVE_ASSESSMENT = "somewhat negative";
     private final static int NEUTRAL_RATE = 2;
+    private final static String NEUTRAL_ASSESSMENT = "neutral";
     private final static int SOMEWHAT_POSITIVE_RATE = 3;
+    private final static String SOMEWHAT_POSITIVE_ASSESSMENT = "somewhat positive";
     private final static int POSITIVE_RATE = 4;
+    private final static String POSITIVE_ASSESSMENT = "positive";
+    private final static String UNKNOWN_ASSESSMENT = "unknown";
+    private final static String INTERVAL_REGEX = " ";
 
-    private Reader stopwordsIn;
-    private Reader reviewsIn;
-    private Writer reviewsOut;
+    private final Reader stopwordsIn;
+    private final Reader reviewsIn;
+    private final Writer reviewsOut;
     private Reviewer reviewer;
 
     public MovieReviewSentimentAnalyzer(Reader stopwordsIn, Reader reviewsIn, Writer reviewsOut) {
@@ -30,12 +35,7 @@ public class MovieReviewSentimentAnalyzer implements SentimentAnalyzer {
         this.stopwordsIn = stopwordsIn;
         this.reviewsIn = reviewsIn;
         this.reviewsOut = reviewsOut;
-        this.updateReviewer();
-    }
-
-    private void updateReviewer() {
-
-        this.reviewer = new Reviewer(this.stopwordsIn, this.reviewsIn, this.reviewsOut);
+        this.initializeReviewer();
     }
 
     /**
@@ -49,10 +49,9 @@ public class MovieReviewSentimentAnalyzer implements SentimentAnalyzer {
         double totalWordsSentiment = 0;
         int counterWords = 0;
 
-        for (String currentWord : review.split(" ")) {
+        for (String currentWord : review.split(INTERVAL_REGEX)) {
 
             if (this.getWordSentiment(currentWord) == -1) {
-
                 continue;
             }
 
@@ -78,19 +77,15 @@ public class MovieReviewSentimentAnalyzer implements SentimentAnalyzer {
 
         int reviewSentimentScoreRounded = (int) Math.round(this.getReviewSentiment(review));
 
-        String result;
+        return switch (reviewSentimentScoreRounded) {
 
-        switch (reviewSentimentScoreRounded) {
-
-            case NEGATIVE_RATE ->  result = "negative";
-            case SOMEWHAT_NEGATIVE_RATE -> result = "somewhat negative";
-            case NEUTRAL_RATE -> result = "neutral";
-            case SOMEWHAT_POSITIVE_RATE -> result = "somewhat positive";
-            case POSITIVE_RATE -> result = "positive";
-            default -> result = "unknown";
-        }
-
-        return result;
+            case NEGATIVE_RATE -> NEGATIVE_ASSESSMENT;
+            case SOMEWHAT_NEGATIVE_RATE -> SOMEWHAT_NEGATIVE_ASSESSMENT;
+            case NEUTRAL_RATE -> NEUTRAL_ASSESSMENT;
+            case SOMEWHAT_POSITIVE_RATE -> SOMEWHAT_POSITIVE_ASSESSMENT;
+            case POSITIVE_RATE -> POSITIVE_ASSESSMENT;
+            default -> UNKNOWN_ASSESSMENT;
+        };
     }
 
     /**
@@ -137,25 +132,12 @@ public class MovieReviewSentimentAnalyzer implements SentimentAnalyzer {
 
         validateDesiredNumber(n);
 
-        if (n == 0) {
-
-            return new ArrayList<>();
-        }
-
         return this.reviewer.getFrequencySentimentMap().entrySet().stream()
             .sorted((firstEntry, secondEntry) -> Integer.compare(secondEntry.getValue().getWordFrequencyCounter(),
                 firstEntry.getValue().getWordFrequencyCounter()))
             .limit(n)
             .map(Map.Entry::getKey)
-            .toList();
-    }
-
-    private void validateDesiredNumber(int n) {
-
-        if (n < 0) {
-
-            throw new IllegalArgumentException("Desired quantity n is negative");
-        }
+            .collect(Collectors.toList());
     }
 
     /**
@@ -168,11 +150,6 @@ public class MovieReviewSentimentAnalyzer implements SentimentAnalyzer {
     public List<String> getMostPositiveWords(int n) {
 
         validateDesiredNumber(n);
-
-        if (n == 0) {
-
-            return new ArrayList<>();
-        }
 
         return this.reviewer.getFrequencySentimentMap().entrySet().stream()
             .sorted((firstEntry, secondEntry) -> Double.compare(secondEntry.getValue().getWordSentimentScore(),
@@ -193,16 +170,11 @@ public class MovieReviewSentimentAnalyzer implements SentimentAnalyzer {
 
         validateDesiredNumber(n);
 
-        if (n == 0) {
-
-            return new ArrayList<>();
-        }
-
         return this.reviewer.getFrequencySentimentMap().entrySet().stream()
             .sorted(Comparator.comparingDouble(currentEntry -> currentEntry.getValue().getWordSentimentScore()))
             .limit(n)
             .map(Map.Entry::getKey)
-            .toList();
+            .collect(Collectors.toList());
     }
 
     /**
@@ -233,40 +205,7 @@ public class MovieReviewSentimentAnalyzer implements SentimentAnalyzer {
             return false;
         }
 
-
-        return false;
-    }
-
-    private void updateReviewerAppendReview(String currentReview) {
-
-        this.reviewer.readWordsWithAddingFrequency(currentReview);
-
-        for (String currentWord : currentReview.split(" ")) {
-
-            WordCharacteristics currentWordCharacteristics = this.reviewer.getFrequencySentimentMap()
-                .get(currentWord.toLowerCase());
-
-            if (currentWordCharacteristics != null) {
-
-                currentWordCharacteristics.calculateSentimentScore();
-            }
-        }
-    }
-
-    private void validateSentimentInRange(int sentiment) {
-
-        if (sentiment < NEGATIVE_RATE || sentiment > POSITIVE_RATE) {
-
-            throw new IllegalArgumentException("Given sentiment is not within the permitted range");
-        }
-    }
-
-    private void validateReviewIsNullEmptyOrBlank(String review) {
-
-        if (review == null || review.isEmpty() || review.isBlank()) {
-
-            throw new IllegalArgumentException("Given review is null, empty or blank");
-        }
+        return true;
     }
 
     /**
@@ -286,7 +225,49 @@ public class MovieReviewSentimentAnalyzer implements SentimentAnalyzer {
     @Override
     public boolean isStopWord(String word) {
 
-        return this.reviewer.getStopWordsSet().contains(word);
+        return this.reviewer.getStopWordsSet().contains(word.toLowerCase());
+    }
+
+    private void initializeReviewer() {
+
+        this.reviewer = new Reviewer(this.stopwordsIn, this.reviewsIn, this.reviewsOut);
+    }
+
+    private void validateDesiredNumber(int n) {
+
+        if (n < 0) {
+            throw new IllegalArgumentException("Desired quantity n is negative");
+        }
+    }
+
+    private void validateSentimentInRange(int sentiment) {
+
+        if (sentiment < NEGATIVE_RATE || sentiment > POSITIVE_RATE) {
+            throw new IllegalArgumentException("Given sentiment is not within the permitted range");
+        }
+    }
+
+    private void validateReviewIsNullEmptyOrBlank(String review) {
+
+        if (review == null || review.isEmpty() || review.isBlank()) {
+            throw new IllegalArgumentException("Given review is null, empty or blank");
+        }
+    }
+
+    public void updateReviewerAppendReview(String currentReview) {
+
+        this.reviewer.readWordsAddingFrequency(currentReview);
+
+        for (String currentWord : currentReview.split(INTERVAL_REGEX)) {
+
+            WordCharacteristics currentWordCharacteristics = this.reviewer.getFrequencySentimentMap()
+                .get(currentWord.toLowerCase());
+
+            if (currentWordCharacteristics != null) {
+
+                currentWordCharacteristics.calculateSentimentScore();
+            }
+        }
     }
 
     public static void main(String[] args) throws FileNotFoundException, IOException {

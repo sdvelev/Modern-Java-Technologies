@@ -29,6 +29,11 @@ public class WordCharacteristics {
         this.wordTotalSentimentCounter += toAdd;
     }
 
+    public void calculateSentimentScore() {
+
+        this.wordSentimentScore = getWordTotalSentimentCounter() / getWordReviewsCounter();
+    }
+
     public int getWordFrequencyCounter() {
 
         return this.wordFrequencyCounter;
@@ -37,11 +42,6 @@ public class WordCharacteristics {
     public double getWordSentimentScore() {
 
         return this.wordSentimentScore;
-    }
-
-    public void calculateSentimentScore() {
-
-        this.wordSentimentScore = this.wordTotalSentimentCounter / this.wordReviewsCounter;
     }
 
     public double getWordTotalSentimentCounter() {
@@ -53,11 +53,4 @@ public class WordCharacteristics {
 
         return this.wordReviewsCounter;
     }
-
-    public void setWordSentimentScore(double wordSentimentScore) {
-
-        this.wordSentimentScore = wordSentimentScore;
-    }
-
-
 }
