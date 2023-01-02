@@ -2,6 +2,8 @@ package bg.sofia.uni.fmi.mjt.sentiment;
 
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
@@ -287,7 +289,7 @@ public class MovieReviewSentimentAnalyzer implements SentimentAnalyzer {
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
 
-        /*Reader stopWordsIn = new FileReader("stopwords.txt");
+        Reader stopWordsIn = new FileReader("stopwords.txt");
         Reader reviewsIn = new FileReader("movieReviews.txt");
         Writer reviewsOut = new FileWriter("movieReviews.txt", true);
 
@@ -302,6 +304,8 @@ public class MovieReviewSentimentAnalyzer implements SentimentAnalyzer {
         System.out.println(m.getMostNegativeWords(6));
         System.out.println(m.getWordSentiment("pics"));
         m.appendReview("Hello, new review containing pics", POSITIVE_RATE);
-        System.out.println(m.getWordSentiment("pics"));*/
+        System.out.println(m.getWordSentiment("pics"));
+        System.out.println(m.getWordSentiment("lady"));
+        System.out.println(m.getWordFrequency("lady"));
     }
 }

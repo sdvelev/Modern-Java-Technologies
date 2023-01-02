@@ -35,7 +35,7 @@ public class MovieReviewSentimentAnalyzerTest {
         "4 ISN'T ISN'T ISN'T ISN't isn't isn't  ISN't 11" + System.lineSeparator() +
         "4 year year year YEAR Year YeAr yeaR YEAr yEAr" + System.lineSeparator() +
         "0 envy" + System.lineSeparator();
-    private final static double DELTA = 0.01;
+    private final static double DELTA = 0.001;
 
     private MovieReviewSentimentAnalyzer movieReviewSentimentAnalyzer;
 
@@ -130,7 +130,7 @@ public class MovieReviewSentimentAnalyzerTest {
     @Test
     void testGetReviewSentimentSuccessfullyWithTwoStopwords() {
 
-        Assertions.assertEquals(2.33, this.movieReviewSentimentAnalyzer.
+        Assertions.assertEquals(2.333, this.movieReviewSentimentAnalyzer.
                 getReviewSentiment("A manipulative combination of ethnography"), DELTA,
             "The actual review sentiment score is not the same as the expected");
     }
@@ -411,7 +411,7 @@ public class MovieReviewSentimentAnalyzerTest {
 
         this.movieReviewSentimentAnalyzer.appendReview(reviewToAdd, sentimentScoreToAdd);
 
-        Assertions.assertEquals(1.66, this.movieReviewSentimentAnalyzer.getWordSentiment("you"), DELTA,
+        Assertions.assertEquals(1.666, this.movieReviewSentimentAnalyzer.getWordSentiment("you"), DELTA,
             "Actual sentiment score of some words after appending review is not the same as expected");
     }
 
