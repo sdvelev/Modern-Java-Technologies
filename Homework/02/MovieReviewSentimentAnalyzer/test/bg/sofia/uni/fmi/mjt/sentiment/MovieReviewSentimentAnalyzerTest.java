@@ -12,13 +12,13 @@ import java.util.List;
 
 public class MovieReviewSentimentAnalyzerTest {
 
-    private final static String STOPWORDS_STRING = "a\n" +
+    private final static String STOPWORDS_STRING = "a" + System.lineSeparator() +
         "about" + System.lineSeparator() +
         "of" + System.lineSeparator();
 
-    private final static String REVIEWS_STRING = "1 A series of escapades demonstrating the adage that what is good for the goose " +
-        "is also good for the gander , some of which occasionally amuses but none of which amounts to much of a " +
-        "story .\t" + System.lineSeparator() +
+    private final static String REVIEWS_STRING = "1 A series of escapades demonstrating the adage that what is good " +
+        "for the goose is also good for the gander , some of which occasionally amuses but none of which amounts to " +
+        "much of a story .\t" + System.lineSeparator() +
         "3 This quiet , introspective and entertaining independent is worth seeking .\t" + System.lineSeparator() +
         "1 Even fans of Ismail Merchant's work , I suspect , would have a hard time sitting " +
         "through this one .\t" + System.lineSeparator() +
@@ -35,6 +35,7 @@ public class MovieReviewSentimentAnalyzerTest {
         "4 ISN'T ISN'T ISN'T ISN't isn't isn't  ISN't 11" + System.lineSeparator() +
         "4 year year year YEAR Year YeAr yeaR YEAr yEAr" + System.lineSeparator() +
         "0 envy" + System.lineSeparator();
+    private final static double DELTA = 0.01;
 
     private MovieReviewSentimentAnalyzer movieReviewSentimentAnalyzer;
 
@@ -66,35 +67,35 @@ public class MovieReviewSentimentAnalyzerTest {
     @Test
     void testGetWordSentimentTestWithStopword() {
 
-        Assertions.assertEquals(-1, this.movieReviewSentimentAnalyzer.getWordSentiment("a"), 0.0001,
+        Assertions.assertEquals(-1, this.movieReviewSentimentAnalyzer.getWordSentiment("a"),
             "The provided word is a stopword so -1 is expected but not returned");
     }
 
     @Test
     void testGetWordSentimentTestSuccessfullyInOneReview() {
 
-        Assertions.assertEquals(1, this.movieReviewSentimentAnalyzer.getWordSentiment("leave"), 0.0001,
+        Assertions.assertEquals(1, this.movieReviewSentimentAnalyzer.getWordSentiment("leave"),
             "The actual word sentiment is not the same as the expected");
     }
 
     @Test
     void testGetWordSentimentTestSuccessfullyInOneReviewAllCapitalised() {
 
-        Assertions.assertEquals(3, this.movieReviewSentimentAnalyzer.getWordSentiment("TRAGEDY"), 0.0001,
+        Assertions.assertEquals(3, this.movieReviewSentimentAnalyzer.getWordSentiment("TRAGEDY"),
             "The actual word sentiment is not the same as the expected");
     }
 
     @Test
-    void testGetWordSentimentTestSuccessfullyInFourReviewsAllCapitalised() {
+    void testGetWordSentimentTestSuccessfullyInFiveReviewsAllCapitalised() {
 
-        Assertions.assertEquals(2.4, this.movieReviewSentimentAnalyzer.getWordSentiment("THE"), 0.0001,
+        Assertions.assertEquals(2.4, this.movieReviewSentimentAnalyzer.getWordSentiment("THE"),
             "The actual word sentiment is not the same as the expected");
     }
 
     @Test
     void testGetWordSentimentTestSuccessfullyWithApostropheInOneReviewPartlyCapitalised() {
 
-        Assertions.assertEquals(4, this.movieReviewSentimentAnalyzer.getWordSentiment("Isn'T"), 0.0001,
+        Assertions.assertEquals(4, this.movieReviewSentimentAnalyzer.getWordSentiment("Isn'T"),
             "The actual word sentiment is not the same as the expected");
     }
 
@@ -102,14 +103,14 @@ public class MovieReviewSentimentAnalyzerTest {
     void testGetWordSentimentTestOnlySymbol() {
 
         Assertions.assertEquals(-1, this.movieReviewSentimentAnalyzer.getWordSentiment(","),
-            "The actual word sentiment is not the same as the expected");
+            "The actual word length is 1 so word sentiment must be -1");
     }
 
     @Test
     void testGetWordSentimentMissingWord() {
 
-        Assertions.assertEquals(-1, this.movieReviewSentimentAnalyzer.getWordSentiment("orange"), 0.0001,
-            "The actual word sentiment must be -1 since the word is missing");
+        Assertions.assertEquals(-1, this.movieReviewSentimentAnalyzer.getWordSentiment("orange"),
+            "The expected word sentiment must be -1 since the word is missing");
     }
 
     @Test
@@ -129,8 +130,8 @@ public class MovieReviewSentimentAnalyzerTest {
     @Test
     void testGetReviewSentimentSuccessfullyWithTwoStopwords() {
 
-        Assertions.assertEquals(2.3333, this.movieReviewSentimentAnalyzer.
-                getReviewSentiment("A manipulative combination of ethnography"), 0.0001,
+        Assertions.assertEquals(2.33, this.movieReviewSentimentAnalyzer.
+                getReviewSentiment("A manipulative combination of ethnography"), DELTA,
             "The actual review sentiment score is not the same as the expected");
     }
 
@@ -146,7 +147,7 @@ public class MovieReviewSentimentAnalyzerTest {
     void testGetReviewSentimentSuccessfullyWithoutStopwords() {
 
         Assertions.assertEquals(1.75, this.movieReviewSentimentAnalyzer.
-                getReviewSentiment("for sincere reason also"), 0.0001,
+                getReviewSentiment("for sincere reason also"),
             "The actual review sentiment score is not the same as the expected");
     }
 
@@ -162,7 +163,7 @@ public class MovieReviewSentimentAnalyzerTest {
     void testGetReviewSentimentSuccessfullyWithoutStopwordsWithOneSymbolCharacters() {
 
         Assertions.assertEquals(1.75, this.movieReviewSentimentAnalyzer.
-                getReviewSentiment("for sincere reason also , ? ' ."), 0.0001,
+                getReviewSentiment("for sincere reason also , ? ' ."),
             "The actual review sentiment score is not the same as the expected");
     }
 
@@ -178,7 +179,7 @@ public class MovieReviewSentimentAnalyzerTest {
     void testGetReviewSentimentSuccessfullyWithUnfamiliarWords() {
 
         Assertions.assertEquals(2.6, this.movieReviewSentimentAnalyzer.
-                getReviewSentiment("amuses but rooted in reading crime novel !!"), 0.0001,
+                getReviewSentiment("amuses but rooted in reading crime novel !!"),
             "The actual review sentiment score is not the same as the expected");
     }
 
@@ -207,6 +208,30 @@ public class MovieReviewSentimentAnalyzerTest {
     }
 
     @Test
+    void testGetReviewSentimentAsNameNegativeReview() {
+
+        Assertions.assertEquals("negative", this.movieReviewSentimentAnalyzer.
+                getReviewSentimentAsName("review : envy"),
+            "The actual review sentiment score is not the same as the expected");
+    }
+
+    @Test
+    void testGetReviewSentimentAsNameSomewhatNegativeReview() {
+
+        Assertions.assertEquals("somewhat negative", this.movieReviewSentimentAnalyzer.
+                getReviewSentimentAsName("review : envy hate thrilling"),
+            "The actual review sentiment score is not the same as the expected");
+    }
+
+    @Test
+    void testGetReviewSentimentAsNamePositiveReview() {
+
+        Assertions.assertEquals("positive", this.movieReviewSentimentAnalyzer.
+                getReviewSentimentAsName("review : sincere quiet character"),
+            "The actual review sentiment score is not the same as the expected");
+    }
+
+    @Test
     void testGetMostFrequentWordsWithNegativeN() {
 
         Assertions.assertThrows(IllegalArgumentException.class, () ->
@@ -219,9 +244,8 @@ public class MovieReviewSentimentAnalyzerTest {
 
         List<String> expected = List.of("year", "isn't");
 
-        Assertions.assertTrue(expected.containsAll(this.movieReviewSentimentAnalyzer.
-            getMostFrequentWords(2)) && this.movieReviewSentimentAnalyzer.getMostFrequentWords(2).
-            containsAll(expected), "The actual list is not the same as the expected");
+        Assertions.assertIterableEquals(expected, this.movieReviewSentimentAnalyzer.
+            getMostFrequentWords(2), "The actual list is not the same as the expected");
     }
 
     @Test
@@ -246,11 +270,8 @@ public class MovieReviewSentimentAnalyzerTest {
            "Returned list is expected to be empty");
     }
 
-
     @Test
     void testGetMostPositiveWordsSuccessfully() {
-
-        System.out.println(this.movieReviewSentimentAnalyzer.getMostPositiveWords(16));
 
         List<String> expected = List.of("nearly" ,"epic",
                 "proportions", "rooted", "in", "sincere", "performance", "by", "title", "character", "11",
@@ -279,17 +300,14 @@ public class MovieReviewSentimentAnalyzerTest {
     @Test
     void testGetMostNegativeWordsSuccessfully() {
 
-
-        System.out.println(this.movieReviewSentimentAnalyzer.getMostNegativeWords(1));
-
         List<String> expected = List.of("envy");
 
-        Assertions.assertIterableEquals(this.movieReviewSentimentAnalyzer.getMostNegativeWords(1), expected,
+        Assertions.assertIterableEquals(expected, this.movieReviewSentimentAnalyzer.getMostNegativeWords(1),
             "Actual list is not the same as expected");
     }
 
     @Test
-    void testIsStropwordTrue() {
+    void testIsStopwordTrue() {
 
        Assertions.assertTrue(this.movieReviewSentimentAnalyzer.isStopWord("a"),
            "False is returned but true is expected");
@@ -303,12 +321,54 @@ public class MovieReviewSentimentAnalyzerTest {
     }
 
     @Test
-    void testGetSentimentDictionarySize() {
-
-        this.movieReviewSentimentAnalyzer.getSentimentDictionarySize();
+    void testGetSentimentDictionarySizeSuccessfully() {
 
         Assertions.assertEquals(106, this.movieReviewSentimentAnalyzer.getSentimentDictionarySize(),
             "Sentiment Dictionary size is not the same as expected");
+    }
+
+    @Test
+    void testGetSentimentDictionaryWithNoWords() {
+
+        var stopwordsIn = new StringReader(STOPWORDS_STRING);
+        var reviewsIn = new StringReader("1     \t" + System.lineSeparator());
+
+        MovieReviewSentimentAnalyzer m = new MovieReviewSentimentAnalyzer(stopwordsIn, reviewsIn, null);
+
+        try {
+            Assertions.assertEquals(0, m.getSentimentDictionarySize(),
+                "Sentiment Dictionary size is expected to be empty but is not");
+        } finally {
+
+            try {
+                m.getStopwordsIn().close();
+                m.getReviewsIn().close();
+            } catch(IOException e) {
+                throw new RuntimeException("There is an exception in closing streams", e);
+            }
+        }
+    }
+
+    @Test
+    void testGetSentimentDictionarySuccessful() {
+
+        var stopwordsIn = new StringReader(STOPWORDS_STRING);
+        var reviewsIn = new StringReader("0 A fifty car pileup of cliches .\t" + System.lineSeparator() +
+            "1 This is no `` Waterboy 66 !" + System.lineSeparator());
+
+        MovieReviewSentimentAnalyzer m = new MovieReviewSentimentAnalyzer(stopwordsIn, reviewsIn, null);
+
+        try {
+            Assertions.assertEquals(9, m.getSentimentDictionarySize(),
+                "Sentiment Dictionary size is not the same as expected");
+        } finally {
+            try {
+                m.getStopwordsIn().close();
+                m.getReviewsIn().close();
+            } catch(IOException e) {
+                throw new RuntimeException("There is an exception in closing streams", e);
+            }
+        }
     }
 
     @Test
@@ -336,6 +396,14 @@ public class MovieReviewSentimentAnalyzerTest {
     }
 
     @Test
+    void testAppendReviewWithEmptyReview() {
+
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
+                this.movieReviewSentimentAnalyzer.appendReview("", 1),
+            "IllegalClassArgumentException is expected but not thrown");
+    }
+
+    @Test
     void testAppendReviewSuccessfully() {
 
         String reviewToAdd = "you you yOu";
@@ -343,7 +411,7 @@ public class MovieReviewSentimentAnalyzerTest {
 
         this.movieReviewSentimentAnalyzer.appendReview(reviewToAdd, sentimentScoreToAdd);
 
-        Assertions.assertEquals(1.66, this.movieReviewSentimentAnalyzer.getWordSentiment("you"), 0.01,
+        Assertions.assertEquals(1.66, this.movieReviewSentimentAnalyzer.getWordSentiment("you"), DELTA,
             "Actual sentiment score of some words after appending review is not the same as expected");
     }
 
@@ -359,10 +427,9 @@ public class MovieReviewSentimentAnalyzerTest {
 
         Assertions.assertEquals(currentDictionarySize + 1,
             this.movieReviewSentimentAnalyzer.getSentimentDictionarySize(),
-            "Expected number of words in dictionary after appending review is not the same as the expected");
+            "Actual number of words in dictionary after appending review is not the same as the expected");
 
-        Assertions.assertEquals(4, this.movieReviewSentimentAnalyzer.getWordSentiment("london"),
+        Assertions.assertEquals(4, this.movieReviewSentimentAnalyzer.getWordSentiment("LONDON"),
             "Actual word sentiment after appending review is not the same as as the expected");
     }
-
 }
