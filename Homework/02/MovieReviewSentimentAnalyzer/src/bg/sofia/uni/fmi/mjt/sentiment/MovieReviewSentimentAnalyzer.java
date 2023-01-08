@@ -1,9 +1,6 @@
 package bg.sofia.uni.fmi.mjt.sentiment;
 
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
@@ -285,28 +282,5 @@ public class MovieReviewSentimentAnalyzer implements SentimentAnalyzer {
                 currentWordCharacteristics.calculateSentimentScore();
             }
         }
-    }
-
-    public static void main(String[] args) throws FileNotFoundException, IOException {
-
-        Reader stopWordsIn = new FileReader("stopwords.txt");
-        Reader reviewsIn = new FileReader("movieReviews.txt");
-        Writer reviewsOut = new FileWriter("movieReviews.txt", true);
-
-        MovieReviewSentimentAnalyzer m = new MovieReviewSentimentAnalyzer(stopWordsIn, reviewsIn, reviewsOut);
-
-        System.out.println(m.getSentimentDictionarySize());
-        System.out.println(m.getWordSentiment("rose"));
-        System.out.println(m.getWordFrequency("rose"));
-
-        System.out.println(m.getWordSentiment("sYdNeY's"));
-        System.out.println(m.getWordFrequency("LanGuaGE"));
-        System.out.println(m.getWordSentiment("LanGUAGE"));
-
-        System.out.println(m.getReviewSentiment("!!&LanguAge!!! !! %s%`sAvVy  LUv QQ"));
-        System.out.println(m.getReviewSentimentAsName("!!&LanguAge!!! !! %s%`sAvVy  LUv QQ "));
-
-        System.out.println(m.getReviewSentiment("chortleS."));
-
     }
 }
