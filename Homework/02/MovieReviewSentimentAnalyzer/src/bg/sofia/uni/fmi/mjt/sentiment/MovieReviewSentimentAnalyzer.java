@@ -25,7 +25,7 @@ public class MovieReviewSentimentAnalyzer implements SentimentAnalyzer {
     private final static int POSITIVE_RATE = 4;
     private final static String POSITIVE_ASSESSMENT = "positive";
     private final static String UNKNOWN_ASSESSMENT = "unknown";
-    private final static String INTERVAL_REGEX = " ";
+    private final static String NOT_WORD_REGEX = "[^a-zA-Z0-9']+";
 
     private final Reader stopwordsIn;
     private final Reader reviewsIn;
@@ -51,7 +51,7 @@ public class MovieReviewSentimentAnalyzer implements SentimentAnalyzer {
         double totalWordsSentiment = 0;
         int counterWords = 0;
 
-        for (String currentWord : review.split(INTERVAL_REGEX)) {
+        for (String currentWord : review.split(NOT_WORD_REGEX)) {
 
             if (this.getWordSentiment(currentWord) == -1) {
                 continue;
@@ -114,12 +114,12 @@ public class MovieReviewSentimentAnalyzer implements SentimentAnalyzer {
     @Override
     public int getWordFrequency(String word) {
 
-        if (!this.reviewer.getFrequencySentimentMap().containsKey(word)) {
+        if (!this.reviewer.getFrequencySentimentMap().containsKey(word.toLowerCase())) {
 
             return 0;
         }
 
-        return this.reviewer.getFrequencySentimentMap().get(word).getWordFrequencyCounter();
+        return this.reviewer.getFrequencySentimentMap().get(word.toLowerCase()).getWordFrequencyCounter();
     }
 
     /**
@@ -197,10 +197,10 @@ public class MovieReviewSentimentAnalyzer implements SentimentAnalyzer {
 
         String entryToAdd = sentiment + " " + review;
 
-        try (BufferedWriter bufferedWriter = new BufferedWriter(this.reviewsOut)) {
+        try (var bufferedWriter = new BufferedWriter(this.reviewsOut)) {
 
-            bufferedWriter.write(entryToAdd);
-            bufferedWriter.newLine();
+            bufferedWriter.write(entryToAdd + System.lineSeparator());
+            bufferedWriter.flush();
             this.updateReviewerAppendReview(entryToAdd);
         } catch (IOException e) {
 
@@ -275,7 +275,7 @@ public class MovieReviewSentimentAnalyzer implements SentimentAnalyzer {
 
         this.reviewer.readWordsAddingFrequency(currentReview);
 
-        for (String currentWord : currentReview.split(INTERVAL_REGEX)) {
+        for (String currentWord : currentReview.split(NOT_WORD_REGEX)) {
 
             WordCharacteristics currentWordCharacteristics = this.reviewer.getFrequencySentimentMap()
                 .get(currentWord.toLowerCase());
@@ -295,17 +295,18 @@ public class MovieReviewSentimentAnalyzer implements SentimentAnalyzer {
 
         MovieReviewSentimentAnalyzer m = new MovieReviewSentimentAnalyzer(stopWordsIn, reviewsIn, reviewsOut);
 
-        System.out.println(m.getMostFrequentWords(6));
         System.out.println(m.getSentimentDictionarySize());
+        System.out.println(m.getWordSentiment("rose"));
+        System.out.println(m.getWordFrequency("rose"));
 
-        System.out.println(m.getWordSentiment("film"));
-        System.out.println(m.getMostPositiveWords(6));
-        System.out.println(m.getWordSentiment("'30s"));
-        System.out.println(m.getMostNegativeWords(6));
-        System.out.println(m.getWordSentiment("pics"));
-        m.appendReview("Hello, new review containing pics", POSITIVE_RATE);
-        System.out.println(m.getWordSentiment("pics"));
-        System.out.println(m.getWordSentiment("lady"));
-        System.out.println(m.getWordFrequency("lady"));
+        System.out.println(m.getWordSentiment("sYdNeY's"));
+        System.out.println(m.getWordFrequency("LanGuaGE"));
+        System.out.println(m.getWordSentiment("LanGUAGE"));
+
+        System.out.println(m.getReviewSentiment("!!&LanguAge!!! !! %s%`sAvVy  LUv QQ"));
+        System.out.println(m.getReviewSentimentAsName("!!&LanguAge!!! !! %s%`sAvVy  LUv QQ "));
+
+        System.out.println(m.getReviewSentiment("chortleS."));
+
     }
 }

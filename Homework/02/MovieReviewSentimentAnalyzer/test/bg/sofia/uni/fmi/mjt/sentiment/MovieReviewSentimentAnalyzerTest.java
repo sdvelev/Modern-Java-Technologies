@@ -33,8 +33,8 @@ public class MovieReviewSentimentAnalyzerTest {
         "1 But it doesn't leave you with much .\t" + System.lineSeparator() +
         "1 You could hate it for the same reason .\t" + System.lineSeparator() +
         "4 ISN'T ISN'T ISN'T ISN't isn't isn't  ISN't 11" + System.lineSeparator() +
-        "4 year year year YEAR Year YeAr yeaR YEAr yEAr" + System.lineSeparator() +
-        "0 envy" + System.lineSeparator();
+        "4 year year year YEAR Year YeAr yeaR YEAr!!! yEAr...." + System.lineSeparator() +
+        "0 !%envy$?R..SS" + System.lineSeparator();
     private final static double DELTA = 0.001;
 
     private MovieReviewSentimentAnalyzer movieReviewSentimentAnalyzer;
@@ -46,6 +46,7 @@ public class MovieReviewSentimentAnalyzerTest {
         var reviewsIn = new StringReader(REVIEWS_STRING);
         var reviewsOut = new StringWriter();
         reviewsOut.append(REVIEWS_STRING);
+        reviewsOut.flush();
 
         this.movieReviewSentimentAnalyzer = new MovieReviewSentimentAnalyzer(stopwordsIn, reviewsIn, reviewsOut);
     }
@@ -107,6 +108,20 @@ public class MovieReviewSentimentAnalyzerTest {
     }
 
     @Test
+    void testGetWordSentimentTestWordWithHyphen() {
+
+        Assertions.assertEquals(-1, this.movieReviewSentimentAnalyzer.getWordSentiment("comedy-drama"),
+            "The actual word contains two words");
+    }
+
+    @Test
+    void testGetWordSentimentTestWordFromWordWithHyphen() {
+
+        Assertions.assertEquals(4, this.movieReviewSentimentAnalyzer.getWordSentiment("comedy"),
+            "The actual word length is 1 so word sentiment must be -1");
+    }
+
+    @Test
     void testGetWordSentimentMissingWord() {
 
         Assertions.assertEquals(-1, this.movieReviewSentimentAnalyzer.getWordSentiment("orange"),
@@ -156,7 +171,7 @@ public class MovieReviewSentimentAnalyzerTest {
 
         Assertions.assertEquals("neutral", this.movieReviewSentimentAnalyzer.
                 getReviewSentimentAsName("for sincere reason also"),
-            "The actual review sentiment score is not the same as the expected");
+            "The actual review sentiment as name is not the same as the expected");
     }
 
     @Test
@@ -172,7 +187,7 @@ public class MovieReviewSentimentAnalyzerTest {
 
         Assertions.assertEquals("neutral", this.movieReviewSentimentAnalyzer.
                 getReviewSentimentAsName("for sincere reason also , ? : 1"),
-            "The actual review sentiment score is not the same as the expected");
+            "The actual review sentiment as name is not the same as the expected");
     }
 
     @Test
@@ -188,7 +203,7 @@ public class MovieReviewSentimentAnalyzerTest {
 
         Assertions.assertEquals("somewhat positive", this.movieReviewSentimentAnalyzer.
                 getReviewSentimentAsName("amuses but rooted in reading crime novel !!"),
-            "The actual review sentiment score is not the same as the expected");
+            "The actual review sentiment as name is not the same as the expected");
     }
 
     @Test
@@ -212,7 +227,7 @@ public class MovieReviewSentimentAnalyzerTest {
 
         Assertions.assertEquals("negative", this.movieReviewSentimentAnalyzer.
                 getReviewSentimentAsName("review : envy"),
-            "The actual review sentiment score is not the same as the expected");
+            "The actual review sentiment as name is not the same as the expected");
     }
 
     @Test
@@ -220,7 +235,7 @@ public class MovieReviewSentimentAnalyzerTest {
 
         Assertions.assertEquals("somewhat negative", this.movieReviewSentimentAnalyzer.
                 getReviewSentimentAsName("review : envy hate thrilling"),
-            "The actual review sentiment score is not the same as the expected");
+            "The actual review sentiment as name is not the same as the expected");
     }
 
     @Test
@@ -228,7 +243,7 @@ public class MovieReviewSentimentAnalyzerTest {
 
         Assertions.assertEquals("positive", this.movieReviewSentimentAnalyzer.
                 getReviewSentimentAsName("review : sincere quiet character"),
-            "The actual review sentiment score is not the same as the expected");
+            "The actual review sentiment as name is not the same as the expected");
     }
 
     @Test
@@ -275,10 +290,10 @@ public class MovieReviewSentimentAnalyzerTest {
 
         List<String> expected = List.of("nearly" ,"epic",
                 "proportions", "rooted", "in", "sincere", "performance", "by", "title", "character", "11",
-            "year", "isn't", "undergoing", "midlife", "crisis");
+            "year", "isn't", "undergoing", "midlife", "crisis", "comedy", "drama");
 
-        Assertions.assertTrue(this.movieReviewSentimentAnalyzer.getMostPositiveWords(16).containsAll(expected) &&
-            expected.containsAll(this.movieReviewSentimentAnalyzer.getMostPositiveWords(16)),
+        Assertions.assertTrue(this.movieReviewSentimentAnalyzer.getMostPositiveWords(18).containsAll(expected) &&
+            expected.containsAll(this.movieReviewSentimentAnalyzer.getMostPositiveWords(18)),
             "Actual list does not contain expected values");
     }
 
@@ -300,9 +315,10 @@ public class MovieReviewSentimentAnalyzerTest {
     @Test
     void testGetMostNegativeWordsSuccessfully() {
 
-        List<String> expected = List.of("envy");
+        List<String> expected = List.of("envy", "ss");
 
-        Assertions.assertIterableEquals(expected, this.movieReviewSentimentAnalyzer.getMostNegativeWords(1),
+        Assertions.assertTrue(expected.containsAll(this.movieReviewSentimentAnalyzer.getMostNegativeWords(2)) &&
+            this.movieReviewSentimentAnalyzer.getMostNegativeWords(2).containsAll(expected),
             "Actual list is not the same as expected");
     }
 
@@ -310,20 +326,20 @@ public class MovieReviewSentimentAnalyzerTest {
     void testIsStopwordTrue() {
 
        Assertions.assertTrue(this.movieReviewSentimentAnalyzer.isStopWord("a"),
-           "False is returned but true is expected");
+           "False is returned but true is expected as word is a stopword");
     }
 
     @Test
     void testIsStopwordFalse() {
 
         Assertions.assertFalse(this.movieReviewSentimentAnalyzer.isStopWord("film"),
-            "True is returned but but false is expected");
+            "True is returned but but false is expected as word is not a stopword");
     }
 
     @Test
     void testGetSentimentDictionarySizeSuccessfully() {
 
-        Assertions.assertEquals(106, this.movieReviewSentimentAnalyzer.getSentimentDictionarySize(),
+        Assertions.assertEquals(112, this.movieReviewSentimentAnalyzer.getSentimentDictionarySize(),
             "Sentiment Dictionary size is not the same as expected");
     }
 
@@ -353,8 +369,8 @@ public class MovieReviewSentimentAnalyzerTest {
     void testGetSentimentDictionarySuccessful() {
 
         var stopwordsIn = new StringReader(STOPWORDS_STRING);
-        var reviewsIn = new StringReader("0 A fifty car pileup of cliches .\t" + System.lineSeparator() +
-            "1 This is no `` Waterboy 66 !" + System.lineSeparator());
+        var reviewsIn = new StringReader("0 A fifty-car pileup of cliches .\t" + System.lineSeparator() +
+            "1 This is no `` Waterboy 66!" + System.lineSeparator());
 
         MovieReviewSentimentAnalyzer m = new MovieReviewSentimentAnalyzer(stopwordsIn, reviewsIn, null);
 
@@ -430,6 +446,30 @@ public class MovieReviewSentimentAnalyzerTest {
             "Actual number of words in dictionary after appending review is not the same as the expected");
 
         Assertions.assertEquals(4, this.movieReviewSentimentAnalyzer.getWordSentiment("LONDON"),
+            "Actual word sentiment after appending review is not the same as as the expected");
+    }
+
+    @Test
+    void testAppendReviewSuccessfullyWithStopWordsAndOneFamiliarWordWithHyphen() {
+
+        String reviewToAdd = "%%a of about about of of of a about drama%%";
+        int sentimentScoreToAdd = 2;
+
+        this.movieReviewSentimentAnalyzer.appendReview(reviewToAdd, sentimentScoreToAdd);
+
+        Assertions.assertEquals(3, this.movieReviewSentimentAnalyzer.getWordSentiment("DrAma"),
+            "Actual word sentiment after appending review is not the same as as the expected");
+    }
+
+    @Test
+    void testAppendReviewSuccessfullyWithStopWordsAndOneFamiliarWord() {
+
+        String reviewToAdd = "!%%YOU%.%.!";
+        int sentimentScoreToAdd = 4;
+
+        this.movieReviewSentimentAnalyzer.appendReview(reviewToAdd, sentimentScoreToAdd);
+
+        Assertions.assertEquals(2, this.movieReviewSentimentAnalyzer.getWordSentiment("yoU"),
             "Actual word sentiment after appending review is not the same as as the expected");
     }
 }

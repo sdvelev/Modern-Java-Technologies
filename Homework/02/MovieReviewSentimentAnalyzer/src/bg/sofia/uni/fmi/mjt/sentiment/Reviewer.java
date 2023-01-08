@@ -12,7 +12,7 @@ import java.util.Set;
 public class Reviewer {
 
     private final static int BEGIN_INDEX_AFTER_SENTIMENT = 2;
-    private final static String INTERVAL_REGEX = " ";
+    private final static String NOT_WORD_REGEX = "[^a-zA-Z0-9']+";
     private final static String LETTERS_DIGITS_APOSTROPHE_REGEX = "[a-zA-Z0-9']+";
 
     private final Reader stopwordsIn;
@@ -47,7 +47,7 @@ public class Reviewer {
         int currentRating = Integer.parseInt(currentLine.substring(0, 1));
 
         currentLine = currentLine.substring(BEGIN_INDEX_AFTER_SENTIMENT);
-        String[] currentWords = currentLine.split(INTERVAL_REGEX);
+        String[] currentWords = currentLine.split(NOT_WORD_REGEX);
         Set<String> currentLineWordsSet = new HashSet<>();
 
         for (String currentWord : currentWords) {
@@ -88,6 +88,10 @@ public class Reviewer {
 
             String currentLine;
             while ((currentLine = bufferedReader.readLine()) != null) {
+
+                if (currentLine.isEmpty() || currentLine.isBlank()) {
+                    continue;
+                }
 
                 readWordsAddingFrequency(currentLine);
             }
