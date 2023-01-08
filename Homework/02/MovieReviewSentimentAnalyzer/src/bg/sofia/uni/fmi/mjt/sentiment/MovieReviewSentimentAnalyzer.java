@@ -268,7 +268,7 @@ public class MovieReviewSentimentAnalyzer implements SentimentAnalyzer {
         }
     }
 
-    public void updateReviewerAppendReview(String currentReview) {
+    private void updateReviewerAppendReview(String currentReview) {
 
         this.reviewer.readWordsAddingFrequency(currentReview);
 
