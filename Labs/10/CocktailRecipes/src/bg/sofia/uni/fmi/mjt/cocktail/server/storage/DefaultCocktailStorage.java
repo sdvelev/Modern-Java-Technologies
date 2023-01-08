@@ -1,13 +1,23 @@
 package bg.sofia.uni.fmi.mjt.cocktail.server.storage;
 
 import bg.sofia.uni.fmi.mjt.cocktail.server.Cocktail;
+import bg.sofia.uni.fmi.mjt.cocktail.server.Ingredient;
 import bg.sofia.uni.fmi.mjt.cocktail.server.storage.exception.CocktailAlreadyExistsException;
 import bg.sofia.uni.fmi.mjt.cocktail.server.storage.exception.CocktailNotFoundException;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 public class DefaultCocktailStorage implements CocktailStorage {
 
+    private Set<Cocktail> cocktails;
+
+
+    public DefaultCocktailStorage() {
+
+        this.cocktails = new HashSet<>();
+    }
 
     /**
      * Creates a new cocktail recipe
@@ -18,6 +28,12 @@ public class DefaultCocktailStorage implements CocktailStorage {
     @Override
     public void createCocktail(Cocktail cocktail) throws CocktailAlreadyExistsException {
 
+        if (this.cocktails.contains(cocktail)) {
+
+            throw new CocktailAlreadyExistsException("There is already such a cocktail");
+        }
+
+        this.cocktails.add(cocktail);
     }
 
     /**
@@ -28,7 +44,8 @@ public class DefaultCocktailStorage implements CocktailStorage {
      */
     @Override
     public Collection<Cocktail> getCocktails() {
-        return null;
+
+        return this.cocktails;
     }
 
     /**
@@ -40,7 +57,10 @@ public class DefaultCocktailStorage implements CocktailStorage {
      */
     @Override
     public Collection<Cocktail> getCocktailsWithIngredient(String ingredientName) {
-        return null;
+
+        return this.cocktails.stream()
+            .filter(cocktail -> cocktail.ingredients().contains(new Ingredient(ingredientName,null)))
+            .toList();
     }
 
     /**
@@ -52,6 +72,23 @@ public class DefaultCocktailStorage implements CocktailStorage {
      */
     @Override
     public Cocktail getCocktail(String name) throws CocktailNotFoundException {
-        return null;
+
+        if (!this.cocktails.contains(new Cocktail(name, null))) {
+
+            throw new CocktailNotFoundException("There is not a cocktail with such a name");
+        }
+
+        Cocktail toReturn = null;
+
+        for (Cocktail currentCocktail : this.cocktails) {
+
+            if (currentCocktail.equals(new Cocktail(name, null))) {
+
+                toReturn = currentCocktail;
+                break;
+            }
+        }
+
+        return toReturn;
     }
 }

@@ -9,11 +9,19 @@ public record Ingredient(String name, String amount) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Ingredient that = (Ingredient) o;
-        return name.equals(that.name);
+        return name.equalsIgnoreCase(that.name);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(name);
+    }
+
+    @Override
+    public String toString() {
+        return "Ingredient{" +
+            "name='" + name + '\'' +
+            ", amount='" + amount + '\'' +
+            '}';
     }
 }

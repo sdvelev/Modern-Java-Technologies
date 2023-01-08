@@ -10,11 +10,19 @@ public record Cocktail(String name, Set<Ingredient> ingredients) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cocktail cocktail = (Cocktail) o;
-        return name.equals(cocktail.name);
+        return name.equalsIgnoreCase(cocktail.name);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(name);
+    }
+
+    @Override
+    public String toString() {
+        return "Cocktail{" +
+            "name='" + name + '\'' +
+            ", ingredients=" + ingredients +
+            '}';
     }
 }
