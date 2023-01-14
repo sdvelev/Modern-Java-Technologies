@@ -101,8 +101,8 @@ public class NewsFeed {
         throw new NewsFeedException("Unexpected response code and behaviour from news feed service.");
     }
 
-    private News getNewsFeed(QueryData queryData, int pageNumber) throws IncorrectRequestException, UnauthorizedException,
-        TooManyRequestsException, ServerError {
+    private News getNewsFeed(QueryData queryData, int pageNumber) throws IncorrectRequestException,
+        UnauthorizedException, TooManyRequestsException, ServerError {
 
         HttpResponse<String> response;
 
@@ -156,11 +156,11 @@ public class NewsFeed {
 
         StringBuffer apiEndpointQuery = new StringBuffer();
 
-        apiEndpointQuery = appendData(keywords, category, country,pageNumber, apiEndpointQuery);
+        apiEndpointQuery = appendData(keywords, category, country, pageNumber, apiEndpointQuery);
 
         try {
             URI toReturn = new URI(API_ENDPOINT_SCHEME, API_ENDPOINT_HOST, API_ENDPOINT_PATH,
-                apiEndpointQuery.toString(),null);
+                apiEndpointQuery.toString(), null);
 
             return toReturn;
         } catch (Exception e) {
