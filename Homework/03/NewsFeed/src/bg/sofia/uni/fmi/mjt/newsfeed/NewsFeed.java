@@ -19,6 +19,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import static java.net.HttpURLConnection.*;
+
 public class NewsFeed {
 
     private static final String API_KEY = "39a9b7c91568455daf456c7a21900063";
@@ -29,6 +31,7 @@ public class NewsFeed {
 
     private static final int PAGE_SIZE = 10;
     private static final int MAX_PAGES = 4;
+    private final static int TOO_MANY_REQUESTS = 429;
 
     private static final Gson GSON = new Gson();
 
@@ -89,13 +92,13 @@ public class NewsFeed {
 
         switch (statusCode) {
 
-            case 400 -> throw new IncorrectRequestException("The request was unacceptable, often due to a missing or " +
-                "misconfigured parameter");
-            case 401 -> throw new UnauthorizedException("Your API key was missing from the request, or wasn't " +
-                "correct.");
-            case 429 -> throw new TooManyRequestsException("You made too many requests within a window of time and " +
-                "have been rate limited.");
-            case 500 -> throw new ServerError("Something went wrong.");
+            case HTTP_BAD_REQUEST -> throw new IncorrectRequestException("The request was unacceptable, " +
+                "often due to a missing or misconfigured parameter");
+            case HTTP_UNAUTHORIZED -> throw new UnauthorizedException("Your API key was missing " +
+                "from the request, or wasn't correct.");
+            case TOO_MANY_REQUESTS -> throw new TooManyRequestsException("You made too many requests " +
+                "within a window of time and have been rate limited.");
+            case HTTP_INTERNAL_ERROR -> throw new ServerError("Something went wrong.");
         }
 
         throw new NewsFeedException("Unexpected response code and behaviour from news feed service.");
@@ -116,7 +119,7 @@ public class NewsFeed {
             throw new IncorrectRequestException("Could not retrieve news feed", e);
         }
 
-        if (response.statusCode() != 200) {
+        if (response.statusCode() != HTTP_OK) {
 
             validateStatusCode(response.statusCode());
         }
