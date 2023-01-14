@@ -1,5 +1,7 @@
 package bg.sofia.uni.fmi.mjt.newsfeed.model;
 
+import java.util.Arrays;
+
 public class News {
 
     private String status;
@@ -13,6 +15,24 @@ public class News {
         this.articles = articles;
     }
 
+    public String getStatus() {
+        return status;
+    }
 
+    public int getTotalResults() {
+        return totalResults;
+    }
 
+    public Article[] getArticles() {
+        return articles;
+    }
+
+    @Override
+    public String toString() {
+        return "News{" +
+            "status='" + status + '\'' +
+            ", totalResults=" + totalResults +
+            ", articles=" + Arrays.toString(articles) +
+            '}';
+    }
 }

@@ -1,0 +1,238 @@
+{
+  "status": "ok",
+  "totalResults": 17,
+  "articles": [
+    {
+      "source": {
+        "id": "fox-news",
+        "name": "Fox News"
+      },
+      "author": "Fox News",
+      "title": "Not ‘fair’ for federal government to criticize DeSantis and then ask for Florida’s help: Francis Suarez | Fox News Video",
+      "description": "Miami Mayor Francis Suarez reacts to White House Press Secretary Karine Jean-Pierre blasting Gov. Ron DeSantis for ‘political stunts’ and weighs in on the immigration crisis in Florida.",
+      "url": "https://video.foxnews.com/v/6318680001112/",
+      "urlToImage": "https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/323468bc-11bb-414a-812b-0db58627550c/fd156da9-2478-4285-86f1-0cb690842e52/1280x720/match/1024/512/image.jpg?ve=1&tl=1",
+      "publishedAt": "2023-01-14T15:07:21.696157Z",
+      "content": "©2023 FOX News Network, LLC. All rights reserved. This material may not be published, broadcast, rewritten, or redistributed. All market data delayed 20 minutes."
+    },
+    {
+      "source": {
+        "id": "cbc-news",
+        "name": "CBC News"
+      },
+      "author": "CBC News",
+      "title": "Justin Trudeau's put-up-or-shut-up moment",
+      "description": "Justin Trudeau is trying to do something no prime minister has managed in more than a century — win a fourth consecutive general election. He says he has the vision and the energy to win, and a lot of unfinished business left in government. But politicians se…",
+      "url": "https://www.cbc.ca/newsinteractives/features/justin-trudeau-election-poilievre-liberal",
+      "urlToImage": "https://www.cbc.ca/newsinteractives/content/images/DSCF1958.jpg",
+      "publishedAt": "2023-01-14T13:37:16.1955118Z",
+      "content": "In the fall of 2015, there were 105 long-term drinking water advisories in place in Indigenous communities across the country. But in the years that followed, new long-term advisories came into effec… [+1602 chars]"
+    },
+    {
+      "source": {
+        "id": "reuters",
+        "name": "Reuters"
+      },
+      "author": null,
+      "title": "Bolsonaro's ex-justice minister arrested in Brazilian capital",
+      "description": "Brazil's former Justice Minister Anderson Torres, who was in charge of public security in Brasilia during the invasion of government buildings a week ago, was arrested in Brasilia on Saturday on suspicion of \"omission\" and \"connivance\".",
+      "url": "https://www.reuters.com/world/americas/bolsonaros-ex-justice-minister-torres-arrested-brazilian-capital-2023-01-14/",
+      "urlToImage": "https://www.reuters.com/resizer/68zvY-2p9NUDDBQ3j5xXip4TMNQ=/1200x628/smart/filters:quality(80)/cloudfront-us-east-2.images.arcpublishing.com/reuters/BNTP5SMSGFMXRNXDXHOOU646FY.jpg",
+      "publishedAt": "2023-01-14T13:29:13Z",
+      "content": "BRASILIA, Jan 14 (Reuters) - Brazil's former Justice Minister Anderson Torres, who was in charge of public security in Brasilia during the invasion of government buildings a week ago, was arrested in… [+2067 chars]"
+    },
+    {
+      "source": {
+        "id": "bbc-news",
+        "name": "BBC News"
+      },
+      "author": "BBC News",
+      "title": "Peru protests: President Boluarte 'will not resign' despite weeks of violence",
+      "description": "Weeks of violent anti-government protests have brought large parts of the country to a standstill.",
+      "url": "http://www.bbc.co.uk/news/world-latin-america-64274088",
+      "urlToImage": "https://ichef.bbci.co.uk/news/1024/branded_news/154E5/production/_128296278_perulimaprotests-1246195430.jpg",
+      "publishedAt": "2023-01-14T11:22:17.5862022Z",
+      "content": "Peru's President Dina Boluarte has refused to step down despite weeks of anti-government protests rocking the deeply divided country. \r\n\"I will not resign. My commitment is with Peru,\" she said in a … [+1820 chars]"
+    },
+    {
+      "source": {
+        "id": "google-news-in",
+        "name": "Google News (India)"
+      },
+      "author": null,
+      "title": "China Reports Nearly 60,000 Covid-Related Deaths In 35 Days",
+      "description": "China's health authorities on Saturday reported almost 60,000 Covid-related deaths in just over a month, the first major death toll released by the government since the loosening of its virus restrictions in early December.",
+      "url": "https://www.ndtv.com/world-news/china-reports-nearly-60-000-covid-related-deaths-in-35-days-3692118",
+      "urlToImage": "https://c.ndtvimg.com/2023-01/d3ps56lo_china-covid_625x300_12_January_23.jpg",
+      "publishedAt": "2023-01-14T11:08:34+00:00",
+      "content": "The figure refers only to deaths recorded at medical facilities. (Representational)\r\nBeijing: China's health authorities on Saturday reported almost 60,000 Covid-related deaths in just over a month, … [+1778 chars]"
+    },
+    {
+      "source": {
+        "id": "abc-news",
+        "name": "ABC News"
+      },
+      "author": "The Associated Press",
+      "title": "China reports almost 60,000 COVID-related deaths",
+      "description": "China has reported nearly 60,000 deaths in people who had COVID-19 since early December following complaints the government was failing to release data about the status of the pandemic",
+      "url": "https://abcnews.go.com/International/wireStory/china-reports-60000-covid-related-deaths-96434802",
+      "urlToImage": "https://s.abcnews.com/images/International/wirestory_425a5de577126b042d4eea915c174bc0_16x9_992.jpg",
+      "publishedAt": "2023-01-14T10:45:15Z",
+      "content": "BEIJING -- China on Saturday reported nearly 60,000 deaths in people who had COVID-19 since early December following complaints the government was failing to release data about the status of the pand… [+690 chars]"
+    },
+    {
+      "source": {
+        "id": "google-news-in",
+        "name": "Google News (India)"
+      },
+      "author": null,
+      "title": "After ISRO Shared Satellite Images Of Sinking Joshimath, A Gag Order",
+      "description": "The National Disaster Management Authority has barred government institutions from interacting with the media and sharing data on social media regarding ground subsidence in Joshimath.",
+      "url": "https://www.ndtv.com/india-news/joshimath-latest-update-after-space-agency-isro-shared-satelite-images-of-sinking-town-a-gag-order-3691705",
+      "urlToImage": "https://c.ndtvimg.com/2023-01/7uj3681s_joshimath-reuters_625x300_12_January_23.jpg",
+      "publishedAt": "2023-01-14T08:58:00+00:00",
+      "content": "It said the organisations' \"own interpretations\" of data are creating confusion.\r\nNew Delhi: A day after an Indian Space Research Organisation (ISRO) report revealed that Uttarakhand's Joshimath saw … [+1953 chars]"
+    },
+    {
+      "source": {
+        "id": "the-irish-times",
+        "name": "The Irish Times"
+      },
+      "author": "Una Mullally",
+      "title": "Aoibhinn Ní Shúilleabháin: ‘It was important to me to get a formal apology from UCD’",
+      "description": "One of Ireland’s best-known academics reflects on closing the door on a painful period of her life, and her role as chair of the Citizens’ Assembly on Biodiversity as it prepares to report to Government",
+      "url": "https://www.irishtimes.com/life-style/people/2023/01/14/aoibhinn-ni-shuilleabhain-it-was-important-to-me-to-get-a-formal-apology-from-ucd/",
+      "urlToImage": "https://www.irishtimes.com/resizer/nP8MIhcwPOa5b5uvQPMPizh61hA=/1200x630/filters:format(jpg):quality(70):focal(4002x1636:4012x1646)/cloudfront-eu-central-1.images.arcpublishing.com/irishtimes/O72IJ3IERJED3CBATMHGHKDGJI.JPG",
+      "publishedAt": "2023-01-14T05:00:03Z",
+      "content": "Some of Aoibhinn Ní Shúilleabháins earliest memories of being in nature are of fishing with her father and grandfather, wrapped in oilskins in a small boat on Lough Corrib, the lakes waves lapping up… [+13545 chars]"
+    },
+    {
+      "source": {
+        "id": "news-com-au",
+        "name": "News.com.au"
+      },
+      "author": "Belinda Palmada, AFP",
+      "title": "US confirms hundreds of UFO reports",
+      "description": "<p>The US government has received more than 500 reports of unidentified flying object (UFOs) sightings since 2021, with hundreds remaining unexplained. </p>",
+      "url": "https://www.news.com.au/technology/science/space/us-government-receives-more-than-500-ufo-reports-with-hundreds-unexplained/news-story/0667fa5f2cd6524cfa3a4bfd7d6b0fe6",
+      "urlToImage": "https://content.api.news/v3/images/bin/5fac38058f7e2977aa65e300ad923f11",
+      "publishedAt": "2023-01-14T01:38:00Z",
+      "content": "The US government has received more than 500 reports of unidentified flying object (UFOs) sightings since 2021, with hundreds remaining unexplained. \r\nAccording to a report from the Director of Natio… [+2828 chars]"
+    },
+    {
+      "source": {
+        "id": "the-washington-times",
+        "name": "The Washington Times"
+      },
+      "author": "Mike Stobbe",
+      "title": "Holidays didn't lead to feared bump in flu cases, CDC says",
+      "description": "New U.S. government data suggests holiday gatherings didn't spark surges in respiratory diseases.",
+      "url": "https://www.washingtontimes.com/news/2023/jan/13/holidays-didnt-lead-to-feared-bump-in-flu-cases-cd/",
+      "urlToImage": "https://twt-thumbs.washtimes.com/media/image/2023/01/13/MED_Waning_Viruses_07468_c0-268-3212-2141_s1200x700.jpg?66fa1d78c81837dfe6c2f92c9fe3fcf922e49fac",
+      "publishedAt": "2023-01-13T15:58:07Z",
+      "content": "NEW YORK New U.S. government data suggests holiday gatherings didn’t spark surges in respiratory diseases.\r\nThe Centers for Disease Control and Prevention on Friday reported that visits to doctors’ o… [+2843 chars]"
+    }
+  ]
+}
+
+
+
+
+
+{
+  "status": "ok",
+  "totalResults": 17,
+  "articles": [
+    {
+      "source": {
+        "id": "the-washington-times",
+        "name": "The Washington Times"
+      },
+      "author": "Jeff Mordock",
+      "title": "Biden dogged by classified documents scandal, special counsel inquiry when meeting with Japan PM",
+      "description": "President Biden's troubles with mishandling government secrets seeped into his foreign diplomacy when he was peppered with questions from reporters at a meeting with Japan's prime minister.",
+      "url": "https://www.washingtontimes.com/news/2023/jan/13/joe-biden-dogged-classified-documents-scandal-spec/",
+      "urlToImage": "https://twt-thumbs.washtimes.com/media/image/2023/01/13/Biden_US_Japan_54091--52fe7_c0-0-6000-3500_s1200x700.jpg?d0cce8be4950beca0410149b2b60a47cc71c6403",
+      "publishedAt": "2023-01-13T13:14:11Z",
+      "content": "President Bidens troubles with mishandling government secrets seeped into his foreign diplomacy on Friday when he was peppered with questions from reporters at a meeting with Japans prime minister.\r\n… [+1762 chars]"
+    },
+    {
+      "source": {
+        "id": "abc-news-au",
+        "name": "ABC News (AU)"
+      },
+      "author": "Joanna Robin",
+      "title": "How does Joe Biden's handling of classified documents compare to Donald Trump's, and what will the fallout be?",
+      "description": "After sensitive government documents were found in President Joe Biden's garage, Republicans are crying hypocrisy over the way it is being handled. So how does it compare with former president Donald Trump's document probe?",
+      "url": "http://www.abc.net.au/news/2023-01-13/joe-biden-classified-documents-compared-with-donald-trump/101851832",
+      "urlToImage": "https://live-production.wcms.abc-cdn.net.au/ffd92ca0991abce9d3cf33c2402ddd89?impolicy=wcms_crop_resize&cropH=608&cropW=1080&xPos=0&yPos=56&width=862&height=485",
+      "publishedAt": "2023-01-13T02:56:47Z",
+      "content": "How did sensitive government documents from President Joe Biden's time as vice-president of the United States end up in his garage?\r\nThat's one of the key questions a special counsel appointed by the… [+8318 chars]"
+    },
+    {
+      "source": {
+        "id": "the-next-web",
+        "name": "The Next Web"
+      },
+      "author": "Ioanna Lykiardopoulou",
+      "title": "UK pumps cold cash into green freight with new £7M tech fund",
+      "description": "On Monday, the UK government launched a £7M tech fund aiming to decarbonize the freight industry and improve transport links.\r\n\r\nOver the course of three years, the Freight Innovation ...",
+      "url": "http://thenextweb.com/news/uk-green-freight-7m-tech-fund",
+      "urlToImage": "https://img-cdn.tnwcdn.com/image/tnw?filter_last=1&fit=1280%2C640&url=https%3A%2F%2Fcdn0.tnwcdn.com%2Fwp-content%2Fblogs.dir%2F1%2Ffiles%2F2023%2F01%2FUntitled-design-97-1.jpg&signature=0dffe86ad7b58a11173b5168fca4c4ef",
+      "publishedAt": "2023-01-10T14:21:22Z",
+      "content": "On Monday, the UK government launched a £7M tech fund aiming to decarbonize the freight industry and improve transport links.\r\nOver the course of three years, the Freight Innovation Fund (FIF) will g… [+2088 chars]"
+    },
+    {
+      "source": {
+        "id": "national-review",
+        "name": "National Review"
+      },
+      "author": "Philip Klein",
+      "title": "The Conservative Case for Limited Government",
+      "description": "Those of us who still believe in limiting government must make the case to other conservatives as to why this is still a worthwhile aspiration.",
+      "url": "https://www.nationalreview.com/magazine/2022/11/28/small-government-still-matters/",
+      "urlToImage": "https://www.nationalreview.com/wp-content/uploads/2022/11/Capitol-Building-Flag.jpg?fit=2057%2C1200",
+      "publishedAt": "2022-11-10T20:20:10Z",
+      "content": null
+    },
+    {
+      "source": {
+        "id": "financial-times",
+        "name": "Financial Times"
+      },
+      "author": null,
+      "title": "Patrick Drahi’s Altice raises stake in BT to 18%",
+      "description": "UK government warns it could intervene if a full bid is launched",
+      "url": "https://www.ft.com/content/07f138f5-7e86-4e67-a5e9-7c8ae32eb0bd",
+      "urlToImage": "https://www.ft.com/__origami/service/image/v2/images/raw/https%3A%2F%2Fd1e00ek4ebabms.cloudfront.net%2Fproduction%2F611e3571-bf33-4563-9206-c4948709f329.jpg?source=next-opengraph&fit=scale-down&width=900",
+      "publishedAt": "2021-12-14T10:22:19.1642872Z",
+      "content": "Patrick Drahi’s telecoms investment group Altice has increased its stake in BT to 18 per cent but said it is not currently planning to take control of the former UK telecoms monopoly.\r\nThe company ha… [+3123 chars]"
+    },
+    {
+      "source": {
+        "id": "rte",
+        "name": "RTE"
+      },
+      "author": "Tony Connelly",
+      "title": "Scotland and Independence: The High Road or Hard Road?",
+      "description": "Brexit means Scotland is out of the EU. But from the regional office which the Scottish government retains in Brussels, it is hard not to detect the embers of a hope, if not expectation, that it might one day return, writes Tony Connelly.",
+      "url": "https://www.rte.ie/news/analysis-and-comment/2021/0515/1221711-brexit-scotland-independence-eu/",
+      "urlToImage": "https://img.rasset.ie/0015bad4-1600.jpg",
+      "publishedAt": "2021-05-15T06:01:00Z",
+      "content": "It was boisterous, it was bittersweet. On 29 January last year, the European Parliament voted to approve the Brexit Withdrawal Agreement, formally triggering the end of Britain's membership of the EU… [+21179 chars]"
+    },
+    {
+      "source": {
+        "id": "the-times-of-india",
+        "name": "The Times of India"
+      },
+      "author": "Dipak K Dash",
+      "title": "Government to provide 5 kg free food grains to poor for May & June",
+      "description": "India News: The government on Friday announced to provide 5 kg free food grains to the poor for May and June 2021. This will cover nearly 80 crore beneficiaries u",
+      "url": "http://timesofindia.indiatimes.com/india/government-to-provide-5-kg-free-food-grains-to-poor-for-may-june/articleshow/82213582.cms",
+      "urlToImage": "https://static.toiimg.com/thumb/msid-82213583,width-1070,height-580,imgsize-1921513,resizemode-75,overlay-toi_sw,pt-32,y_pad-40/photo.jpg",
+      "publishedAt": "2021-04-23T04:23:00Z",
+      "content": null
+    }
+  ]
+}
