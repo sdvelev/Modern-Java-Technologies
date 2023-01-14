@@ -1,8 +1,8 @@
 package bg.sofia.uni.fmi.mjt.cocktail.server.storage;
 
 import bg.sofia.uni.fmi.mjt.cocktail.server.Cocktail;
-import bg.sofia.uni.fmi.mjt.cocktail.server.storage.exception.CocktailAlreadyExistsException;
-import bg.sofia.uni.fmi.mjt.cocktail.server.storage.exception.CocktailNotFoundException;
+import bg.sofia.uni.fmi.mjt.cocktail.server.storage.exceptions.CocktailAlreadyExistsException;
+import bg.sofia.uni.fmi.mjt.cocktail.server.storage.exceptions.CocktailNotFoundException;
 
 import java.util.Collection;
 

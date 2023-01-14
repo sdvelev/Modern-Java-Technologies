@@ -13,6 +13,36 @@ public class CommandExtractor {
     private final static String INTERVAL_REGEX = " ";
     private final static String BEFORE_EQUALS = "=.+";
     private final static String AFTER_EQUALS = ".+=";
+    private final static int GET_BY_NAME_INGREDIENT_ARGUMENTS = 3;
+
+    private static Command createCommand(List<String> arguments, String[] lineArray) {
+
+        arguments.add(lineArray[1]);
+
+        for (int i = 2; i < lineArray.length; i++) {
+
+            arguments.add(lineArray[i].replaceAll(BEFORE_EQUALS, ""));
+            arguments.add(lineArray[i].replaceAll(AFTER_EQUALS, ""));
+        }
+
+        return new Command(lineArray[0], arguments);
+    }
+
+    private static Command getCommand(List<String> arguments, String[] lineArray) {
+
+        if (lineArray[1].equalsIgnoreCase(ALL_COMMAND_STRING) && lineArray.length == 2) {
+
+            return new Command(lineArray[0] + " " + lineArray[1], new ArrayList<>());
+        } else if ((lineArray[1].equalsIgnoreCase(BY_NAME_COMMAND_STRING) ||
+            lineArray[1].equalsIgnoreCase(BY_INGREDIENT_COMMAND_STRING)) &&
+            lineArray.length == GET_BY_NAME_INGREDIENT_ARGUMENTS) {
+
+            arguments.add(lineArray[2]);
+            return new Command(lineArray[0] + " " + lineArray[1], arguments);
+        }
+
+        return new Command(UNKNOWN_COMMAND_STRING, new ArrayList<>());
+    }
 
     public static Command newCommand(String clientInput) {
 
@@ -22,15 +52,7 @@ public class CommandExtractor {
 
         if (lineArray[0].equalsIgnoreCase(CommandName.CREATE_COMMAND.getCommandName())) {
 
-            arguments.add(lineArray[1]);
-
-            for (int i = 2; i < lineArray.length; i++) {
-
-                arguments.add(lineArray[i].replaceAll(BEFORE_EQUALS, ""));
-                arguments.add(lineArray[i].replaceAll(AFTER_EQUALS, ""));
-            }
-
-            return new Command(lineArray[0], arguments);
+            return createCommand(arguments, lineArray);
         }
         else if (lineArray[0].equals(CommandName.DISCONNECT_COMMAND.getCommandName())) {
 
@@ -38,19 +60,9 @@ public class CommandExtractor {
         }
         else if (lineArray[0].equalsIgnoreCase(GET_COMMAND_STRING)) {
 
-            if (lineArray[1].equalsIgnoreCase(ALL_COMMAND_STRING) && lineArray.length == 2) {
-
-                return new Command(lineArray[0] + " " + lineArray[1], new ArrayList<>());
-            } else if ((lineArray[1].equalsIgnoreCase(BY_NAME_COMMAND_STRING) ||
-                lineArray[1].equalsIgnoreCase(BY_INGREDIENT_COMMAND_STRING)) &&
-                lineArray.length == 3) {
-
-                arguments.add(lineArray[2]);
-                return new Command(lineArray[0] + " " + lineArray[1], arguments);
-            }
+            return getCommand(arguments, lineArray);
         }
 
         return new Command(UNKNOWN_COMMAND_STRING, new ArrayList<>());
     }
-
 }

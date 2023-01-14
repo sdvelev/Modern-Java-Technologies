@@ -3,8 +3,8 @@ package bg.sofia.uni.fmi.mjt.cocktail.server.command;
 import bg.sofia.uni.fmi.mjt.cocktail.server.Cocktail;
 import bg.sofia.uni.fmi.mjt.cocktail.server.Ingredient;
 import bg.sofia.uni.fmi.mjt.cocktail.server.storage.CocktailStorage;
-import bg.sofia.uni.fmi.mjt.cocktail.server.storage.exception.CocktailAlreadyExistsException;
-import bg.sofia.uni.fmi.mjt.cocktail.server.storage.exception.CocktailNotFoundException;
+import bg.sofia.uni.fmi.mjt.cocktail.server.storage.exceptions.CocktailAlreadyExistsException;
+import bg.sofia.uni.fmi.mjt.cocktail.server.storage.exceptions.CocktailNotFoundException;
 
 import java.util.HashSet;
 import java.util.List;
@@ -19,7 +19,6 @@ public class CommandExecutor {
     private static final String GET_BY_NAME_COMMAND_STRING = "get by-name";
     private static final String GET_BY_INGREDIENT_COMMAND_STRING = "get by-ingredient";
     private static final String DISCONNECT_COMMAND_STRING = "disconnect";
-    private static final String LIST = "list";
 
     public CommandExecutor(CocktailStorage cocktailStorage) {
 
@@ -42,10 +41,14 @@ public class CommandExecutor {
     private String processCreateCommand(List<String> arguments) {
 
         String cocktailName = arguments.get(0);
-        arguments.remove(0);
+
+        if (arguments.size() % 2 == 0) {
+            return "Arguments format is incorrect";
+        }
+
         Set<Ingredient> ingredientsToAdd = new HashSet<>();
 
-        for (int i = 0; i < arguments.size(); i += 2) {
+        for (int i = 1; i < arguments.size(); i += 2) {
 
             ingredientsToAdd.add(new Ingredient(arguments.get(i), arguments.get(i + 1)));
         }
@@ -57,18 +60,12 @@ public class CommandExecutor {
 
             return "There is already a cocktail with the same name";
         }
+
         return "Created cocktail with name " + cocktailName;
     }
 
     private String processGetAllCommand() {
 
-        /*StringBuilder stringBuilder = new StringBuilder();
-        for (Cocktail currentCocktail : this.cocktailStorage.getCocktails()) {
-
-            stringBuilder.append(currentCocktail + System.lineSeparator());
-        }
-
-        return stringBuilder.toString();*/
         return this.cocktailStorage.getCocktails().toString();
     }
 
@@ -92,5 +89,4 @@ public class CommandExecutor {
 
         return "Disconnected from the server";
     }
-
 }

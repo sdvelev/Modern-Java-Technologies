@@ -16,11 +16,11 @@ import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 
 public class Server {
+
+    private static final int SERVER_PORT = 4444;
     private static final int BUFFER_SIZE = 1024;
     private static final String HOST = "localhost";
-
     private final CommandExecutor commandExecutor;
-
     private final int port;
     private boolean isServerWorking;
 
@@ -34,12 +34,15 @@ public class Server {
 
     public void start() {
         try (ServerSocketChannel serverSocketChannel = ServerSocketChannel.open()) {
+
             selector = Selector.open();
             configureServerSocketChannel(serverSocketChannel, selector);
             this.buffer = ByteBuffer.allocate(BUFFER_SIZE);
             isServerWorking = true;
+
             while (isServerWorking) {
                 try {
+
                     int readyChannels = selector.select();
                     if (readyChannels == 0) {
                         continue;
@@ -47,11 +50,13 @@ public class Server {
 
                     Iterator<SelectionKey> keyIterator = selector.selectedKeys().iterator();
                     while (keyIterator.hasNext()) {
+
                         SelectionKey key = keyIterator.next();
+
                         if (key.isReadable()) {
                             SocketChannel clientChannel = (SocketChannel) key.channel();
                             String clientInput = getClientInput(clientChannel);
-                            System.out.println(clientInput);
+
                             if (clientInput == null) {
                                 continue;
                             }
@@ -92,6 +97,7 @@ public class Server {
 
         int readBytes = clientChannel.read(buffer);
         if (readBytes < 0) {
+            System.out.println("Client has closed the connection");
             clientChannel.close();
             return null;
         }
@@ -120,12 +126,10 @@ public class Server {
         accept.register(selector, SelectionKey.OP_READ);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
-        Server s = new Server(4444, new CommandExecutor(new DefaultCocktailStorage()));
+        Server s = new Server(SERVER_PORT, new CommandExecutor(new DefaultCocktailStorage()));
 
         s.start();
-
-
     }
 }

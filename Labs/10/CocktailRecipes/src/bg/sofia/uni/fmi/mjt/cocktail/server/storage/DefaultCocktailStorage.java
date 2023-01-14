@@ -2,8 +2,8 @@ package bg.sofia.uni.fmi.mjt.cocktail.server.storage;
 
 import bg.sofia.uni.fmi.mjt.cocktail.server.Cocktail;
 import bg.sofia.uni.fmi.mjt.cocktail.server.Ingredient;
-import bg.sofia.uni.fmi.mjt.cocktail.server.storage.exception.CocktailAlreadyExistsException;
-import bg.sofia.uni.fmi.mjt.cocktail.server.storage.exception.CocktailNotFoundException;
+import bg.sofia.uni.fmi.mjt.cocktail.server.storage.exceptions.CocktailAlreadyExistsException;
+import bg.sofia.uni.fmi.mjt.cocktail.server.storage.exceptions.CocktailNotFoundException;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -59,7 +59,7 @@ public class DefaultCocktailStorage implements CocktailStorage {
     public Collection<Cocktail> getCocktailsWithIngredient(String ingredientName) {
 
         return this.cocktails.stream()
-            .filter(cocktail -> cocktail.ingredients().contains(new Ingredient(ingredientName,null)))
+            .filter(cocktail -> cocktail.ingredients().contains(new Ingredient(ingredientName, null)))
             .toList();
     }
 
@@ -74,12 +74,10 @@ public class DefaultCocktailStorage implements CocktailStorage {
     public Cocktail getCocktail(String name) throws CocktailNotFoundException {
 
         if (!this.cocktails.contains(new Cocktail(name, null))) {
-
             throw new CocktailNotFoundException("There is not a cocktail with such a name");
         }
 
         Cocktail toReturn = null;
-
         for (Cocktail currentCocktail : this.cocktails) {
 
             if (currentCocktail.equals(new Cocktail(name, null))) {
