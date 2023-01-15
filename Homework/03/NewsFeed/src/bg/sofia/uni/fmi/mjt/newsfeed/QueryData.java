@@ -9,7 +9,7 @@ import java.util.List;
 public class QueryData {
 
     //Required parameters
-    private List<String> keywords;
+    private final List<String> keywords;
 
     //optional parameters
     private String category;
@@ -27,7 +27,7 @@ public class QueryData {
         return country;
     }
 
-    public static QueryDataBuilder builder(String ... keywords) {
+    public static QueryDataBuilder builder(List<String> keywords) {
 
         return new QueryDataBuilder(keywords);
     }
@@ -49,9 +49,9 @@ public class QueryData {
         private String category;
         private String country;
 
-        private QueryDataBuilder(String ... keywords) {
+        private QueryDataBuilder(List<String> keywords) {
 
-            this.keywords = Arrays.asList(keywords);
+            this.keywords = keywords;
         }
 
         public QueryDataBuilder setCategory(String category) {

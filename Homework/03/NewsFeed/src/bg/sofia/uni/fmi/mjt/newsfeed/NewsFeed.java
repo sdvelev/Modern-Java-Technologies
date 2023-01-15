@@ -14,6 +14,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
@@ -29,8 +30,8 @@ public class NewsFeed {
     private static final String API_ENDPOINT_PATH = "/v2/top-headlines";
     private static final String API_ENDPOINT_QUERY = "q=%s&units=metric&lang=bg&appid=%s";
 
-    private static final int PAGE_SIZE = 10;
-    private static final int MAX_PAGES = 4;
+    private static final int PAGE_SIZE = 50;
+    private static final int MAX_PAGES = 3;
     private final static int TOO_MANY_REQUESTS = 429;
 
     private static final Gson GSON = new Gson();
@@ -38,7 +39,7 @@ public class NewsFeed {
     private final HttpClient newsFeedHttpClient;
     private final String apiKey;
 
-    public NewsFeed(HttpClient  newsFeedHttpClient) {
+    public NewsFeed(HttpClient newsFeedHttpClient) {
         this(newsFeedHttpClient, API_KEY);
     }
 
@@ -81,7 +82,12 @@ public class NewsFeed {
         List<News> result = new ArrayList<>();
         for (int i = 1; i <= MAX_PAGES; i++) {
 
-            result.add(getNewsFeed(queryData, i));
+            News receivedNews = getNewsFeed(queryData, i);
+            result.add(receivedNews);
+
+            if (receivedNews.getTotalResults() < i * PAGE_SIZE) {
+                break;
+            }
         }
 
         return result;
@@ -111,7 +117,7 @@ public class NewsFeed {
 
         try {
             URI uri = constructURI(queryData, pageNumber);
-            System.out.println(uri.toString());
+            System.out.println(uri);
             HttpRequest request = HttpRequest.newBuilder().uri(uri).build();
 
             response = this.newsFeedHttpClient.send(request, HttpResponse.BodyHandlers.ofString());
@@ -127,7 +133,7 @@ public class NewsFeed {
         return GSON.fromJson(response.body(), News.class);
     }
 
-    private static StringBuffer appendData(List<String> keywords, String category, String country, int pageNumber,
+    private StringBuffer appendData(List<String> keywords, String category, String country, int pageNumber,
                                            StringBuffer apiEndpointQuery) {
 
         if (keywords != null && !keywords.isEmpty()) {
@@ -147,11 +153,11 @@ public class NewsFeed {
             apiEndpointQuery.append("country=" + country + "&");
         }
 
-        apiEndpointQuery.append("pageSize=" + PAGE_SIZE + "&page=" + pageNumber + "&apiKey=" + API_KEY);
+        apiEndpointQuery.append("pageSize=" + PAGE_SIZE + "&page=" + pageNumber + "&apiKey=" + this.apiKey);
         return apiEndpointQuery;
     }
 
-    private static URI constructURI(QueryData queryData, int pageNumber) {
+    private URI constructURI(QueryData queryData, int pageNumber) {
 
         List<String> keywords = queryData.getKeywords();
         String category = queryData.getCategory();
@@ -177,11 +183,12 @@ public class NewsFeed {
         HttpClient client = HttpClient.newBuilder().build();
         NewsFeed n = new NewsFeed(client, API_KEY);
 
-        List<News> returned = n.getNewsFeed(QueryData.builder("president").build());
+        List<News> returned = n.getNewsFeed(QueryData.builder(List.of("Ukraine")).build());
 
         for (News currentNews : returned) {
             System.out.println(currentNews);
         }
+
     }
 
 }
