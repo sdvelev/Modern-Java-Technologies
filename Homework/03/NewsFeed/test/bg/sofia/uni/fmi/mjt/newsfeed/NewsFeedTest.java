@@ -2,7 +2,7 @@ package bg.sofia.uni.fmi.mjt.newsfeed;
 
 import bg.sofia.uni.fmi.mjt.newsfeed.exceptions.IncorrectRequestException;
 import bg.sofia.uni.fmi.mjt.newsfeed.exceptions.NewsFeedException;
-import bg.sofia.uni.fmi.mjt.newsfeed.exceptions.ServerError;
+import bg.sofia.uni.fmi.mjt.newsfeed.exceptions.ServerErrorException;
 import bg.sofia.uni.fmi.mjt.newsfeed.exceptions.TooManyRequestsException;
 import bg.sofia.uni.fmi.mjt.newsfeed.exceptions.UnauthorizedException;
 import bg.sofia.uni.fmi.mjt.newsfeed.model.Article;
@@ -61,7 +61,8 @@ public class NewsFeedTest {
     }
 
     @Test
-    void testGetNewsFeedSuccessfully() throws TooManyRequestsException, IncorrectRequestException, UnauthorizedException {
+    void testGetNewsFeedSuccessfully() throws TooManyRequestsException, IncorrectRequestException,
+        UnauthorizedException, ServerErrorException {
 
         when(this.newsFeedHttpResponseMock.statusCode()).thenReturn(HttpURLConnection.HTTP_OK);
         when(this.newsFeedHttpResponseMock.body()).thenReturn(sampleNewsJson);
@@ -73,7 +74,8 @@ public class NewsFeedTest {
     }
 
     @Test
-    void testGetNewsFeedTwoNews() throws TooManyRequestsException, IncorrectRequestException, UnauthorizedException {
+    void testGetNewsFeedTwoNews() throws TooManyRequestsException, IncorrectRequestException, UnauthorizedException,
+        ServerErrorException {
 
         Article articleFirst = new Article(new Source("444", "bbc"), "Ivan Ivanov", "Important Article",
             "This is an important article", "This is URL element", "Here is to be urlToImage",
@@ -100,7 +102,38 @@ public class NewsFeedTest {
     }
 
     @Test
-    void testGetNewsFeedMissingAPIKey() throws TooManyRequestsException, IncorrectRequestException, UnauthorizedException {
+    void testGetNewsFeedSixtyNews() throws TooManyRequestsException, IncorrectRequestException, UnauthorizedException,
+        ServerErrorException {
+
+        Article article = new Article(new Source("444", "bbc"), "Ivan Ivanov", "Important Article",
+            "This is an important article", "This is URL element", "Here is to be urlToImage",
+            "15.01.2023", "Here is to be the content of thr article.");
+
+        Article[] articles = new Article[60];
+
+        for (int i = 0; i < 60; i++) {
+            articles[i] = article;
+        }
+
+        News sampleNewsLocal = new News("ok", articles.length, articles);
+        String sampleNewsJsonLocal = new Gson().toJson(sampleNewsLocal);
+
+        when(this.newsFeedHttpResponseMock.statusCode()).thenReturn(HttpURLConnection.HTTP_OK);
+        when(this.newsFeedHttpResponseMock.body()).thenReturn(sampleNewsJsonLocal);
+
+        var result = this.newsFeed.getNewsFeed(QueryData.builder(List.of("Article"))
+            .setCategory("general").setCountry("gb").build());
+
+        Assertions.assertTrue(result.get(0).getTotalResults() == 60,
+            "Actual received results are not the same as the expected");
+        Assertions.assertTrue(result.get(0).getStatus().equals("ok"),
+            "Actual status is not the same as the expected");
+        Assertions.assertTrue(result.get(0).getArticles()[59].author().equals("Ivan Ivanov"),
+            "The author of the last article is not the same as the expected.");
+    }
+
+    @Test
+    void testGetNewsFeedMissingAPIKey() {
 
         when(this.newsFeedHttpResponseMock.statusCode()).thenReturn(HttpURLConnection.HTTP_UNAUTHORIZED);
 
@@ -110,7 +143,7 @@ public class NewsFeedTest {
     }
 
     @Test
-    void testGetNewsFeedMissingIncorrectRequest() throws TooManyRequestsException, IncorrectRequestException, UnauthorizedException {
+    void testGetNewsFeedMissingIncorrectRequest() {
 
         when(this.newsFeedHttpResponseMock.statusCode()).thenReturn(HttpURLConnection.HTTP_BAD_REQUEST);
 
@@ -120,7 +153,7 @@ public class NewsFeedTest {
     }
 
     @Test
-    void testGetNewsFeedMissingTooManyRequests() throws TooManyRequestsException, IncorrectRequestException, UnauthorizedException {
+    void testGetNewsFeedMissingTooManyRequests() {
 
         when(this.newsFeedHttpResponseMock.statusCode()).thenReturn(HTTP_TOO_MANY_REQUESTS);
 
@@ -130,17 +163,17 @@ public class NewsFeedTest {
     }
 
     @Test
-    void testGetNewsFeedServerError() throws TooManyRequestsException, IncorrectRequestException, UnauthorizedException {
+    void testGetNewsFeedServerError() {
 
         when(this.newsFeedHttpResponseMock.statusCode()).thenReturn(HttpURLConnection.HTTP_INTERNAL_ERROR);
 
-        Assertions.assertThrows(ServerError.class, () ->
+        Assertions.assertThrows(ServerErrorException.class, () ->
                 this.newsFeed.getNewsFeed(QueryData.builder(List.of("Education")).build()),
-            "ServerError is expected but not thrown");
+            "ServerErrorException is expected but not thrown");
     }
 
     @Test
-    void testGetNewsFeedNewsFeedException() throws TooManyRequestsException, IncorrectRequestException, UnauthorizedException {
+    void testGetNewsFeedNewsFeedException() {
 
         when(this.newsFeedHttpResponseMock.statusCode()).thenReturn(HttpURLConnection.HTTP_NOT_FOUND);
 
@@ -149,7 +182,13 @@ public class NewsFeedTest {
             "NewsFeedException is expected but not thrown");
     }
 
+    @Test
+    void testGetNewsFeedWithNullParameter() {
 
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
+                this.newsFeed.getNewsFeed(null),
+            "Given argument cannot be null");
+    }
 
 
 }

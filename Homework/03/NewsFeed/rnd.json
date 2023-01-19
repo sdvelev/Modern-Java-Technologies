@@ -1,19 +1,32 @@
 {
   "status": "ok",
-  "totalResults": 17,
+  "totalResults": 40,
   "articles": [
     {
       "source": {
-        "id": "fox-news",
-        "name": "Fox News"
+        "id": "die-zeit",
+        "name": "Die Zeit"
       },
-      "author": "Fox News",
-      "title": "Not ‘fair’ for federal government to criticize DeSantis and then ask for Florida’s help: Francis Suarez | Fox News Video",
-      "description": "Miami Mayor Francis Suarez reacts to White House Press Secretary Karine Jean-Pierre blasting Gov. Ron DeSantis for ‘political stunts’ and weighs in on the immigration crisis in Florida.",
-      "url": "https://video.foxnews.com/v/6318680001112/",
-      "urlToImage": "https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/323468bc-11bb-414a-812b-0db58627550c/fd156da9-2478-4285-86f1-0cb690842e52/1280x720/match/1024/512/image.jpg?ve=1&tl=1",
-      "publishedAt": "2023-01-14T15:07:21.696157Z",
-      "content": "©2023 FOX News Network, LLC. All rights reserved. This material may not be published, broadcast, rewritten, or redistributed. All market data delayed 20 minutes."
+      "author": null,
+      "title": "Boris Pistorius: Keine Schonfrist für den neuen Verteidigungsminister",
+      "description": "Kurz nach seiner Vereidigung hat Boris Pistorius seinen US-Amtskollegen Austin empfangen – dabei ging es auch um weitere Militärhilfen für die Und: Streik in Frankreich",
+      "url": "https://www.zeit.de/politik/2023-01/boris-pistorius-verteidigungsminister-ramstein-treffen-2023-nachrichtenpodcast",
+      "urlToImage": null,
+      "publishedAt": "2023-01-19T16:03:47+00:00",
+      "content": "When browsing with ads:\r\nWe collect personal data and also transmit it to third-party providers\r\n that help us improve and finance our digital content. Some of the information stored on your device, … [+732 chars]"
+    },
+    {
+      "source": {
+        "id": "der-tagesspiegel",
+        "name": "Der Tagesspiegel"
+      },
+      "author": "Barbara Barkhausen",
+      "title": "Abschied von Jacinda Ardern: Neuseelands Premierministerin hat „nicht mehr genug im Tank“",
+      "description": "Neuseelands Premierministerin Jacinda Ardern gilt als eine der herausragendsten politischen Führerinnen der Welt. Nun tritt sie überraschend zurück.",
+      "url": "https://www.tagesspiegel.de/internationales/abschied-von-jacinda-ardern-neuseelands-premierministerin-hat-nicht-mehr-genug-im-tank-9206256.html",
+      "urlToImage": "https://www.tagesspiegel.de/politik/images/new-zealand-prime-minister-ardern-reacts-to-mall-attack-in-auckland/alternates/BASE_16_9_W1400/new-zealand-prime-minister-ardern-reacts-to-mall-attack-in-auckland.jpeg",
+      "publishedAt": "2023-01-19T15:42:15+00:00",
+      "content": "Im Ausland galt Neuseelands Premierministerin Jacinda Ardern als eine der herausragendsten politischen Führerinnen der Welt. Doch im Inland sinkt ihre Popularität seit Monaten, eine dritte Amtszeit f… [+5022 chars]"
     },
     {
       "source": {
@@ -21,38 +34,12 @@
         "name": "CBC News"
       },
       "author": "CBC News",
-      "title": "Justin Trudeau's put-up-or-shut-up moment",
-      "description": "Justin Trudeau is trying to do something no prime minister has managed in more than a century — win a fourth consecutive general election. He says he has the vision and the energy to win, and a lot of unfinished business left in government. But politicians se…",
-      "url": "https://www.cbc.ca/newsinteractives/features/justin-trudeau-election-poilievre-liberal",
-      "urlToImage": "https://www.cbc.ca/newsinteractives/content/images/DSCF1958.jpg",
-      "publishedAt": "2023-01-14T13:37:16.1955118Z",
-      "content": "In the fall of 2015, there were 105 long-term drinking water advisories in place in Indigenous communities across the country. But in the years that followed, new long-term advisories came into effec… [+1602 chars]"
-    },
-    {
-      "source": {
-        "id": "reuters",
-        "name": "Reuters"
-      },
-      "author": null,
-      "title": "Bolsonaro's ex-justice minister arrested in Brazilian capital",
-      "description": "Brazil's former Justice Minister Anderson Torres, who was in charge of public security in Brasilia during the invasion of government buildings a week ago, was arrested in Brasilia on Saturday on suspicion of \"omission\" and \"connivance\".",
-      "url": "https://www.reuters.com/world/americas/bolsonaros-ex-justice-minister-torres-arrested-brazilian-capital-2023-01-14/",
-      "urlToImage": "https://www.reuters.com/resizer/68zvY-2p9NUDDBQ3j5xXip4TMNQ=/1200x628/smart/filters:quality(80)/cloudfront-us-east-2.images.arcpublishing.com/reuters/BNTP5SMSGFMXRNXDXHOOU646FY.jpg",
-      "publishedAt": "2023-01-14T13:29:13Z",
-      "content": "BRASILIA, Jan 14 (Reuters) - Brazil's former Justice Minister Anderson Torres, who was in charge of public security in Brasilia during the invasion of government buildings a week ago, was arrested in… [+2067 chars]"
-    },
-    {
-      "source": {
-        "id": "bbc-news",
-        "name": "BBC News"
-      },
-      "author": "BBC News",
-      "title": "Peru protests: President Boluarte 'will not resign' despite weeks of violence",
-      "description": "Weeks of violent anti-government protests have brought large parts of the country to a standstill.",
-      "url": "http://www.bbc.co.uk/news/world-latin-america-64274088",
-      "urlToImage": "https://ichef.bbci.co.uk/news/1024/branded_news/154E5/production/_128296278_perulimaprotests-1246195430.jpg",
-      "publishedAt": "2023-01-14T11:22:17.5862022Z",
-      "content": "Peru's President Dina Boluarte has refused to step down despite weeks of anti-government protests rocking the deeply divided country. \r\n\"I will not resign. My commitment is with Peru,\" she said in a … [+1820 chars]"
+      "title": "1 year later, iconic Churchill photo stolen from Ottawa hotel still eludes police | CBC News",
+      "description": "A little over a year ago, Yousuf Karsh's famed portrait of former British Prime Minister Winston Churchill was stolen from the Chateau Laurier hotel in Ottawa. Police are still stumped as to who did it — and where the photo ended up.",
+      "url": "http://www.cbc.ca/news/canada/winston-churchill-karsh-photo-stolen-timeline-1.6714114",
+      "urlToImage": "https://i.cbc.ca/1.6715360.1673885884!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_620/fake-vs-real-karsh-portrait-of-winston-churchill.jpg",
+      "publishedAt": "2023-01-19T15:37:31.2602109Z",
+      "content": "In a spacious sitting room just off the lobby of the Chateau Laurier hotel in Ottawa, complete with oversized leather chairs and soft music, a spotlight shines on an empty wall.\r\nIf you look closely,… [+6066 chars]"
     },
     {
       "source": {
@@ -60,12 +47,77 @@
         "name": "Google News (India)"
       },
       "author": null,
-      "title": "China Reports Nearly 60,000 Covid-Related Deaths In 35 Days",
-      "description": "China's health authorities on Saturday reported almost 60,000 Covid-related deaths in just over a month, the first major death toll released by the government since the loosening of its virus restrictions in early December.",
-      "url": "https://www.ndtv.com/world-news/china-reports-nearly-60-000-covid-related-deaths-in-35-days-3692118",
-      "urlToImage": "https://c.ndtvimg.com/2023-01/d3ps56lo_china-covid_625x300_12_January_23.jpg",
-      "publishedAt": "2023-01-14T11:08:34+00:00",
-      "content": "The figure refers only to deaths recorded at medical facilities. (Representational)\r\nBeijing: China's health authorities on Saturday reported almost 60,000 Covid-related deaths in just over a month, … [+1778 chars]"
+      "title": "Rishi Sunak Shuts Down Pak-Origin MP Who Raised PM Modi, 2002 Riots",
+      "description": "Defending Prime Minister Narendra Modi in the British Parliament, UK Prime Minister Rishi Sunak distanced himself from the BBC documentary series, saying he \"doesn't agree with the characterization\" of his Indian counterpart.",
+      "url": "https://www.ndtv.com/world-news/rishi-sunak-snubs-pak-origin-mp-over-bbc-documentary-on-pm-modi-3706684",
+      "urlToImage": "https://c.ndtvimg.com/2022-11/jheghqr4_narendra-modi-rishi-sunak-ani_625x300_16_November_22.jpg",
+      "publishedAt": "2023-01-19T15:24:00+00:00",
+      "content": "Ministry of External Affairs also reacted to the BBC report.\r\nLondon: Defending Prime Minister Narendra Modi in the British Parliament, UK Prime Minister Rishi Sunak distanced himself from the BBC do… [+2731 chars]"
+    },
+    {
+      "source": {
+        "id": "die-zeit",
+        "name": "Die Zeit"
+      },
+      "author": null,
+      "title": "Boris Pistorius: Er spricht schon wie der Kanzler",
+      "description": "Der neue Verteidigungsminister Pistorius überzeugt gleich an seinem ersten Tag mit Fachwissen. Bei den Waffenlieferungen deutet sich ein möglicher Kompromiss an.",
+      "url": "https://www.zeit.de/politik/deutschland/2023-01/boris-pistorius-verteidigungsminister-leopard-kampfpanzer-lieferung-ukraine",
+      "urlToImage": null,
+      "publishedAt": "2023-01-19T15:23:47+00:00",
+      "content": "When browsing with ads:\r\nWe collect personal data and also transmit it to third-party providers\r\n that help us improve and finance our digital content. Some of the information stored on your device, … [+732 chars]"
+    },
+    {
+      "source": {
+        "id": "google-news-it",
+        "name": "Google News (Italy)"
+      },
+      "author": "Rosaria Amato",
+      "title": "Il governo non convince i benzinai, lo sciopero del 25-26 è confermato. \"Disponibili a revocarlo fino all'ult…",
+      "description": "Alleggerite le sanzioni, ma per Faib, Figisc e Fegica non è abbastanza : \"Il ministero delle Imprese è venuto meno ai suoi impegni, rimane l…",
+      "url": "https://www.repubblica.it/economia/2023/01/19/news/sciopero_benzinai_2023_confermato_urso_tavolo_carburanti-384231499/",
+      "urlToImage": "https://www.repstatic.it/content/nazionale/img/2023/01/19/114312147-84d25876-42bc-43cc-b61e-ec4fa78c6630.jpg",
+      "publishedAt": "2023-01-19T15:15:56+00:00",
+      "content": "ROMA - Fumata nera stamane al tavolo del ministero delle Imprese e del Made in Italy: Faib Confesercenti, Figisc Confcommercio e Fegica hanno confermato lo sciopero fissato per il 25 e 26 gennaio, e … [+3341 chars]"
+    },
+    {
+      "source": {
+        "id": "il-sole-24-ore",
+        "name": "Il Sole 24 Ore"
+      },
+      "author": null,
+      "title": "Mef propone Barbieri come Dg del Tesoro",
+      "description": "Sarà Riccardo Barbieri il nuovo direttore generale del Ministero delle Finanze, al posto di Alessandro RIvera.",
+      "url": "https://www.ilsole24ore.com/art/mef-propone-barbieri-come-dg-tesoro-AEfFjJYC",
+      "urlToImage": null,
+      "publishedAt": "2023-01-19T14:52:02Z",
+      "content": "Ascolta la versione audio dell'articolo\r\n1' di lettura\r\nSarà Riccardo Barbieri il nuovo direttore generale del Ministero delle Finanze, al posto di Alessandro RIvera.\r\nIl Mef ha inviato alla Presiden… [+740 chars]"
+    },
+    {
+      "source": {
+        "id": "rtl-nieuws",
+        "name": "RTL Nieuws"
+      },
+      "author": "RTL Nieuws",
+      "title": "Man (24) verdacht van afpersen ruim 100 meisjes met naaktfoto's",
+      "description": "Een 24-jarige man uit Etten-Leur wordt ervan verdacht dat hij meer dan honderd minderjarige meisjes heeft afgeperst. Het Openbaar Ministerie spreekt over het grootste onderzoek naar onlinemisbruik van minderjarigen ooit in Nederland.",
+      "url": "https://www.rtlnieuws.nl/nieuws/nederland/artikel/5360347/afpersing-naaktbeelden-sextortion-etten-leur-100-meisjes",
+      "urlToImage": "https://www.rtlnieuws.nl/sites/default/files/content/images/2023/01/19/iStock-517684874.jpg?itok=W3ZQlLLj&offsetX=0&offsetY=0&cropWidth=1252&cropHeight=704&width=2048&height=1152&impolicy=dynamic",
+      "publishedAt": "2023-01-19T14:41:08+00:00",
+      "content": "De zaak kwam aan het rollen nadat een meisje uit Noord-Holland aangifte had gedaan. Zij was 15 toen ze door De W. zou zijn afgeperst. \r\nOnderzoek nog lang niet klaar\r\nDe politie is naar verwachting n… [+806 chars]"
+    },
+    {
+      "source": {
+        "id": "google-news-uk",
+        "name": "Google News (UK)"
+      },
+      "author": "Tess McClure",
+      "title": "From stardust to an empty tank: one-of-a-kind leader Jacinda Ardern knew her time was up",
+      "description": "New Zealand’s prime minister set the standard through tough times, but knew the upcoming election would be the most gruelling yet",
+      "url": "https://www.theguardian.com/world/2023/jan/19/from-stardust-to-an-empty-tank-one-of-a-kind-leader-jacinda-ardern-knew-her-time-was-up",
+      "urlToImage": "https://i.guim.co.uk/img/media/666e24e4e5893c89383af7e734f1e3a225b5b7bb/0_61_3939_2363/master/3939.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=fb2bac339cb1c773eef93a3432e85643",
+      "publishedAt": "2023-01-19T14:05:00+00:00",
+      "content": "Be strong, and be kind. The prime ministers words came at the close of a hastily scheduled press conference, announcing New Zealands first lockdown in the face of an unknown and deadly virus. For man… [+8145 chars]"
     },
     {
       "source": {
@@ -73,12 +125,77 @@
         "name": "ABC News"
       },
       "author": "The Associated Press",
-      "title": "China reports almost 60,000 COVID-related deaths",
-      "description": "China has reported nearly 60,000 deaths in people who had COVID-19 since early December following complaints the government was failing to release data about the status of the pandemic",
-      "url": "https://abcnews.go.com/International/wireStory/china-reports-60000-covid-related-deaths-96434802",
-      "urlToImage": "https://s.abcnews.com/images/International/wirestory_425a5de577126b042d4eea915c174bc0_16x9_992.jpg",
-      "publishedAt": "2023-01-14T10:45:15Z",
-      "content": "BEIJING -- China on Saturday reported nearly 60,000 deaths in people who had COVID-19 since early December following complaints the government was failing to release data about the status of the pand… [+690 chars]"
+      "title": "Biden adviser meets Netanyahu amid unease over his govt",
+      "description": "Israeli Prime Minister Benjamin Netanyahu has met with U.S. National Security Adviser Jake Sullivan, the highest level meeting between the two allies since Israel’s most right-wing government ever took power last month",
+      "url": "https://abcnews.go.com/International/wireStory/biden-adviser-meets-netanyahu-amid-unease-govt-96528673",
+      "urlToImage": "https://s.abcnews.com/images/International/wirestory_c2ea2fbbad4f3890fcd234ededa32ddc_16x9_992.jpg",
+      "publishedAt": "2023-01-19T11:45:30Z",
+      "content": "JERUSALEM -- Israeli Prime Minister Benjamin Netanyahu met Thursday with U.S. National Security Adviser Jake Sullivan, the allies' highest level in-person talks since Israel's most right-wing governm… [+2709 chars]"
+    },
+    {
+      "source": {
+        "id": "google-news-au",
+        "name": "Google News (Australia)"
+      },
+      "author": "Associated Press",
+      "title": "Kyiv helicopter crash kills top Ukraine officials, dozens others",
+      "description": "<p>Ukraine&#x27;s interior minister died Wednesday in a helicopter crash near the capital that killed at least another 14 people, including other officials and three children, authorities said.</p>",
+      "url": "https://www.9news.com.au/world/kyiv-helicopter-crash-kills-18-top-ukraine-officials-dead/e8976d0a-eb91-46c4-a0b4-f83da78a520a",
+      "urlToImage": "https://imageresizer.static9.net.au/tyuNNht0DbwMnAnflABupy1kdcs=/1200x628/smart/https%3A%2F%2Fprod.static9.net.au%2Ffs%2F9c0a89f8-8807-4831-954b-2778dbc68829",
+      "publishedAt": "2023-01-19T11:15:06+00:00",
+      "content": "Auto news: Uber of the future revealed - drive.com.au"
+    },
+    {
+      "source": {
+        "id": "the-irish-times",
+        "name": "The Irish Times"
+      },
+      "author": "Sarah Burns",
+      "title": "Dáil live: Minister for Public Expenditure Paschal Donohoe says he will make a further statement",
+      "description": "Minister tells Dáil he will make statement at earliest opportunity",
+      "url": "https://www.irishtimes.com/politics/oireachtas/2023/01/19/dail-live-minister-for-public-expenditure-paschal-donohoe-says-he-will-make-a-further-statement/",
+      "urlToImage": "https://www.irishtimes.com/resizer/zNAPO92jGjK7A3dvyt3tSJgvM4I=/1200x630/filters:format(jpg):quality(70)/cloudfront-eu-central-1.images.arcpublishing.com/irishtimes/NSLZCEIRREV6LI3J5ZN2NIB3LE.jpg",
+      "publishedAt": "2023-01-19T10:47:57Z",
+      "content": "Minister for Public Expenditure and Reform Paschal Donohoe has said he will make a further statement in relation to issues involving the 2016 general election campaign.\r\nMr Donohoe told the Dáil on T… [+2138 chars]"
+    },
+    {
+      "source": {
+        "id": "al-jazeera-english",
+        "name": "Al Jazeera English"
+      },
+      "author": "Al Jazeera",
+      "title": "Germany heads for showdown over tanks for Ukraine",
+      "description": "US defence secretary Lloyd Austin to meet new German defence minister a day before allies meet to discuss military aid.",
+      "url": "http://www.aljazeera.com/news/2023/1/19/pressure-mounts-for-german-tanks-ahead-of-allies-meeting",
+      "urlToImage": "https://www.aljazeera.com/wp-content/uploads/2023/01/AP18328511564358.jpg?resize=1920%2C1440",
+      "publishedAt": "2023-01-19T10:12:38Z",
+      "content": "Ukraine has upped its call for the West to finally send heavy tanks as the defence chiefs of the United States and Germany headed for a showdown over weapons Kyiv says could decide the fate of the wa… [+3955 chars]"
+    },
+    {
+      "source": {
+        "id": "google-news",
+        "name": "Google News"
+      },
+      "author": "Nick Perry",
+      "title": "New Zealand's Jacinda Ardern, an icon to many, to step down",
+      "description": "WELLINGTON, New Zealand (AP) — New Zealand Prime Minister Jacinda Ardern, who became a global icon  of the left and exemplified a new style of leadership, said Thursday that she would leave office.",
+      "url": "https://apnews.com/article/politics-new-zealand-government-covid-jacinda-ardern-0e6d8eedd96f94aab07eeb0c37164591",
+      "urlToImage": "https://storage.googleapis.com/afs-prod/media/f64c08ef6569448db7fd84fb4b32a6ab/3000.webp",
+      "publishedAt": "2023-01-19T09:56:15+00:00",
+      "content": "WELLINGTON, New Zealand (AP) New Zealand Prime Minister Jacinda Ardern, who became a global icon of the left and exemplified a new style of leadership, said Thursday that she would leave office.\r\nJus… [+7913 chars]"
+    },
+    {
+      "source": {
+        "id": "australian-financial-review",
+        "name": "Australian Financial Review"
+      },
+      "author": "Tony Boyd",
+      "title": "How Jacinda Ardern gave Australia a lesson in leadership",
+      "description": "Jacinda Ardern saw the writing on the wall and pulled the pin on politics. But she leaves a strong legacy as prime minister of New Zealand.",
+      "url": "http://www.afr.com/chanticleer/ardern-gave-australia-a-lesson-in-leadership-20230119-p5ce0t",
+      "urlToImage": "https://static.ffx.io/images/$zoom_0.3147%2C$multiply_3%2C$ratio_1.777778%2C$width_1059%2C$x_0%2C$y_12/t_crop_custom/c_scale%2Cw_800%2Cq_88%2Cf_jpg/t_afr_opinion_no_age_social_wm/8bfb87577c611b321c2099b895af88d2e37e77e2",
+      "publishedAt": "2023-01-19T08:36:55Z",
+      "content": "Business did very well under the Ardern government, notwithstanding the imposition of higher capital charges for the big four Australian banks, who run the New Zealand financial system.\r\nOne simple m… [+2390 chars]"
     },
     {
       "source": {
@@ -86,153 +203,324 @@
         "name": "Google News (India)"
       },
       "author": null,
-      "title": "After ISRO Shared Satellite Images Of Sinking Joshimath, A Gag Order",
-      "description": "The National Disaster Management Authority has barred government institutions from interacting with the media and sharing data on social media regarding ground subsidence in Joshimath.",
-      "url": "https://www.ndtv.com/india-news/joshimath-latest-update-after-space-agency-isro-shared-satelite-images-of-sinking-town-a-gag-order-3691705",
-      "urlToImage": "https://c.ndtvimg.com/2023-01/7uj3681s_joshimath-reuters_625x300_12_January_23.jpg",
-      "publishedAt": "2023-01-14T08:58:00+00:00",
-      "content": "It said the organisations' \"own interpretations\" of data are creating confusion.\r\nNew Delhi: A day after an Indian Space Research Organisation (ISRO) report revealed that Uttarakhand's Joshimath saw … [+1953 chars]"
+      "title": "\"I Only Have One Dream\": Nitish Kumar Day After KCR-Led Opposition Rally",
+      "description": "A day after a grand opposition rally in Telangana, Bihar Chief Minister Nitish Kumar said he only had a single wish and that has nothing to do with himself.",
+      "url": "https://www.ndtv.com/india-news/nitish-kumar-day-after-kcr-led-opposition-rally-in-telangana-i-only-have-one-dream-3705656",
+      "urlToImage": "https://c.ndtvimg.com/2023-01/pisujsao_nitish-kumar_625x300_17_January_23.jpg",
+      "publishedAt": "2023-01-19T08:33:00+00:00",
+      "content": "Nitish Kumar insists he is not a contender for the prime minister's post. (File photo)\r\nPatna: A day after a grand opposition rally in Telangana, Bihar Chief Minister Nitish Kumar said he only had a … [+1898 chars]"
     },
     {
       "source": {
-        "id": "the-irish-times",
-        "name": "The Irish Times"
+        "id": "google-news-in",
+        "name": "Google News (India)"
       },
-      "author": "Una Mullally",
-      "title": "Aoibhinn Ní Shúilleabháin: ‘It was important to me to get a formal apology from UCD’",
-      "description": "One of Ireland’s best-known academics reflects on closing the door on a painful period of her life, and her role as chair of the Citizens’ Assembly on Biodiversity as it prepares to report to Government",
-      "url": "https://www.irishtimes.com/life-style/people/2023/01/14/aoibhinn-ni-shuilleabhain-it-was-important-to-me-to-get-a-formal-apology-from-ucd/",
-      "urlToImage": "https://www.irishtimes.com/resizer/nP8MIhcwPOa5b5uvQPMPizh61hA=/1200x630/filters:format(jpg):quality(70):focal(4002x1636:4012x1646)/cloudfront-eu-central-1.images.arcpublishing.com/irishtimes/O72IJ3IERJED3CBATMHGHKDGJI.JPG",
-      "publishedAt": "2023-01-14T05:00:03Z",
-      "content": "Some of Aoibhinn Ní Shúilleabháins earliest memories of being in nature are of fishing with her father and grandfather, wrapped in oilskins in a small boat on Lough Corrib, the lakes waves lapping up… [+13545 chars]"
+      "author": "LIVELAW NEWS NETWORK",
+      "title": "Lakhimpur Kheri - 'Will Poor Prisoners Get Relief If Ashish Mishra Is Also In Jail?': Supreme Court...",
+      "description": "The Supreme Court on Thursday reserved judgment on the petition filed by Ashish Mishra, son of Union Minister Ajay Mishra, seeking bail in the Lakhimpur Kheri case related to the killing of five...",
+      "url": "https://www.livelaw.in/top-stories/lakhimpur-kheri-will-poor-prisoners-get-relief-if-ashish-mishra-is-also-in-jail-supreme-court-reserves-judgment-on-bail-plea-219361",
+      "urlToImage": "https://www.livelaw.in/h-upload/2021/11/12/403863-ashish-mishra-lakhimpur-kheri-and-sc.jpg",
+      "publishedAt": "2023-01-19T07:32:26+00:00",
+      "content": "The Supreme Court on Thursday reserved judgment on the petition filed by Ashish Mishra, son of Union Minister Ajay Mishra, seeking bail in the Lakhimpur Kheri case related to the killing of five pers… [+10816 chars]"
     },
     {
       "source": {
-        "id": "news-com-au",
-        "name": "News.com.au"
+        "id": "australian-financial-review",
+        "name": "Australian Financial Review"
       },
-      "author": "Belinda Palmada, AFP",
-      "title": "US confirms hundreds of UFO reports",
-      "description": "<p>The US government has received more than 500 reports of unidentified flying object (UFOs) sightings since 2021, with hundreds remaining unexplained. </p>",
-      "url": "https://www.news.com.au/technology/science/space/us-government-receives-more-than-500-ufo-reports-with-hundreds-unexplained/news-story/0667fa5f2cd6524cfa3a4bfd7d6b0fe6",
-      "urlToImage": "https://content.api.news/v3/images/bin/5fac38058f7e2977aa65e300ad923f11",
-      "publishedAt": "2023-01-14T01:38:00Z",
-      "content": "The US government has received more than 500 reports of unidentified flying object (UFOs) sightings since 2021, with hundreds remaining unexplained. \r\nAccording to a report from the Director of Natio… [+2828 chars]"
+      "author": "Andrea Vance",
+      "title": "Jacinda Ardern resignation: PM just conceded the NZ election with her shock decision",
+      "description": "The prime minister’s resignation has handed the opposition National party a major boost at the October election.",
+      "url": "http://www.afr.com/world/pacific/ardern-just-conceded-the-nz-election-with-her-shock-decision-20230119-p5ce17",
+      "urlToImage": "https://static.ffx.io/images/$zoom_0.3167%2C$multiply_3%2C$ratio_1.777778%2C$width_1059%2C$x_0%2C$y_0/t_crop_custom/c_scale%2Cw_800%2Cq_88%2Cf_jpg/t_afr_opinion_no_age_social_wm/4a5ce4129be88ab1f322e907702329639b31c309",
+      "publishedAt": "2023-01-19T07:24:24Z",
+      "content": "The public does like shiny and new. The new prime minister can almost count on a bump in the next round of polls from a curious public.\r\nAnd in theory, a skilled politician can distance themselves fr… [+3039 chars]"
     },
     {
       "source": {
-        "id": "the-washington-times",
-        "name": "The Washington Times"
+        "id": "australian-financial-review",
+        "name": "Australian Financial Review"
       },
-      "author": "Mike Stobbe",
-      "title": "Holidays didn't lead to feared bump in flu cases, CDC says",
-      "description": "New U.S. government data suggests holiday gatherings didn't spark surges in respiratory diseases.",
-      "url": "https://www.washingtontimes.com/news/2023/jan/13/holidays-didnt-lead-to-feared-bump-in-flu-cases-cd/",
-      "urlToImage": "https://twt-thumbs.washtimes.com/media/image/2023/01/13/MED_Waning_Viruses_07468_c0-268-3212-2141_s1200x700.jpg?66fa1d78c81837dfe6c2f92c9fe3fcf922e49fac",
-      "publishedAt": "2023-01-13T15:58:07Z",
-      "content": "NEW YORK New U.S. government data suggests holiday gatherings didn’t spark surges in respiratory diseases.\r\nThe Centers for Disease Control and Prevention on Friday reported that visits to doctors’ o… [+2843 chars]"
-    }
-  ]
-}
-
-
-
-
-
-{
-  "status": "ok",
-  "totalResults": 17,
-  "articles": [
+      "author": "Praveen Menon",
+      "title": "Jacinda Ardern resigns: NZ prime minister’s legacy of kindness, and disappointments",
+      "description": "Speaking from the heart (and bringing her baby to the UN) helped turn Jacinda Ardern into a global icon of the left. But at home in New Zealand she struggled to prove her leadership extended beyond crisis management and kindness.",
+      "url": "http://www.afr.com/world/pacific/ardern-s-legacy-of-kindness-and-disappointments-20230119-p5ce0o",
+      "urlToImage": "https://static.ffx.io/images/$zoom_0.326%2C$multiply_3%2C$ratio_1.777778%2C$width_1059%2C$x_80%2C$y_388/t_crop_custom/c_scale%2Cw_800%2Cq_88%2Cf_jpg/t_afr_no_label_no_age_social_wm/f0d0419c2686bea949c50323c9c165fc16c44598",
+      "publishedAt": "2023-01-19T07:03:19Z",
+      "content": "She delivered a ban on semiautomatic firearms and other gun curbs within weeks of the massacre, a stark contrast to the US, where legislators and activists struggle to address gun violence despite re… [+5123 chars]"
+    },
     {
       "source": {
-        "id": "the-washington-times",
-        "name": "The Washington Times"
+        "id": "associated-press",
+        "name": "Associated Press"
       },
-      "author": "Jeff Mordock",
-      "title": "Biden dogged by classified documents scandal, special counsel inquiry when meeting with Japan PM",
-      "description": "President Biden's troubles with mishandling government secrets seeped into his foreign diplomacy when he was peppered with questions from reporters at a meeting with Japan's prime minister.",
-      "url": "https://www.washingtontimes.com/news/2023/jan/13/joe-biden-dogged-classified-documents-scandal-spec/",
-      "urlToImage": "https://twt-thumbs.washtimes.com/media/image/2023/01/13/Biden_US_Japan_54091--52fe7_c0-0-6000-3500_s1200x700.jpg?d0cce8be4950beca0410149b2b60a47cc71c6403",
-      "publishedAt": "2023-01-13T13:14:11Z",
-      "content": "President Bidens troubles with mishandling government secrets seeped into his foreign diplomacy on Friday when he was peppered with questions from reporters at a meeting with Japans prime minister.\r\n… [+1762 chars]"
+      "author": "NICK PERRY",
+      "title": "New Zealand's Jacinda Ardern, an icon to many, to step down",
+      "description": "WELLINGTON, New Zealand (AP) — New Zealand Prime Minister Jacinda Ardern, who became a global icon of the left and exemplified a new style of leadership, said Thursday that she would leave office.",
+      "url": "https://apnews.com/0e6d8eedd96f94aab07eeb0c37164591",
+      "urlToImage": "https://storage.googleapis.com/afs-prod/media/f64c08ef6569448db7fd84fb4b32a6ab/3000.jpeg",
+      "publishedAt": "2023-01-19T06:51:06Z",
+      "content": "WELLINGTON, New Zealand (AP) — New Zealand Prime Minister Jacinda Ardern, who became a global icon of the left and exemplified a new style of leadership, said Thursday that she would leave office.Jus… [+7946 chars]"
+    },
+    {
+      "source": {
+        "id": "focus",
+        "name": "Focus"
+      },
+      "author": "FOCUS online",
+      "title": "Panzer-Lieferungen: Polen will „Leopard“ auch ohne deutsche Erlaubnis liefern",
+      "description": "Am Freitag kommen auf dem US-Luftwaffenstützpunkt Ramstein die Verteidigungsminister mehrerer Dutzend Staaten zusammen. Vor allem Panzer-Lieferungen dürften zum Thema werden. Schon heute trifft US-Verteidigungsminister Austin seinen neuen deutschen Kollegen P…",
+      "url": "https://www.focus.de/politik/ausland/ukraine-krise/debatte-um-panzer-lieferungen-usa-wollen-stryker-panzer-liefern-pistorius-trifft-heute-us-kollegen_id_183448749.html",
+      "urlToImage": "https://p6.focus.de/img/fotos/id_183202293/leo.jpg?im=Crop%3D%280%2C288%2C3464%2C1732%29%3BResize%3D%281200%2C627%29&hash=3ea7230008fa7daf6c765a729f8283fbef2a590a79364ad04408c11aa71b3242",
+      "publishedAt": "2023-01-19T05:58:05Z",
+      "content": "Am Freitag kommen auf dem US-Luftwaffenstützpunkt Ramstein die Verteidigungsminister mehrerer Dutzend Staaten zusammen. Vor allem Panzer-Lieferungen dürften zum Thema werden. Schon heute trifft US-Ve… [+6721 chars]"
+    },
+    {
+      "source": {
+        "id": "google-news-au",
+        "name": "Google News (Australia)"
+      },
+      "author": "ABC News",
+      "title": "Australian government 'deeply troubled' by delays to writer Yang Hengjun's espionage trial verdict in China",
+      "description": "Foreign Minister Penny Wong expresses concerns after Chinese authorities delay a verdict in the espionage trial of Australian writer Yang Hengjun until April — the seventh such delay.",
+      "url": "https://www.abc.net.au/news/2023-01-19/australia-troubled-writers-espionage-trial-verdict-delayed-china/101873180",
+      "urlToImage": "https://live-production.wcms.abc-cdn.net.au/fa754f7c36d8f29e1712ca29311fe833?impolicy=wcms_crop_resize&cropH=360&cropW=640&xPos=0&yPos=23&width=862&height=485",
+      "publishedAt": "2023-01-19T05:43:07+00:00",
+      "content": "Foreign Minister Penny Wong says the Australian government is \"deeply troubled\" after Chinese authorities delayed a verdict in the espionage trial of Australian writer Yang Hengjun until April the se… [+2793 chars]"
+    },
+    {
+      "source": {
+        "id": "australian-financial-review",
+        "name": "Australian Financial Review"
+      },
+      "author": "Jennifer Hewett",
+      "title": "Jacinda Ardern resigns: New Zealand prime minister goes out on top, unlike Boris Johnson, Scott Morison and Donald Trump",
+      "description": "New Zealand’s leader became an icon of the global left but is choosing to step down for personal reasons – while still on top as an undefeated prime minister.",
+      "url": "http://www.afr.com/politics/federal/jacinda-ardern-exits-undefeated-unlike-boris-morrison-trump-20230119-p5cdx1",
+      "urlToImage": "https://static.ffx.io/images/$zoom_0.1549%2C$multiply_4%2C$ratio_1.777778%2C$width_1059%2C$x_0%2C$y_0/t_crop_custom/c_scale%2Cw_800%2Cq_88%2Cf_jpg/t_afr_opinion_no_age_social_wm/b741adc84cebfe23885e4e9e23c171685a182fd9",
+      "publishedAt": "2023-01-19T05:22:04Z",
+      "content": "I am a politician who is first and foremost human, she declared on Thursday. And so leadership means being willing to step back and recognise when actually its time for someone else to do the job.\r\nI… [+4513 chars]"
+    },
+    {
+      "source": {
+        "id": "time",
+        "name": "Time"
+      },
+      "author": "Amy Gunia",
+      "title": "New Zealand Prime Minister Jacinda Ardern Announces She Will Step Down",
+      "description": "New Zealand Prime Minister Jacinda Ardern says she will step down before February 7 and will not seek re-election later this year.",
+      "url": "http://time.com/6248305/jacinda-ardern-resigns-prime-minister-new-zealand/",
+      "urlToImage": "https://api.time.com/wp-content/uploads/2023/01/GettyImages-1457515502.jpg?quality=85&crop=0px%2C0px%2C7984px%2C4179px&resize=1200%2C628&strip",
+      "publishedAt": "2023-01-19T01:56:01Z",
+      "content": "New Zealand’s Prime Minister Jacinda Ardern said in a surprise announcement on Thursday that she will step down next month as the leader of the South Pacific nation and that she will not seek re-elec… [+2807 chars]"
+    },
+    {
+      "source": {
+        "id": "australian-financial-review",
+        "name": "Australian Financial Review"
+      },
+      "author": "Andrew Tillett",
+      "title": "Jacinda Ardern: New Zealand prime minister Jacinda Ardern resigns",
+      "description": "New Zealand’s Labour government has been rocked after Jacinda Ardern announced her shock resignation, 10 months out from an election that opinion polls show it is on track to lose.",
+      "url": "http://www.afr.com/politics/federal/ardern-led-with-intellect-and-strength-albanese-20230119-p5cdwc",
+      "urlToImage": "https://static.ffx.io/images/$zoom_0.9201%2C$multiply_2%2C$ratio_1.777778%2C$width_1059%2C$x_0%2C$y_0/t_crop_custom/c_scale%2Cw_800%2Cq_88%2Cf_jpg/t_afr_no_label_no_age_social_wm/b59bb13a7f200cb520b007ca35dcbe3f7f6333c6",
+      "publishedAt": "2023-01-19T01:12:37Z",
+      "content": "That result put National and the libertarian ACT party on 64 seats, compared to 52 for the centre-left grouping of Labour, the Greens and the Maori Party. Sixty-one seats are needed to form governmen… [+5582 chars]"
+    },
+    {
+      "source": {
+        "id": "the-wall-street-journal",
+        "name": "The Wall Street Journal"
+      },
+      "author": "Mike Cherney",
+      "title": "New Zealand Prime Minister Jacinda Ardern Announces Resignation",
+      "description": "She says she will depart leadership role by early February",
+      "url": "https://www.wsj.com/articles/new-zealand-prime-minister-jacinda-ardern-to-step-down-11674088057?mod=hp_lead_pos12",
+      "urlToImage": "https://images.wsj.net/im-706082/social",
+      "publishedAt": "2023-01-19T00:27:00Z",
+      "content": "SYDNEYNew Zealand Prime Minister Jacinda Ardern said she would step down by Feb. 7 after over five years as leader, as the country grapples with the prospect of a recession stemming partly from its \r… [+394 chars]"
+    },
+    {
+      "source": {
+        "id": "google-news-ca",
+        "name": "Google News (Canada)"
+      },
+      "author": "Sean Boynton",
+      "title": "Canada summons Russian ambassador to condemn civilian attacks, antisemitic remarks",
+      "description": "Foreign Affairs Minister Melanie Joly said the move was in response to last weekend's missile strike in Dnipro and comments made by Russia's foreign minister.",
+      "url": "https://globalnews.ca/news/9419715/ukraine-russia-canada-ambassador-summon/",
+      "urlToImage": "https://globalnews.ca/wp-content/uploads/2023/01/CP165685895-e1674079201777.jpg?quality=85&strip=all&w=720&h=379&crop=1",
+      "publishedAt": "2023-01-18T22:23:20+00:00",
+      "content": "Foreign Affairs Minister Melanie Joly says Ottawa is summoning Russia’s ambassador to condemn both Moscow’s attacks on Ukrainian civilians and her Russian counterpart’s recent antisemitic comments ab… [+5552 chars]"
+    },
+    {
+      "source": {
+        "id": "breitbart-news",
+        "name": "Breitbart News"
+      },
+      "author": "John Hayward",
+      "title": "Taiwanese Foreign Minister: China ‘More Likely’ to Invade as Xi Jinping’s Problems Pile Up",
+      "description": "Taiwanese Foreign Ministry Joseph Wu told Sky News on Wednesday that China is growing “more likely” to invade.",
+      "url": "https://www.breitbart.com/asia/2023/01/18/taiwanese-foreign-minister-china-more-likely-to-invade-as-xi-jinpings-problems-pile-up/",
+      "urlToImage": "https://media.breitbart.com/media/2023/01/joseph_wu_xi-640x335.jpg",
+      "publishedAt": "2023-01-18T22:04:35Z",
+      "content": "Taiwanese Foreign Ministry Joseph Wu told Sky News on Wednesday that China is growing more likely to invade as Chinese dictator Xi Jinpings domestic problems grow more serious. \r\nWu suggested 2027 wa… [+3852 chars]"
+    },
+    {
+      "source": {
+        "id": "breitbart-news",
+        "name": "Breitbart News"
+      },
+      "author": "John Hayward",
+      "title": "Saudi Arabia Ready to Consider Other Currencies Besides Dollar for Trade",
+      "description": "Saudi Arabian Finance Minister Mohammed al-Jadaan said on Tuesday that his government is willing to consider alternatives to the U.S. dollar.",
+      "url": "https://www.breitbart.com/middle-east/2023/01/18/saudi-arabia-ready-to-consider-other-currencies-besides-dollar-for-trade/",
+      "urlToImage": "https://media.breitbart.com/media/2023/01/saudi-arabia-bank-merger-june-15-2015-file-photo-saudi-walks-tadawul-stock-exchange-riyadh-640x335.png",
+      "publishedAt": "2023-01-18T21:47:42Z",
+      "content": "Saudi Arabian Finance Minister Mohammed al-Jadaan said on Tuesday that his government is willing to consider alternatives to the U.S. dollar for international trade.\r\nSaudi Arabias currency has been … [+3345 chars]"
     },
     {
       "source": {
         "id": "abc-news-au",
         "name": "ABC News (AU)"
       },
-      "author": "Joanna Robin",
-      "title": "How does Joe Biden's handling of classified documents compare to Donald Trump's, and what will the fallout be?",
-      "description": "After sensitive government documents were found in President Joe Biden's garage, Republicans are crying hypocrisy over the way it is being handled. So how does it compare with former president Donald Trump's document probe?",
-      "url": "http://www.abc.net.au/news/2023-01-13/joe-biden-classified-documents-compared-with-donald-trump/101851832",
-      "urlToImage": "https://live-production.wcms.abc-cdn.net.au/ffd92ca0991abce9d3cf33c2402ddd89?impolicy=wcms_crop_resize&cropH=608&cropW=1080&xPos=0&yPos=56&width=862&height=485",
-      "publishedAt": "2023-01-13T02:56:47Z",
-      "content": "How did sensitive government documents from President Joe Biden's time as vice-president of the United States end up in his garage?\r\nThat's one of the key questions a special counsel appointed by the… [+8318 chars]"
+      "author": "Tom Lowrey",
+      "title": "Reaction to government's key climate policy signals Albanese has chance to end climate wars",
+      "description": "Attempts to land climate policy have spelled the doom of several former prime ministers, but cautious agreement from energy, business and environment groups last week on the Albanese government's plan to bring down emissions suggests the climate wars may be o…",
+      "url": "http://www.abc.net.au/news/2023-01-19/response-to-safeguard-mechanism-good-sign-for-end-of-climate-war/101867156",
+      "urlToImage": "https://live-production.wcms.abc-cdn.net.au/ba61f66ed0d3a26558a64417ceaebe13?impolicy=wcms_crop_resize&cropH=2807&cropW=4991&xPos=0&yPos=116&width=862&height=485",
+      "publishedAt": "2023-01-18T18:51:15Z",
+      "content": "Major climate change policies used to arrive with a little more fanfare. \r\nThe Rudd government's carbon pollution reduction scheme (CPRS), the Gillard government's carbon price, and the Abbott govern… [+7904 chars]"
     },
     {
       "source": {
-        "id": "the-next-web",
-        "name": "The Next Web"
+        "id": "the-hindu",
+        "name": "The Hindu"
       },
-      "author": "Ioanna Lykiardopoulou",
-      "title": "UK pumps cold cash into green freight with new £7M tech fund",
-      "description": "On Monday, the UK government launched a £7M tech fund aiming to decarbonize the freight industry and improve transport links.\r\n\r\nOver the course of three years, the Freight Innovation ...",
-      "url": "http://thenextweb.com/news/uk-green-freight-7m-tech-fund",
-      "urlToImage": "https://img-cdn.tnwcdn.com/image/tnw?filter_last=1&fit=1280%2C640&url=https%3A%2F%2Fcdn0.tnwcdn.com%2Fwp-content%2Fblogs.dir%2F1%2Ffiles%2F2023%2F01%2FUntitled-design-97-1.jpg&signature=0dffe86ad7b58a11173b5168fca4c4ef",
-      "publishedAt": "2023-01-10T14:21:22Z",
-      "content": "On Monday, the UK government launched a £7M tech fund aiming to decarbonize the freight industry and improve transport links.\r\nOver the course of three years, the Freight Innovation Fund (FIF) will g… [+2088 chars]"
+      "author": "Special Correspondent",
+      "title": "Six Ministers huddle with Yediyurappa, but say they will abide by party decision",
+      "description": "They had played a key role in bringing BJP to power",
+      "url": "https://www.thehindu.com/news/national/karnataka/six-ministers-huddle-with-yediyurappa-but-say-they-will-abide-by-party-decision/article35480182.ece",
+      "urlToImage": "https://www.thehindu.com/news/national/karnataka/n1n7mn/article35480181.ece/ALTERNATES/LANDSCAPE_615/23bgbsycabinet1",
+      "publishedAt": "2021-07-22T19:39:39Z",
+      "content": "Soon after the State Cabinet meeting on Thursday, at least six Ministers, whose resignations were responsible for bringing down the previous CongressJD(S) coalition government and putting the incumbe… [+1692 chars]"
     },
     {
       "source": {
-        "id": "national-review",
-        "name": "National Review"
+        "id": "the-hindu",
+        "name": "The Hindu"
       },
-      "author": "Philip Klein",
-      "title": "The Conservative Case for Limited Government",
-      "description": "Those of us who still believe in limiting government must make the case to other conservatives as to why this is still a worthwhile aspiration.",
-      "url": "https://www.nationalreview.com/magazine/2022/11/28/small-government-still-matters/",
-      "urlToImage": "https://www.nationalreview.com/wp-content/uploads/2022/11/Capitol-Building-Flag.jpg?fit=2057%2C1200",
-      "publishedAt": "2022-11-10T20:20:10Z",
-      "content": null
-    },
-    {
-      "source": {
-        "id": "financial-times",
-        "name": "Financial Times"
-      },
-      "author": null,
-      "title": "Patrick Drahi’s Altice raises stake in BT to 18%",
-      "description": "UK government warns it could intervene if a full bid is launched",
-      "url": "https://www.ft.com/content/07f138f5-7e86-4e67-a5e9-7c8ae32eb0bd",
-      "urlToImage": "https://www.ft.com/__origami/service/image/v2/images/raw/https%3A%2F%2Fd1e00ek4ebabms.cloudfront.net%2Fproduction%2F611e3571-bf33-4563-9206-c4948709f329.jpg?source=next-opengraph&fit=scale-down&width=900",
-      "publishedAt": "2021-12-14T10:22:19.1642872Z",
-      "content": "Patrick Drahi’s telecoms investment group Altice has increased its stake in BT to 18 per cent but said it is not currently planning to take control of the former UK telecoms monopoly.\r\nThe company ha… [+3123 chars]"
+      "author": "Sobhana K Nair",
+      "title": "Parliament paralysed over Pegasus, farm laws",
+      "description": "Trinamool member tears IT Minister’s statement on spyware.",
+      "url": "https://www.thehindu.com/news/national/tmc-bjp-mps-scuffle-in-rajya-sabha-over-snooping/article35469208.ece",
+      "urlToImage": "https://www.thehindu.com/news/national/28kofw/article35475486.ece/ALTERNATES/LANDSCAPE_615/RajyaSabha-snoopingjpg",
+      "publishedAt": "2021-07-22T12:45:50Z",
+      "content": "The proceedings of both the Houses of Parliament continued to remain paralysed on Thursday as Opposition members protested over a number of issues including the Pegasus snooping controversy and made … [+4103 chars]"
     },
     {
       "source": {
         "id": "rte",
         "name": "RTE"
       },
-      "author": "Tony Connelly",
-      "title": "Scotland and Independence: The High Road or Hard Road?",
-      "description": "Brexit means Scotland is out of the EU. But from the regional office which the Scottish government retains in Brussels, it is hard not to detect the embers of a hope, if not expectation, that it might one day return, writes Tony Connelly.",
-      "url": "https://www.rte.ie/news/analysis-and-comment/2021/0515/1221711-brexit-scotland-independence-eu/",
-      "urlToImage": "https://img.rasset.ie/0015bad4-1600.jpg",
-      "publishedAt": "2021-05-15T06:01:00Z",
-      "content": "It was boisterous, it was bittersweet. On 29 January last year, the European Parliament voted to approve the Brexit Withdrawal Agreement, formally triggering the end of Britain's membership of the EU… [+21179 chars]"
+      "author": "RTÉ News",
+      "title": "UK continues with reopening plan despite concerns",
+      "description": "British ministers are pushing on with a major easing of restrictions on Monday despite concerns over the Indian variant of coronavirus, as they were criticised for allowing the strain's import.",
+      "url": "https://www.rte.ie/news/uk/2021/0515/1221764-uk-indian-variant/",
+      "urlToImage": "https://img.rasset.ie/0016cb40-1600.jpg",
+      "publishedAt": "2021-05-15T09:33:48Z",
+      "content": "British ministers are pushing on with a major easing of restrictions on Monday despite concerns over the Indian variant of coronavirus, as they were criticised for allowing the strain's import.\r\nPrim… [+5066 chars]"
+    },
+    {
+      "source": {
+        "id": "rte",
+        "name": "RTE"
+      },
+      "author": "George Lee",
+      "title": "HSE to continue vaccinations despite cyber attack",
+      "description": "The HSE said it is still planning to administer between 250,000 and 270,000 COVID-19 vaccine doses next week between GP's, vaccination centres, hospitals and other services, despite the ransomware cyber-attack on its IT systems launched yesterday.",
+      "url": "https://www.rte.ie/news/2021/0515/1221732-vaccinations-continue-portal/",
+      "urlToImage": "https://img.rasset.ie/00166995-1600.jpg",
+      "publishedAt": "2021-05-15T03:39:53Z",
+      "content": "The HSE said it is still planning to administer between 250,000 and 270,000 COVID-19 vaccine doses next week between GP's, vaccination centres, hospitals and other services, despite the ransomware cy… [+997 chars]"
     },
     {
       "source": {
         "id": "the-times-of-india",
         "name": "The Times of India"
       },
-      "author": "Dipak K Dash",
-      "title": "Government to provide 5 kg free food grains to poor for May & June",
-      "description": "India News: The government on Friday announced to provide 5 kg free food grains to the poor for May and June 2021. This will cover nearly 80 crore beneficiaries u",
-      "url": "http://timesofindia.indiatimes.com/india/government-to-provide-5-kg-free-food-grains-to-poor-for-may-june/articleshow/82213582.cms",
-      "urlToImage": "https://static.toiimg.com/thumb/msid-82213583,width-1070,height-580,imgsize-1921513,resizemode-75,overlay-toi_sw,pt-32,y_pad-40/photo.jpg",
-      "publishedAt": "2021-04-23T04:23:00Z",
+      "author": "TIMESOFINDIA.COM",
+      "title": "'Inappropriate': PM Modi objects to 'protocol break' during meeting; Delhi CM expresses regret",
+      "description": "India News: Delhi chief minister Arvind Kejriwal on Friday faced flak for sharing a live telecast of an \"in-house\" meeting with Prime Minister Narendra Modi where",
+      "url": "http://timesofindia.indiatimes.com/india/delhi-cmo-expresses-regret-over-televised-address-during-meeting-with-pm-modi/articleshow/82213159.cms",
+      "urlToImage": "https://static.toiimg.com/thumb/msid-82213159,width-1070,height-580,imgsize-134672,resizemode-75,overlay-toi_sw,pt-32,y_pad-40/photo.jpg",
+      "publishedAt": "2021-04-23T03:54:00Z",
       "content": null
+    },
+    {
+      "source": {
+        "id": "aftenposten",
+        "name": "Aftenposten"
+      },
+      "author": "NTB-Johan Falnes",
+      "title": "Tik Tok installert på flere mobiler i regjeringen",
+      "description": "USA frykter at brukerdata fra Tik Tok kan bli overført til Kina. I Norge har flere i regjeringen lastet ned appen – inkludert statsminister Erna Solberg.",
+      "url": "https://www.aftenposten.no/norge/politikk/i/jdo5Le/Tik-Tok-installert-pa-flere-mobiler-i-regjeringen",
+      "urlToImage": "https://premium.vgc.no/ap/images/a189b15b-8b64-4e2e-a4a5-08ad9fa0315d?fit=crop&q=80&w=1440",
+      "publishedAt": "2020-07-09T05:07:23.894053Z",
+      "content": "smp-stories-top-widget\r\nMed mer enn to milliarder nedlastinger er Tik Tok blitt en av verdens mest populære apper. \r\nMen nå vokser skepsisen. India innførte forbud mot appen i forrige uke. USA vurder… [+3202 chars]"
+    },
+    {
+      "source": {
+        "id": "espn-cric-info",
+        "name": "ESPN Cric Info"
+      },
+      "author": null,
+      "title": "Five famous people (and one cat) you didn't know have ESPNcricinfo profiles | ESPNcricinfo.com",
+      "description": "Why do a footballer, a Nobel laureate and a prime minister (no, not Imran Khan) find themselves in the ESPNcricinfo player database? | ESPNcricinfo.com",
+      "url": "http://www.espncricinfo.com/story/_/id/29102695/five-famous-people-one-cat-know-espncricinfo-profiles",
+      "urlToImage": "https://a.espncdn.com/i/cricket/cricinfo/1221668_1296x1296.gif",
+      "publishedAt": "2020-04-27T07:20:43Z",
+      "content": "Why do a cat, a footballer, a Nobel laureate and a prime minister find themselves in the ESPNcricinfo database? Here are six player profiles you wouldn't have expected we had.\r\nPeter the catThe only … [+5504 chars]"
+    },
+    {
+      "source": {
+        "id": "the-jerusalem-post",
+        "name": "The Jerusalem Post"
+      },
+      "author": null,
+      "title": "Israel under rockets from Gaza - Live Updates",
+      "description": "The operation against Palestinian Islamic Jihad (PIJ) Leader Bahaa Abu Al-Ata was approved by the IDF chief-of-Staff, Shin Bet, Prime Minister Benjamin Netanyahu and the security cabinet.",
+      "url": "https://www.jpost.com/Breaking-News/Rocket-sirens-sound-near-Gaza-Strip-after-assassination-607581",
+      "urlToImage": "https://images.jpost.com/image/upload/f_auto,fl_lossy/t_Article2016_ControlFaceDetect/448852",
+      "publishedAt": "2019-11-13T11:37:00Z",
+      "content": "Several Israelis have been injured, including an eight-year-old girl who collapsed while running for shelter in Holon. She was evacuated to Wolfson hospital in serious condition.The following is a li… [+4911 chars]"
+    },
+    {
+      "source": {
+        "id": "the-jerusalem-post",
+        "name": "The Jerusalem Post"
+      },
+      "author": null,
+      "title": "Bennett's first warning: Harm us by day, don't make it through the night",
+      "description": "“We did it yesterday, and we will not hesitate to act in the future,” the new defense minister said.",
+      "url": "https://www.jpost.com/Arab-Israeli-Conflict/Bennetts-first-warning-Harm-us-by-day-dont-make-it-through-the-night-607721",
+      "urlToImage": "https://images.jpost.com/image/upload/f_auto,fl_lossy/t_Article2016_ControlFaceDetect/448838",
+      "publishedAt": "2019-11-13T10:07:00Z",
+      "content": "\"Yesterday morning, the IDF and the security forces took vital action for the security of Israel,” said newly appointed Defense Minister Naftali Bennett Wednesday, in his first remarks following the … [+1775 chars]"
+    },
+    {
+      "source": {
+        "id": "the-jerusalem-post",
+        "name": "The Jerusalem Post"
+      },
+      "author": "Omri Nahmias",
+      "title": "President Donald Trump: Israel keeps having elections, nobody is elected",
+      "description": "Trump joked that his rating in Israel is 98%, and \"if anything happens here, I will take a trip over to Israel to run for prime minister there.”",
+      "url": "https://www.jpost.com/Arab-Israeli-Conflict/President-Donald-Trump-Israel-keeps-having-elections-nobody-is-elected-607687",
+      "urlToImage": "https://images.jpost.com/image/upload/f_auto,fl_lossy/t_Article2016_ControlFaceDetect/443370",
+      "publishedAt": "2019-11-13T02:06:00Z",
+      "content": "WASHINGTON - US President Donald Trump on Tuesday, mocked the political stalemate in Israel, in which Israelis \"keep having elections [but] nobody is elected.” \r\nA video circulating in social media, … [+1773 chars]"
     }
   ]
 }
