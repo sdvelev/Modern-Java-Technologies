@@ -1,9 +1,5 @@
 package bg.sofia.uni.fmi.mjt.newsfeed;
 
-import javax.management.Query;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 public class QueryData {
@@ -11,7 +7,7 @@ public class QueryData {
     //Required parameters
     private final List<String> keywords;
 
-    //optional parameters
+    //Optional parameters
     private String category;
     private String country;
 
@@ -45,7 +41,7 @@ public class QueryData {
         //Required parameters
         private List<String> keywords;
 
-        //optional parameters
+        //Optional parameters
         private String category;
         private String country;
 

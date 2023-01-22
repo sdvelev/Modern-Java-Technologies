@@ -3,30 +3,7 @@ package bg.sofia.uni.fmi.mjt.newsfeed.model;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class News {
-
-    private String status;
-    private int totalResults;
-    private Article[] articles;
-
-    public News(String status, int totalResults, Article[] articles) {
-
-        this.status = status;
-        this.totalResults = totalResults;
-        this.articles = articles;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public int getTotalResults() {
-        return totalResults;
-    }
-
-    public Article[] getArticles() {
-        return articles;
-    }
+public record News(String status, int totalResults, Article[] articles) {
 
     @Override
     public boolean equals(Object o) {
@@ -44,12 +21,12 @@ public class News {
         return result;
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return "News{" +
             "status='" + status + '\'' +
             ", totalResults=" + totalResults +
             ", articles=" + Arrays.toString(articles) +
             '}';
-    }
+    }*/
 }

@@ -30,6 +30,7 @@ public class NewsFeedTest {
 
     private static News sampleNews;
     private static String sampleNewsJson;
+    private final static int HTTP_TOO_MANY_REQUESTS = 429;
     @Mock
     private HttpClient newsFeedHttpClientMock = Mockito.mock(HttpClient.class);
 
@@ -37,8 +38,6 @@ public class NewsFeedTest {
     private HttpResponse<String> newsFeedHttpResponseMock = Mockito.mock(HttpResponse.class);
 
     private NewsFeed newsFeed = new NewsFeed(newsFeedHttpClientMock);
-
-    private final static int HTTP_TOO_MANY_REQUESTS = 429;
 
     @BeforeAll
     static void setUpClass() {
@@ -93,11 +92,10 @@ public class NewsFeedTest {
         var result = this.newsFeed.getNewsFeed(QueryData.builder(List.of("Article"))
             .setCategory("general").setCountry("gb").build());
 
-        Assertions.assertTrue(result.get(0).getTotalResults() == 2,
+        Assertions.assertEquals(2, result.get(0).totalResults(),
             "Actual received results are not the same as the expected");
-        Assertions.assertTrue(result.get(0).getStatus().equals("ok"),
-            "Actual status is not the same as the expected");
-        Assertions.assertTrue(result.get(0).getArticles()[0].author().equals("Ivan Ivanov"),
+        Assertions.assertEquals("ok", result.get(0).status(), "Actual status is not the same as the expected");
+        Assertions.assertEquals("Ivan Ivanov", result.get(0).articles()[0].author(),
             "The author of the first article is not the same as the expected.");
     }
 
@@ -124,11 +122,10 @@ public class NewsFeedTest {
         var result = this.newsFeed.getNewsFeed(QueryData.builder(List.of("Article"))
             .setCategory("general").setCountry("gb").build());
 
-        Assertions.assertTrue(result.get(0).getTotalResults() == 60,
+        Assertions.assertEquals(60, result.get(0).totalResults(),
             "Actual received results are not the same as the expected");
-        Assertions.assertTrue(result.get(0).getStatus().equals("ok"),
-            "Actual status is not the same as the expected");
-        Assertions.assertTrue(result.get(0).getArticles()[59].author().equals("Ivan Ivanov"),
+        Assertions.assertEquals("ok", result.get(0).status(), "Actual status is not the same as the expected");
+        Assertions.assertEquals("Ivan Ivanov", result.get(0).articles()[59].author(),
             "The author of the last article is not the same as the expected.");
     }
 
@@ -138,7 +135,7 @@ public class NewsFeedTest {
         when(this.newsFeedHttpResponseMock.statusCode()).thenReturn(HttpURLConnection.HTTP_UNAUTHORIZED);
 
         Assertions.assertThrows(UnauthorizedException.class, () ->
-            this.newsFeed.getNewsFeed(QueryData.builder(List.of("Education")).build()),
+                this.newsFeed.getNewsFeed(QueryData.builder(List.of("Education")).build()),
             "UnauthorizedException is expected but not thrown");
     }
 
@@ -189,6 +186,4 @@ public class NewsFeedTest {
                 this.newsFeed.getNewsFeed(null),
             "Given argument cannot be null");
     }
-
-
 }
