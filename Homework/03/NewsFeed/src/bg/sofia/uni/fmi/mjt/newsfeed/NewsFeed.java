@@ -174,6 +174,7 @@ public class NewsFeed {
 
         try {
 
+
             return new URI(API_ENDPOINT_SCHEME, API_ENDPOINT_HOST, API_ENDPOINT_PATH,
                 apiEndpointQuery.toString(), null);
         } catch (URISyntaxException e) {
